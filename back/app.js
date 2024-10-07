@@ -3,6 +3,8 @@ const cors = require("cors");
 const auth_routes = require("./src/routes/auth");
 const users_routes = require("./src/routes/users");
 const games_routes = require("./src/routes/games");
+const shop_routes = require("./src/routes/shop");
+const other_routes = require("./src/routes/other");
 
 //Creamos app
 const app = express();
@@ -21,3 +23,5 @@ app.use(cors());
 app.use("/api/v1/auth", auth_routes);
 app.use("/api/v1/users", users_routes);
 app.use("/api/v1/games", games_routes);
+app.use("/api/v1/shop", shop_routes);
+app.use("/api/v1/others", other_routes);

@@ -5,7 +5,7 @@ const {
 } = require("../database/models/associations");
 
 const { ValidationError } = require("sequelize");
-const { update } = require("../database/models/UserModel");
+const { update } = require("../database/models/basics/UserModel");
 
 const register = (req, res) => {
   const data = req.body;

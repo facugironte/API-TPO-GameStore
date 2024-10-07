@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../db");
+const sequelize = require("../../db");
 
 class GameModel extends Model {}
 GameModel.init(
@@ -8,11 +8,16 @@ GameModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    category: DataTypes.STRING,
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    description: DataTypes.STRING,
+    so: DataTypes.STRING,
   },
   {
     sequelize,
-    modelName: "game",
+    modelName: "games",
   }
 );
 

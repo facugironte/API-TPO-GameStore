@@ -10,6 +10,7 @@ const CreateGameForm = ({ onLogin }) => {
   const [userData, setUserData] = useState({ username: "", password: "" });
   const invalidCredentials = useSelector(selectInvalidCredentials);
   const serverFailed = useSelector(selectServerFailed);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 

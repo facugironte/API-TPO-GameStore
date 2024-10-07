@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../db");
+const sequelize = require("../../db");
 
-class WishlistModel extends Model {}
+class UserGameModel extends Model {}
 
-WishlistModel.init(
+UserGameModel.init(
   {
     user_id: {
       type: DataTypes.INTEGER,
@@ -21,11 +21,15 @@ WishlistModel.init(
         key: "id",
       },
     },
+    payment_method_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     sequelize,
-    modelName: "wishlist",
+    modelName: "user_games",
   }
 );
 
-module.exports = WishlistModel;
+module.exports = UserGameModel;

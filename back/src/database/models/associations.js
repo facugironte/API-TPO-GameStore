@@ -1,9 +1,18 @@
-const UserModel = require("./UserModel");
-const GameModel = require("./GameModel");
-const UserGameModel = require("./UserGameModel");
-const WishlistModel = require("./WishlistModel");
-const PaymentMethodModel = require("./PaymentMethodModel");
-const SecurityQuestionModel = require("./SecurityQuestionModel");
+const UserModel = require("./basics/UserModel");
+
+const GameModel = require("./basics/GameModel");
+const UserGameModel = require("./associations/UserGameModel");
+const WishlistModel = require("./associations/WishlistModel");
+
+const PaymentMethodModel = require("./basics/PaymentMethodModel");
+const SecurityQuestionModel = require("./basics/SecurityQuestionModel");
+
+const CategoryModel = require("./game_features/CategoryModel");
+const GameCategoryModel = require("./associations/GameCategoryModel");
+const LanguageModel = require("./game_features/LanguageModel");
+const GameLanguageModel = require("./associations/GameLanguageModel");
+const PlayersModeModel = require("./game_features/PlayersModeModel");
+const GamePlayersModeModel = require("./associations/GamePlayersModeModel");
 
 // Definir las relaciones
 
@@ -38,26 +47,75 @@ GameModel.belongsToMany(UserModel, {
 //Usuario --> métodos de pago
 UserModel.hasMany(PaymentMethodModel, {
   foreignKey: "user_id",
-  as: "payment_method",
+  as: "payment_methods",
   onDelete: "CASCADE",
 });
 
 PaymentMethodModel.belongsTo(UserModel, {
   foreignKey: "user_id",
-  as: "user",
+  as: "users",
 });
 
 //Preguntas de seguridad
 UserModel.belongsTo(SecurityQuestionModel, {
   foreignKey: "security_question_id",
-  as: "security_question",
+  as: "security_questions",
+});
+
+//Game --> category
+GameModel.belongsToMany(CategoryModel, {
+  through: GameCategoryModel,
+  foreignKey: "game_id",
+  onDelete: "CASCADE",
+  as: "categories",
+});
+CategoryModel.belongsToMany(GameModel, {
+  through: GameCategoryModel,
+  foreignKey: "category_id",
+  onDelete: "CASCADE",
+  as: "categories",
+});
+
+//Game --> language
+GameModel.belongsToMany(LanguageModel, {
+  through: GameLanguageModel,
+  foreignKey: "game_id",
+  onDelete: "CASCADE",
+  as: "languages",
+});
+LanguageModel.belongsToMany(GameModel, {
+  through: GameLanguageModel,
+  foreignKey: "language_id",
+  onDelete: "CASCADE",
+  as: "languages",
+});
+
+//Game --> PlayersMode
+GameModel.belongsToMany(PlayersModeModel, {
+  through: GamePlayersModeModel,
+  foreignKey: "game_id",
+  onDelete: "CASCADE",
+  as: "players_modes",
+});
+PlayersModeModel.belongsToMany(GameModel, {
+  through: GamePlayersModeModel,
+  foreignKey: "players_mode_id",
+  onDelete: "CASCADE",
+  as: "players_modes",
 });
 
 module.exports = {
   UserModel,
-  GameModel,
   UserGameModel,
   WishlistModel,
   PaymentMethodModel,
   SecurityQuestionModel,
+
+  GameModel,
+  CategoryModel,
+  LanguageModel,
+  PlayersModeModel,
+  GameCategoryModel,
+  GameLanguageModel,
+  GamePlayersModeModel,
 };

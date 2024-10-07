@@ -1,4 +1,4 @@
-const sequelize = require("../db");
+const sequelize = require("../../db");
 const { Model, DataTypes } = require("sequelize");
 
 class UserModel extends Model {}
@@ -52,7 +52,7 @@ UserModel.init(
   },
   {
     sequelize,
-    modelName: "user",
+    modelName: "users",
   }
 );
 
