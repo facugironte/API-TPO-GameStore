@@ -9,57 +9,170 @@ const {
   GameLanguageModel,
   PlayersModeModel,
   GamePlayersModeModel,
+  SoModel,
+  GameSoModel,
 } = require("../database/models/associations");
-const { where } = require("sequelize");
 
 const postGame = async (req, res) => {
-  const data = req.body;
+  let data = req.body;
+  let game;
 
-  const game = await GameModel.create({
-    name: data.name,
-    price: data.price,
-    description: data.description,
-    players: data.players,
-    so: data.so,
-  });
+  try {
+    data = {
+      ...data,
+      state: "CREADO",
+    };
+    game = await GameModel.create(data);
 
-  if (!game) {
+    if (!game) {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        error: "Error creating game",
+      });
+    } else {
+      // CATEGORIAS
+      if (data.categories) {
+        const categoryPromises = data.categories.map(async (category) => {
+          const categoryRow = await CategoryModel.findOne({
+            where: { name: category },
+          });
+          if (!categoryRow) {
+            throw new Error("Category not found");
+          }
+          return GameCategoryModel.create({
+            game_id: game.id,
+            category_id: categoryRow.id,
+          });
+        });
+
+        // Esperar a que todas las categorías sean creadas
+        try {
+          await Promise.all(categoryPromises);
+        } catch (error) {
+          res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: "Category not found",
+          });
+          GameModel.destroy({ where: { id: game.id } });
+          return;
+        }
+      }
+
+      // IDIOMAS
+      if (data.languages) {
+        const languagePromises = data.languages.map(async (language) => {
+          const languageRow = await LanguageModel.findOne({
+            where: { name: language },
+          });
+          if (!languageRow) {
+            throw new Error("Language not found");
+          }
+          return GameLanguageModel.create({
+            game_id: game.id,
+            language_id: languageRow.id,
+          });
+        });
+
+        // Esperar a que todas los idiomas sean creadas
+        try {
+          await Promise.all(languagePromises);
+        } catch (error) {
+          res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: "Language not found",
+          });
+          GameModel.destroy({ where: { id: game.id } });
+          return;
+        }
+      }
+
+      // MODOS DE JUEGO
+      if (data.players_modes) {
+        const pmodesPromises = data.players_modes.map(async (pmode) => {
+          const pmodeRow = await PlayersModeModel.findOne({
+            where: { name: pmode },
+          });
+          if (!pmodeRow) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+              error: "Error creating game: Players Mode not found",
+            });
+            return;
+          }
+          return GamePlayersModeModel.create({
+            game_id: game.id,
+            players_mode_id: pmodeRow.id,
+          });
+        });
+
+        // Esperar a que todos los modos sean creados
+        try {
+          await Promise.all(pmodesPromises);
+        } catch (error) {
+          res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: "Players Mode not found",
+          });
+          GameModel.destroy({ where: { id: game.id } });
+          return;
+        }
+      }
+
+      // SOS
+      if (data.sos) {
+        const sosPromises = data.sos.map(async (so) => {
+          const soRow = await SoModel.findOne({
+            where: { name: so },
+          });
+          if (!soRow) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+              error: "Error creating game: So not found",
+            });
+            return;
+          }
+          return GameSoModel.create({
+            game_id: game.id,
+            so_id: soRow.id,
+          });
+        });
+
+        // Esperar a que todos los sos sean creados
+        try {
+          await Promise.all(sosPromises);
+        } catch (error) {
+          res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: "So not found",
+          });
+          GameModel.destroy({ where: { id: game.id } });
+          return;
+        }
+      }
+
+      //Para devolver el nuevo juego completo
+      const newGame = await GameModel.findByPk(game.id, {
+        include: [
+          {
+            model: CategoryModel,
+            as: "categories",
+          },
+          {
+            model: LanguageModel,
+            as: "languages",
+          },
+          {
+            model: PlayersModeModel,
+            as: "players_modes",
+          },
+          {
+            model: SoModel,
+            as: "sos",
+          },
+        ],
+      });
+
+      res.status(StatusCodes.OK).json(newGame);
+    }
+  } catch (error) {
+    console.log(error);
+    GameModel.destroy({ where: { id: game.id } });
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       error: "Error creating game",
     });
-  } else {
-    for (const category of data.categories) {
-      const categoryRow = await CategoryModel.findOne({
-        where: { name: category },
-      });
-      if (!categoryRow) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-          error: "Error creating game category: Category not found",
-        });
-        return;
-      }
-      GameCategoryModel.create({
-        game_id: game.id,
-        category_id: categoryRow.id, // Asegúrate de que sea el id correcto
-      });
-    }
-
-    for (const language of data.languages) {
-      const languageRow = await LanguageModel.findOne({
-        where: { name: language },
-      });
-      if (!languageRow) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-          error: "Error creating game language: Language not found",
-        });
-        return;
-      }
-      GameLanguageModel.create({
-        game_id: game.id,
-        language_id: languageRow.id, // Asegúrate de que sea el id correcto
-      });
-    }
-    res.status(StatusCodes.CREATED).json(game);
   }
 };
 
@@ -67,15 +180,23 @@ const updateGame = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
 
-  const game = await GameModel.findByPk(id, {
+  const game = await await GameModel.findByPk(id, {
     include: [
       {
-        model: CategoryModel, // Asegúrate de usar CategoryModel
+        model: CategoryModel,
         as: "categories",
       },
       {
-        model: LanguageModel, // Esto es aparte
+        model: LanguageModel,
         as: "languages",
+      },
+      {
+        model: PlayersModeModel,
+        as: "players_modes",
+      },
+      {
+        model: SoModel,
+        as: "sos",
       },
     ],
   });
@@ -85,7 +206,7 @@ const updateGame = async (req, res) => {
   } else {
     await game.update(data, { where: { id: id } });
 
-    // Actualiza categorías si es necesario
+    // Actualiza categorías, languages, players_modes si es necesario
     if (data.categories) {
       // Eliminar las relaciones actuales
       await GameCategoryModel.destroy({ where: { game_id: id } });
@@ -158,6 +279,30 @@ const updateGame = async (req, res) => {
       await Promise.all(pmodesPromises);
     }
 
+    if (data.sos) {
+      // Eliminar las relaciones actuales
+      await GameSoModel.destroy({ where: { game_id: id } });
+
+      // Crear las nuevas relaciones de idiomas
+      const sosPromises = data.sos.map(async (so) => {
+        const soRow = await SoModel.findOne({
+          where: { name: so },
+        });
+        if (!soRow) {
+          res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            error: "Error updating game languages: Language not found",
+          });
+        }
+        return GameSoModel.create({
+          game_id: id,
+          so_id: soRow.id,
+        });
+      });
+
+      // Esperar a que todos los sos sean creados
+      await Promise.all(sosPromises);
+    }
+
     const updatedGame = await GameModel.findByPk(id, {
       include: [
         {
@@ -171,6 +316,11 @@ const updateGame = async (req, res) => {
         {
           model: PlayersModeModel,
           as: "players_modes",
+        },
+        {
+          model: SoModel,
+          as: "sos",
+          attributes: ["id", "name"],
         },
       ],
     });

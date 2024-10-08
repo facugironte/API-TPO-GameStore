@@ -25,6 +25,7 @@ GameLanguageModel.init(
   {
     sequelize,
     modelName: "game_language",
+    timestamps: false,
   }
 );
 

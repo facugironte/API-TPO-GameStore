@@ -25,6 +25,7 @@ WishlistModel.init(
   {
     sequelize,
     modelName: "wishlist",
+    timestamps: false,
   }
 );
 

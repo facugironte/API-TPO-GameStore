@@ -1,8 +1,8 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../db");
 
-class CategoryModel extends Model {}
-CategoryModel.init(
+class SoModel extends Model {}
+SoModel.init(
   {
     name: {
       type: DataTypes.STRING,
@@ -11,9 +11,9 @@ CategoryModel.init(
   },
   {
     sequelize,
-    modelName: "categories",
+    modelName: "sos",
     timestamps: false,
   }
 );
 
-module.exports = CategoryModel;
+module.exports = SoModel;

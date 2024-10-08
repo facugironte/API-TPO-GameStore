@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../db");
 
-class GameCategoryModel extends Model {}
+class GameSoModel extends Model {}
 
-GameCategoryModel.init(
+GameSoModel.init(
   {
     game_id: {
       type: DataTypes.INTEGER,
@@ -13,20 +13,20 @@ GameCategoryModel.init(
         key: "id",
       },
     },
-    category_id: {
+    so_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "categories", // nombre de la tabla en minúsculas
+        model: "sos", // nombre de la tabla en minúsculas
         key: "id",
       },
     },
   },
   {
     sequelize,
-    modelName: "game_categories",
+    modelName: "game_sos",
     timestamps: false,
   }
 );
 
-module.exports = GameCategoryModel;
+module.exports = GameSoModel;

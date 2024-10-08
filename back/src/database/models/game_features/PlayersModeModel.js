@@ -12,6 +12,7 @@ PlayersModeModel.init(
   {
     sequelize,
     modelName: "players_modes",
+    timestamps: false,
   }
 );
 

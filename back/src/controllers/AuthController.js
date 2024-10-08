@@ -65,7 +65,7 @@ const login = async (req, res) => {
       include: [
         {
           model: SecurityQuestionModel,
-          as: "security_question",
+          as: "security_questions",
         },
       ],
     });

@@ -19,6 +19,17 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(cors());
 
+//Logger
+const logger = (req, _res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  if (req.body) {
+    console.log(req.body);
+  }
+  next();
+};
+
+app.use(logger);
+
 //Rutas
 app.use("/api/v1/auth", auth_routes);
 app.use("/api/v1/users", users_routes);

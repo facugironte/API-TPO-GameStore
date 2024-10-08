@@ -12,6 +12,7 @@ LanguageModel.init(
   {
     sequelize,
     modelName: "languages",
+    timestamps: false,
   }
 );
 

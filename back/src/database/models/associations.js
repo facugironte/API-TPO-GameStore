@@ -13,6 +13,8 @@ const LanguageModel = require("./game_features/LanguageModel");
 const GameLanguageModel = require("./associations/GameLanguageModel");
 const PlayersModeModel = require("./game_features/PlayersModeModel");
 const GamePlayersModeModel = require("./associations/GamePlayersModeModel");
+const SoModel = require("./game_features/SoModel");
+const GameSoModel = require("./associations/GameSoModel");
 
 // Definir las relaciones
 
@@ -104,6 +106,20 @@ PlayersModeModel.belongsToMany(GameModel, {
   as: "players_modes",
 });
 
+//Game --> Sos
+GameModel.belongsToMany(SoModel, {
+  through: GameSoModel,
+  foreignKey: "game_id",
+  onDelete: "CASCADE",
+  as: "sos",
+});
+SoModel.belongsToMany(GameModel, {
+  through: GameSoModel,
+  foreignKey: "so_id",
+  onDelete: "CASCADE",
+  as: "sos",
+});
+
 module.exports = {
   UserModel,
   UserGameModel,
@@ -115,7 +131,9 @@ module.exports = {
   CategoryModel,
   LanguageModel,
   PlayersModeModel,
+  SoModel,
   GameCategoryModel,
   GameLanguageModel,
   GamePlayersModeModel,
+  GameSoModel,
 };
