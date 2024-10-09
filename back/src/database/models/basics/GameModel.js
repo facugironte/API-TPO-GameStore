@@ -8,6 +8,7 @@ GameModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    image_url: DataTypes.STRING,
     price: {
       type: DataTypes.FLOAT,
       allowNull: false,
@@ -25,6 +26,16 @@ GameModel.init(
     optRam: DataTypes.STRING,
     optStorage: DataTypes.STRING,
     optSound: DataTypes.STRING,
+
+    company: DataTypes.STRING,
+    rating: {
+      type: DataTypes.FLOAT,
+      defaultValue: -1,
+    },
+    sales: DataTypes.INTEGER,
+    visualizations: DataTypes.INTEGER,
+    addToWishlist: DataTypes.INTEGER,
+    salesOverViews: DataTypes.FLOAT,
   },
   {
     sequelize,

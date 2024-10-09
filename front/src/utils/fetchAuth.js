@@ -5,7 +5,7 @@ export const loginAuth = async (userData) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username: userData.username,
+      email: userData.email,
       password: userData.password,
     }),
   });

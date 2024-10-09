@@ -1,0 +1,27 @@
+.navbar {
+  grid-column: 2;
+  grid-row: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #6200ea;
+  border-radius: 30px;
+}
+
+.navbar ul {
+  display: flex;
+  height: 100%;
+  list-style: none;
+  width: 90%;
+  margin: 0;
+  padding: 0;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navbar .button {
+  height: 100%;
+  font-size: 1.2rem;
+}

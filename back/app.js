@@ -22,7 +22,7 @@ app.use(cors());
 //Logger
 const logger = (req, _res, next) => {
   console.log(`${req.method} ${req.url}`);
-  if (req.body) {
+  if (req.body && req.method !== "GET") {
     console.log(req.body);
   }
   next();

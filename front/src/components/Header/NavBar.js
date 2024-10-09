@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
-import "./styles/navbar.css";
+import Button from "../Button/Button";
+import "./navbar.css";
 
 const NavBar = ({ currentPage }) => {
   const navigate = useNavigate();

@@ -1,17 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import LoginForm from "../components/forms/LoginForm";
+import Header from "../components/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import {
   failure,
   login,
   selectIsLoggedIn,
+  selectInvalidCredentials,
+  selectServerFailed,
 } from "../app/slices/login/userSlice";
+import { useState } from "react";
 import { loginAuth } from "../utils/fetchAuth";
+import "../components/styles/login.css";
 
 const Home = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const [userData, setUserData] = useState({ email: "", password: "" });
+  const invalidCredentials = useSelector(selectInvalidCredentials);
+  const serverFailed = useSelector(selectServerFailed);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,13 +26,13 @@ const Home = () => {
     navigate(`/`);
   }
 
-  const handleLogin = async (userData) => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const response = await loginAuth(userData);
       dispatch(
         login({
-          username: response.user.username,
-          password: response.user.password,
+          user: response.user,
         })
       );
     } catch (error) {
@@ -38,7 +44,43 @@ const Home = () => {
     <div>
       <Header currentPage={"login"} />
 
-      <LoginForm onLogin={handleLogin} />
+      <div className="form-container">
+        <h2>Iniciar Sesión</h2>
+        <form onSubmit={handleLogin}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={userData.email}
+            onChange={(e) => {
+              setUserData({ ...userData, email: e.target.value });
+            }}
+            required
+          />
+
+          <label htmlFor="password">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            value={userData.password}
+            onChange={(e) => {
+              setUserData({ ...userData, password: e.target.value });
+            }}
+            required
+          />
+
+          <input type="submit" value="Iniciar Sesión" />
+          {invalidCredentials && (
+            <p className="error-message">Email o contraseña incorrectos</p>
+          )}
+          {serverFailed && (
+            <p className="error-message">Error en el servidor</p>
+          )}
+
+          <a href="/registro">Creá tu cuenta</a>
+          <a href="/forgotPassword">¿Olvidaste tu contraseña?</a>
+        </form>
+      </div>
     </div>
   );
 };

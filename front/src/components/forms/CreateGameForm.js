@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { postGame } from "../../utils/fetchGames";
-import Button from "../Button";
+import Button from "../Button/Button";
 
 const CreateGameForm = ({ onGameCreated }) => {
   const [name, setName] = useState("");

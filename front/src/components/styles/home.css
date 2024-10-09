@@ -1,0 +1,20 @@
+.center {
+  grid-column: 2;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.center h2 {
+  display: inline-block;
+  color: #6200ea;
+  background-color: white;
+  border-radius: 30px;
+  padding: 1px 2rem 1px 2rem;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 2rem;
+}

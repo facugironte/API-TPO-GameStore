@@ -1,8 +1,8 @@
 import React from "react";
-import "./styles/header.css";
+import "./header.css";
 import NavBar from "./NavBar";
 import NavMenu from "./NavMenu";
-import img from "../resources/logo.png";
+import img from "../../resources/logo.png";
 
 const Header = ({ currentPage }) => {
   let headerClass;

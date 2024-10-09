@@ -1,7 +1,7 @@
 import React from "react";
 import { deleteGame } from "../utils/fetchGames";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "./Button/Button";
 
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 

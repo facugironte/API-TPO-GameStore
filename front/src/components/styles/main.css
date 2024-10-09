@@ -2,7 +2,8 @@
 .games {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
+  padding-top: 7rem;
 }
-main {
+.main {
   grid-column: 2;
 }

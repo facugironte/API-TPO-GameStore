@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import { getGames } from "../utils/fetchGames";
-import MainGames from "../components/mains/MainGames";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
+import CreateGameForm from "../components/forms/CreateGameForm";
+import GameList from "../components/GameList";
 
 const Store = () => {
   const [games, setGames] = useState([]);
@@ -22,7 +23,12 @@ const Store = () => {
   return (
     <div>
       <Header currentPage={"store"} />
-      <MainGames games={games} loadGames={loadGames} />
+      <div className="games">
+        <main className="main">
+          <GameList games={games} onGameEliminated={loadGames} />
+          <CreateGameForm onGameCreated={loadGames} />
+        </main>
+      </div>
     </div>
   );
 };
