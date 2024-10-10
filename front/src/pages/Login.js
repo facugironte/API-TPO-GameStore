@@ -44,7 +44,7 @@ const Home = () => {
     <div>
       <Header currentPage={"login"} />
 
-      <div className="form-container">
+      <div className="main-login">
         <h2>Iniciar Sesión</h2>
         <form onSubmit={handleLogin}>
           <label htmlFor="email">Email</label>

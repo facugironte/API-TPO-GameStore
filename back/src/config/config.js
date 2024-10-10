@@ -6,6 +6,6 @@ module.exports = {
     host: "localhost",
     dialect: "mysql",
     logging: false,
-    force: true,
+    force: false,
   },
 };
