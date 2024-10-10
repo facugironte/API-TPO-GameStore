@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { getGames } from "../utils/fetchGames";
-import Header from "../components/Header/Header";
-import CreateGameForm from "../components/forms/CreateGameForm";
-import GameList from "../components/GameList";
+import { getGames } from "../../utils/fetchGames";
+import Header from "../../components/Header/Header";
+import GameList from "../../components/GameList/GameList";
+import "./store.css";
 
 const Store = () => {
+
+
   const [games, setGames] = useState([]);
 
   const loadGames = () => {
@@ -20,13 +22,17 @@ const Store = () => {
     loadGames();
   }, []);
 
+
   return (
     <div>
       <Header currentPage={"store"} />
-      <div className="games">
+      <div className="store">
         <main className="main">
-          <GameList games={games} onGameEliminated={loadGames} />
-          <CreateGameForm onGameCreated={loadGames} />
+          <ul>
+            {games.map((game, index) => (
+              <GameList key={index} game={game}  />
+            ))}
+          </ul>
         </main>
       </div>
     </div>

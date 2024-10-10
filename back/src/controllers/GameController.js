@@ -332,8 +332,36 @@ const updateGame = async (req, res) => {
 const getGame = async (req, res) => {
   const { id } = req.params;
 
+  const { order, direction, limit, state } = req.query;
+  const whereCondition = state ? { state } : undefined;
+
+  const orderCondition = order ? [[order, direction]] : undefined;
+  const limitCondition = limit ? parseInt(limit) : undefined;
+
   if (!id) {
-    const games = await GameModel.findAll();
+    const games = await GameModel.findAll({
+      order: orderCondition,
+      limit: limitCondition,
+      where: whereCondition,
+      include: [
+        {
+          model: CategoryModel, // Asegúrate de usar CategoryModel
+          as: "categories",
+        },
+        {
+          model: LanguageModel, // Esto es aparte
+          as: "languages",
+        },
+        {
+          model: PlayersModeModel,
+          as: "players_modes",
+        },
+        {
+          model: SoModel,
+          as: "sos",
+        },
+      ],
+    });
     res.status(StatusCodes.OK).json(games);
   } else {
     const game = await GameModel.findByPk(id, {
@@ -349,6 +377,10 @@ const getGame = async (req, res) => {
         {
           model: PlayersModeModel,
           as: "players_modes",
+        },
+        {
+          model: SoModel,
+          as: "sos",
         },
       ],
     });

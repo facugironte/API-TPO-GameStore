@@ -1,0 +1,39 @@
+.game-list {
+  width: 95%;
+  height: 8rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  margin: 1rem;
+  border-radius: 30px;
+  background-color: #333333;
+
+  display: grid;
+  grid-template-columns: 1fr 4fr 0.8fr;
+}
+
+.game-list img {
+  grid-column: 1;
+  height: 7rem;
+  width: auto;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.description {
+  font-weight: 100;
+  font-size: 0.8rem;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-ver-info {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+}
+/*
+*/

@@ -17,13 +17,27 @@ const NavBar = ({ currentPage }) => {
           onClick={() => goTo("")}
           className={currentPage === "home" ? "selected" : ""}
         >
-          <Button text="INICIO" />
+          <Button text="INICIO" btn_class={"btn-nav"} />
         </li>
+
         <li
           onClick={() => goTo("store")}
           className={currentPage === "store" ? "selected" : ""}
         >
-          <Button text="TIENDA" />
+          <Button text="TIENDA" btn_class={"btn-nav"} />
+        </li>
+
+        <li
+          onClick={() => goTo("your-games")}
+          className={currentPage === "your-games" ? "selected" : ""}
+        >
+          <Button text="BIBLIOTECA" btn_class={"btn-nav"} />
+        </li>
+        <li
+          onClick={() => goTo("community")}
+          className={currentPage === "community" ? "selected" : ""}
+        >
+          <Button text="FORO" btn_class={"btn-nav"} />
         </li>
       </ul>
     </nav>

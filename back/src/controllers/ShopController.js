@@ -45,6 +45,9 @@ const buyGame = async (req, res) => {
         game_id: game_id,
         payment_method_id: payment_method_id,
       });
+
+      game.update({ sales: game.sales + 1 });
+
       res.status(StatusCodes.OK).json({ message: "Game bought successfully" });
     }
   } catch (err) {

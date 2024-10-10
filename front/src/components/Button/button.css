@@ -1,11 +1,9 @@
 .button {
   border: 0;
-  padding: 0.1rem 2.5rem;
   border-radius: 30px;
   font-family: "JetBrains Mono", monospace;
   background-color: #6200ea;
   color: white;
-  font-size: 1.3rem;
 }
 
 .navbar .button {

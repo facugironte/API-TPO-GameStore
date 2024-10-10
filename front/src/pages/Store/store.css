@@ -1,0 +1,22 @@
+.store {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  padding-top: 7rem;
+}
+
+.store .main {
+  grid-column: 2;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.store ul {
+  padding: 0;
+  list-style: none;
+  background-color: #1e1e1e;
+  border-radius: 30px;
+  box-shadow: black 0px 0px 10px;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

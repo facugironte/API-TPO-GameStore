@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
+import Header from "../../components/Header/Header";
 import {
   failure,
   login,
   selectIsLoggedIn,
   selectInvalidCredentials,
   selectServerFailed,
-} from "../app/slices/login/userSlice";
-import { useState } from "react";
-import { loginAuth } from "../utils/fetchAuth";
-import "../components/styles/login.css";
+} from "../../app/slices/login/userSlice";
+import { loginAuth } from "../../utils/fetchAuth";
+
+import "./login.css";
 
 const Home = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);

@@ -1,9 +1,7 @@
 import React from "react";
-import "./game.css";
+import "./gameMosaic.css";
 
-const Game = ({ game }) => {
-  console.log(game);
-
+const GameMosaic = ({ game }) => {
   return (
     <div className="game">
       <img src={game.image_url} alt={game.name}></img>
@@ -12,4 +10,4 @@ const Game = ({ game }) => {
   );
 };
 
-export default Game;
+export default GameMosaic;
