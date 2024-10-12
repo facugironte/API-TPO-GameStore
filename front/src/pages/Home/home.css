@@ -7,6 +7,7 @@
 .home .main {
   grid-column: 2;
   font-family: "JetBrains Mono", monospace;
+  margin-top: 2rem;
 }
 
 .home .main h2 {
@@ -15,7 +16,7 @@
   background-color: white;
   border-radius: 30px;
   padding: 1px 2rem 1px 2rem;
-  margin: 1rem 0 1rem 0;
+  margin-bottom: 1rem;
 }
 
 .game-grid {
@@ -23,5 +24,6 @@
   grid-template-columns: repeat(4, 1fr);
   column-gap: 2rem;
   row-gap: 2rem;
+  margin-bottom: 2rem;
 }
 /*grid-template-rows: repeat(2, 1fr);*/

@@ -4,7 +4,7 @@ import "./gameMosaic.css";
 const GameMosaic = ({ game }) => {
   return (
     <div className="game">
-      <img src={game.image_url} alt={game.name}></img>
+      <img src={game.cover_url} alt={game.name}></img>
       <p>{game.name}</p>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../../components/Header/Header";
 import GameMosaic from "../../components/GameMosaic/GameMosaic";
-import { getTopSaleGames, getLastGames } from "../../utils/fetchGames";
+import { getGames } from "../../utils/fetchGames";
 import "./home.css";
 
 const Home = () => {
@@ -9,10 +9,24 @@ const Home = () => {
   const [lastGames, setLastGames] = React.useState([]);
   useEffect(() => {
     setTimeout(() => {
-      getTopSaleGames().then((data) => {
+      getGames(
+        [
+          {name: "order", value: "sales"},
+          {name: "direction", value: "desc"},
+          {name: "limit", value: 8},
+          {name: "state", value: "PUBLICADO"}
+        ]
+      ).then((data) => {
         setMostSaleGames(data);
       });
-      getLastGames().then((data) => {
+      getGames(
+        [
+          {name: "order", value: "createdAt"},
+          {name: "direction", value: "desc"},
+          {name: "limit", value: 8},
+          {name: "state", value: "PUBLICADO"}
+        ]
+      ).then((data) => {
         setLastGames(data);
       });
     }, 100);

@@ -7,12 +7,114 @@
 .game-detail .main {
   grid-column: 2;
   font-family: "JetBrains Mono", monospace;
+  background-color: #1e1e1e;
+  height: 100vh;
+  border-radius: 30px;
+  margin-top: 2rem;
+  padding: 1rem;
 }
 
-.game-detail .main h2 {
-  display: inline-block;
-  color: #6200ea;
-  background-color: white;
+.game-header {
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr;
+  grid-template-rows: 1fr 1.5fr 1.5fr;
+  grid-gap: 1rem;
+}
+
+.game-header img {
+  grid-column: 1;
+  grid-row: 1;
+
+  width: 6rem;
+  aspect-ratio: 1/1;
+  margin: auto;
+
+  object-fit: cover;
   border-radius: 30px;
-  padding: 1px 2rem 1px 2rem;
+}
+
+.game-header h1 {
+  grid-column: 2/4;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.game-header iframe {
+  grid-column: 1/3;
+  grid-row: 2 / 4;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 30px;
+}
+
+.game-header .price {
+  background-color: #333333;
+  border-radius: 30px;
+  grid-column: 3;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  font-size: 2rem;
+}
+
+.btns-anadir {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.btn-anadir {
+  font-size: 0.9rem;
+  display: inline-block;
+  padding: 2px 5px;
+}
+
+.game-header .rating {
+  background-color: #333333;
+  border-radius: 30px;
+  grid-column: 3;
+  grid-row: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: 2rem;
+}
+
+.game-header .categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: auto;
+  padding-bottom: 1rem;
+}
+
+.game-header .categories p {
+  font-size: 1rem;
+  background-color: #6200ea;
+  border-radius: 30px;
+  padding: 3px;
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.game-info > div {
+  background-color: #333333;
+  margin-top: 1rem;
+  border-radius: 30px;
+  padding: 1rem;
+  font-size: 0.8rem;
+}
+
+.game-info > div p {
+  font-weight: 100;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.requirements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

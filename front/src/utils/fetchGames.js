@@ -1,10 +1,19 @@
-export async function getGames() {
-  const response = await fetch("http://localhost:3000/api/v1/games", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
+export async function getGames(filters) {
+  const query = new URLSearchParams();
+
+  filters.forEach((filter) => {
+    query.append(filter.name, filter.value);
   });
+
+  const response = await fetch(
+    `http://localhost:3000/api/v1/games?${query.toString()}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   const data = await response.json();
   return data;
 }

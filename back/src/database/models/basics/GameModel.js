@@ -8,7 +8,9 @@ GameModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image_url: DataTypes.STRING,
+    cover_url: DataTypes.STRING,
+    logo_url: DataTypes.STRING,
+    video_url: DataTypes.STRING,
     price: {
       type: DataTypes.FLOAT,
       allowNull: false,

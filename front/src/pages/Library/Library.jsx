@@ -3,10 +3,9 @@ import React, { useState, useEffect } from "react";
 import { getGames } from "../../utils/fetchGames";
 import Header from "../../components/Header/Header";
 import GameList from "../../components/GameList/GameList";
-import "./store.css";
+import "./library.css";
 
-const Store = () => {
-
+const Library = () => {
 
   const [games, setGames] = useState([]);
 
@@ -25,12 +24,12 @@ const Store = () => {
 
   return (
     <div>
-      <Header currentPage={"store"} />
-      <div className="store">
+      <Header currentPage={"your-games"} />
+      <div className="library">
         <main className="main">
           <ul>
             {games.map((game, index) => (
-              <GameList key={index} game={game} mode = "store" />
+              <GameList key={index} game={game} mode="library" />
             ))}
           </ul>
         </main>
@@ -39,4 +38,4 @@ const Store = () => {
   );
 };
 
-export default Store;
+export default Library;

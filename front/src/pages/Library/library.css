@@ -1,16 +1,16 @@
-.store {
+.library {
   display: grid;
   grid-template-columns: 1fr 2.5fr 1fr;
   padding-top: 7rem;
 }
 
-.store .main {
+.library .main {
   grid-column: 2;
   font-family: "JetBrains Mono", monospace;
   margin-top: 2rem;
 }
 
-.store ul {
+.library ul {
   padding: 0;
   list-style: none;
   background-color: #1e1e1e;
