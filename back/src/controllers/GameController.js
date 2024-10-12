@@ -1,4 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
+const { Op } = require("sequelize");
 const {
   UserModel,
   GameModel,
@@ -332,11 +333,48 @@ const updateGame = async (req, res) => {
 const getGame = async (req, res) => {
   const { id } = req.params;
 
-  const { order, direction, limit, state } = req.query;
-  const whereCondition = state ? { state } : undefined;
+  const {
+    order,
+    direction,
+    limit,
+    name,
+    state,
+    language,
+    category,
+    players_mode,
+    os,
+    minPrice,
+    maxPrice,
+    rating,
+  } = req.query;
 
   const orderCondition = order ? [[order, direction]] : undefined;
   const limitCondition = limit ? parseInt(limit) : undefined;
+
+  const whereCondition = {};
+
+  if (state) {
+    whereCondition.state = state;
+  }
+
+  if (minPrice || maxPrice) {
+    whereCondition.price = {};
+    if (minPrice) {
+      whereCondition.price[Op.gte] = parseFloat(minPrice); // Usa Op.gte para el precio mínimo
+    }
+    if (maxPrice) {
+      whereCondition.price[Op.lte] = parseFloat(maxPrice); // Usa Op.lte para el precio máximo
+    }
+  }
+
+  if (rating) {
+    whereCondition.rating = {};
+    whereCondition.rating[Op.gte] = parseFloat(rating);
+  }
+
+  if (name) {
+    whereCondition.name = { [Op.like]: `%${name}%` };
+  }
 
   if (!id) {
     const games = await GameModel.findAll({
@@ -345,20 +383,24 @@ const getGame = async (req, res) => {
       where: whereCondition,
       include: [
         {
-          model: CategoryModel, // Asegúrate de usar CategoryModel
+          model: CategoryModel,
           as: "categories",
+          where: category ? { name: category } : undefined,
         },
         {
-          model: LanguageModel, // Esto es aparte
+          model: LanguageModel,
           as: "languages",
+          where: language ? { name: language } : undefined,
         },
         {
           model: PlayersModeModel,
           as: "players_modes",
+          where: players_mode ? { name: players_mode } : undefined,
         },
         {
           model: SoModel,
           as: "sos",
+          where: os ? { name: os } : undefined,
         },
       ],
     });

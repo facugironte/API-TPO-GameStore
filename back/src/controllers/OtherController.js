@@ -67,9 +67,9 @@ const cargar = async (req, res) => {
   }
 };
 
-const userController = {
+const otherController = {
   getUsers,
   cargar,
 };
 
-module.exports = userController;
+module.exports = otherController;

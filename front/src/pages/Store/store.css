@@ -20,3 +20,75 @@
   flex-direction: column;
   align-items: center;
 }
+
+.aside {
+  background-color: #1e1e1e;
+  font-family: "JetBrains Mono", monospace;
+
+  border-radius: 30px;
+  box-shadow: black 0px 0px 10px;
+  padding: 0.5rem;
+  margin: 2rem 2rem 0 2rem;
+}
+
+.aside h2 {
+  background-color: white;
+  color: #6200ea;
+  font-size: 1.2rem;
+  font-weight: regular;
+  text-align: center;
+  padding: 0.3rem;
+  border-radius: 30px;
+}
+
+.search-game {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.search-game select,
+input[type="number"],
+input[type="text"] {
+  background-color: #333333;
+  border-style: none;
+  border-radius: 30px;
+  margin: 0.5rem 0;
+  height: 2rem;
+
+  font-family: "JetBrains Mono", monospace;
+  font-style: italic;
+  padding-left: 1rem;
+  color: #d9d9d9;
+}
+
+.search-game select {
+  appearance: none;
+
+  padding-right: 30px;
+  background-image: url("../../resources/flecha.png");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+.search-game option {
+  color: white;
+}
+
+.search-game input[type="submit"] {
+  font-family: "JetBrains Mono", monospace;
+  padding: 0.5rem;
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.search-game input[type="submit"]:hover {
+  background-color: #3700b3;
+}
