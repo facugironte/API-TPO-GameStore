@@ -9,6 +9,7 @@ import {
   selectInvalidCredentials,
   selectServerFailed,
 } from "../../app/slices/login/userSlice";
+import { setUser } from "../../app/slices/cart/cartSlice";
 import { loginAuth } from "../../utils/fetchAuth";
 
 import "./login.css";
@@ -30,11 +31,15 @@ const Home = () => {
     e.preventDefault();
     try {
       const response = await loginAuth(userData);
+
       dispatch(
         login({
           user: response.user,
         })
       );
+
+      dispatch(setUser(response.user));
+
     } catch (error) {
       dispatch(failure({ error: error.message }));
     }

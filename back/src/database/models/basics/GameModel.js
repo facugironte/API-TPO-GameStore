@@ -8,14 +8,18 @@ GameModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    cover_url: DataTypes.STRING,
-    logo_url: DataTypes.STRING,
-    video_url: DataTypes.STRING,
+    company_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     price: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
     description: DataTypes.STRING,
+    cover_url: DataTypes.STRING,
+    logo_url: DataTypes.STRING,
+    video_url: DataTypes.STRING,
     state: DataTypes.STRING,
 
     minCpu: DataTypes.STRING,

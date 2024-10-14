@@ -5,6 +5,7 @@ const {
   PaymentMethodModel,
   SecurityQuestionModel,
   WishlistModel,
+  LanguageModel,
 } = require("../database/models/associations");
 
 const getUserProfile = (req, res) => {
@@ -29,6 +30,10 @@ const getUserProfile = (req, res) => {
       {
         model: SecurityQuestionModel,
         as: "security_questions",
+      },
+      {
+        model: GameModel,
+        as: "company_games",
       },
     ],
   })

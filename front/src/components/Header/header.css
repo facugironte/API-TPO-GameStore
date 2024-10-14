@@ -81,6 +81,19 @@
   background-color: transparent;
   border: none;
   color: #6200ea;
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
+}
+
+.btns .btn p {
+  position: absolute;
+  background-color: red;
+  color: white;
+  font-family: "JetBrains mono", monospace;
+  font-weight: bold;
+  width: 1.5rem;
+  aspect-ratio: 1/1;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  translate: 30px -10px;
 }

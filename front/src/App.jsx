@@ -5,6 +5,8 @@ import Login from "./pages/Login/Login";
 import Store from "./pages/Store/Store";
 import GameDetail from "./pages/GameDetail/GameDetail";
 import Library from "./pages/Library/Library";
+import Cart from "./pages/Cart/Cart";
+import Purchase from "./pages/Purchase/Purchase";
 import "./styles.css";
 
 const App = () => {
@@ -15,7 +17,9 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Store />} />
         <Route path="/your-games" element={<Library />} />
-        <Route path="/games/:id" element={<GameDetail />} />
+        <Route path="/store/game-details/:id" element={<GameDetail />} />
+        <Route path="/shop/cart" element={<Cart />} />
+        <Route path="/shop/buy" element={<Purchase />} />
       </Routes>
     </Router>
   );

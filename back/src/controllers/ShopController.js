@@ -14,8 +14,6 @@ const postPaymentMethod = async (req, res) => {
     where: { email },
   });
 
-  console.log(user);
-
   if (!user) {
     res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
   } else {

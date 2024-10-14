@@ -58,7 +58,7 @@ PaymentMethodModel.belongsTo(UserModel, {
   as: "users",
 });
 
-//Preguntas de seguridad
+//Usuario --> Preguntas de seguridad
 UserModel.belongsTo(SecurityQuestionModel, {
   foreignKey: "security_question_id",
   as: "security_questions",
@@ -118,6 +118,18 @@ SoModel.belongsToMany(GameModel, {
   foreignKey: "so_id",
   onDelete: "CASCADE",
   as: "sos",
+});
+
+//Game --> company
+GameModel.belongsTo(UserModel, {
+  foreignKey: "company_id",
+  as: "company_owner",
+  onDelete: "CASCADE",
+});
+UserModel.hasMany(GameModel, {
+  foreignKey: "company_id",
+  as: "company_games",
+  onDelete: "CASCADE",
 });
 
 module.exports = {

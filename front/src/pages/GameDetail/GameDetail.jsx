@@ -2,12 +2,24 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Button from "../../components/Button/Button"
+import {addItem } from "../../app/slices/cart/cartSlice"
+import { useDispatch } from "react-redux";
 import "./gameDetail.css";
 
 const GameDetail = () => {
   const location = useLocation();
   const { game } = location.state;
-  console.log(game.categories);
+  const dispatch = useDispatch()
+
+
+  const handleAddToCart = () => {
+    dispatch(
+    addItem({
+      item: game,
+      quantity: 1
+    }))
+  }
+
 
   return (
     <div>
@@ -28,7 +40,7 @@ const GameDetail = () => {
             <div className="price">
               <p>${game.price}</p>
               <div className="btns-anadir">
-                <Button text={"Añadir al carrito"} btn_class={"btn-anadir"}/>
+                <Button text={"Añadir al carrito"} btn_class={"btn-anadir"} onClick={handleAddToCart}/>
                 <Button text={"Añadir a wishlist"} btn_class={"btn-anadir"}/>
               </div>
             </div>
@@ -70,9 +82,6 @@ const GameDetail = () => {
               </div>
             </div>
           </div>
-
-
-
         </main>
       </div>
     </div>

@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import { getGames } from "../../utils/fetchGames";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../app/slices/login/userSlice";
+
 import Header from "../../components/Header/Header";
 import GameList from "../../components/GameList/GameList";
 import "./library.css";
 
 const Library = () => {
 
-  const [games, setGames] = useState([]);
+  const games = useSelector(selectUser).user.purchased_games;
 
-  const loadGames = () => {
-    setTimeout(() => {
-      getGames([{name: "state", value: "PUBLICADO"}]).then((data) => {
-        setGames(data);
-      });
-    }, 100);
-  };
-
-  useEffect(() => {
-    loadGames();
-  }, []);
+  console.log(games);
 
 
   return (
