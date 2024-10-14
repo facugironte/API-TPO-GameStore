@@ -19,7 +19,9 @@ const postPaymentMethod = async (req, res) => {
   } else {
     const paymentMethod = await PaymentMethodModel.create({
       number: data.number,
-      name: data.name,
+      name: data.alias,
+      expiration_date: data.expiration_date,
+      cvc: data.cvc,
       user_id: user.id,
     });
     res.status(StatusCodes.CREATED).json(paymentMethod);

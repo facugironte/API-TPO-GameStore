@@ -13,6 +13,14 @@ PaymentMethodModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    expiration_date: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    cvc: {
+      type: DataTypes.NUMBER,
+      allowNull: false,
+    },
   },
   {
     sequelize,

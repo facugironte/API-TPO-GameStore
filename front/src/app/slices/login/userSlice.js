@@ -65,11 +65,16 @@ export const userSlice = createSlice({
       state.user.user.purchased_games.push(action.payload);
       saveUserToLocalStorage(state);
     },
+    addPaymentMethod: (state, action) => {
+      state.user.user.payment_methods.push(action.payload);
+      saveUserToLocalStorage(state);
+    },
   },
 });
 
 //Acciones
-export const { login, logout, failure, addGameToPurchases } = userSlice.actions;
+export const { login, logout, failure, addGameToPurchases, addPaymentMethod } =
+  userSlice.actions;
 
 //Selectores
 export const selectUser = (state) => state.user.user;

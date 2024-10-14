@@ -11,9 +11,6 @@ const Library = () => {
 
   const games = useSelector(selectUser).user.purchased_games;
 
-  console.log(games);
-
-
   return (
     <div>
       <Header currentPage={"your-games"} />

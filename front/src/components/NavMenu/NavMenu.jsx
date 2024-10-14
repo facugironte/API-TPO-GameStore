@@ -1,18 +1,19 @@
-import React from "react";
-import "./header.css";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout, selectUser } from "../../app/slices/login/userSlice";
 import { clear, selectCartItems } from "../../app/slices/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import "./navMenu.css";
 
 const NavMenu = () => {
   const user = useSelector(selectUser);
   const cart = useSelector(selectCartItems);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const goToShop = () => {
     navigate("/shop/cart");
@@ -22,6 +23,30 @@ const NavMenu = () => {
     dispatch(logout());
     dispatch(clear());
     navigate("/login");
+  };
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const DropdownMenu = () => {
+    return (
+      <>
+        {isOpen && (
+          <ul className="dropdown-menu">
+            <li>
+              <a href="/profile/your-profile">Tu perfil</a>
+            </li>
+            <li>
+              <a href="/profile/wishlist">Wishlist</a>
+            </li>
+            <li>
+              <span onClick={handleLogout}>Cerrar sesión</span>
+            </li>
+          </ul>
+        )}
+      </>
+    );
   };
 
   return (
@@ -34,10 +59,12 @@ const NavMenu = () => {
           <FontAwesomeIcon icon={faShoppingCart} />
           {cart.length > 0 && <p>{cart.length}</p>}
         </button>
-        <button className="btn" onClick={handleLogout}>
+
+        <button className="btn" onClick={toggleMenu}>
           <FontAwesomeIcon icon={faUser} />
         </button>
       </div>
+      <DropdownMenu />
     </div>
   );
 };

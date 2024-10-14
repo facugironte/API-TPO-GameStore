@@ -1,0 +1,96 @@
+.nav-menu {
+  grid-column: 3;
+  grid-row: 1 / span 3;
+
+  font-size: 1.4rem;
+
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+
+  color: #6200ea;
+  text-align: center;
+  justify-content: center;
+}
+
+.title {
+  grid-row: 1;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: auto;
+  width: 100%;
+
+  font-family: "JetBrains mono", monospace;
+  font-weight: medium;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.btns {
+  grid-row: 2/4;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem 0.5rem;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  color: #6200ea;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.btns .btn p {
+  position: absolute;
+  background-color: red;
+  color: white;
+  font-family: "JetBrains mono", monospace;
+  font-weight: bold;
+  width: 1.5rem;
+  aspect-ratio: 1/1;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  translate: 30px -10px;
+}
+
+.dropdown-menu {
+  font-family: "JetBrains mono", monospace;
+  position: absolute;
+  background-color: #1e1e1e;
+  list-style: none;
+  top: 8rem;
+  right: 2rem;
+  z-index: 1000;
+
+  padding: 1rem;
+  border-radius: 30px;
+  color: white;
+}
+
+.dropdown-menu li {
+  margin-bottom: 2rem;
+}
+
+.dropdown-menu li a {
+  color: white;
+  text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+  color: rgb(145, 145, 145);
+  text-decoration: none;
+}
+
+.dropdown-menu li span {
+  background-color: #6200ea;
+  padding: 5px;
+  border-radius: 30px;
+}
+
+.dropdown-menu li span:hover {
+  background-color: #4c00b6;
+  cursor: pointer;
+}

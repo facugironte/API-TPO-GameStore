@@ -27,7 +27,7 @@ const Purchase = () => {
 
   const buy = () => {
     for (let game of games) {
-      const response = buyGame(user.email, game.id, payment_method).then((response) => {
+      buyGame(user.email, game.id, payment_method).then((response) => {
         if (response.status === 200) {
           dispatch(addGameToPurchases(game))
         }
@@ -68,7 +68,7 @@ const Purchase = () => {
                 </option>
               ))}
             </select>
-            <a href="/">Añadir método de pago</a>
+            <a href="/shop/payment-method">Añadir método de pago</a>
           </div>
           <Button text="Terminar compra" onClick={buy} btn_class={"finish-buy"} />
         </main>
