@@ -4,7 +4,7 @@ const loadFromLocalStorage = () => {
   try {
     const serializedState = localStorage.getItem("cart");
     if (serializedState === null) {
-      return { items: [], total: 0, user: null }; // Incluimos el campo user
+      return { items: [], total: 0, user: null };
     }
     return JSON.parse(serializedState);
   } catch (e) {

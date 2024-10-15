@@ -464,35 +464,11 @@ const deleteGame = (req, res) => {
     });
 };
 
-const buyGame = async (req, res) => {
-  const { id_user, id_game } = req.params;
-  const user = await UserModel.findByPk(id_user);
-  const game = await GameModel.findByPk(id_game);
-  try {
-    if (!user || !game) {
-      res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ error: "User or game not found" });
-    } else {
-      await UserGameModel.create({
-        user_id: id_user,
-        game_id: id_game,
-      });
-      res.status(StatusCodes.OK).json({ message: "Game bought successfully" });
-    }
-  } catch (err) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ error: `Game not bought: ${err}` });
-  }
-};
-
 const gameController = {
   getGame,
   postGame,
   updateGame,
   deleteGame,
-  buyGame,
 };
 
 module.exports = gameController;

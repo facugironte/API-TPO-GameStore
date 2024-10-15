@@ -41,6 +41,8 @@ export const userSlice = createSlice({
     login: (state, action) => {
       state.user = action.payload;
       state.isLoggedIn = true;
+      state.invalidCredentials = false;
+      state.serverFailed = false;
       saveUserToLocalStorage(state);
     },
     logout: (state) => {
