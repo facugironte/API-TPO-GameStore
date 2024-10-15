@@ -1,0 +1,41 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  position: fixed;
+  z-index: 1000;
+
+  width: 100%;
+  background-color: #1e1e1e;
+  padding: 0;
+  margin: 0;
+
+  height: 7rem;
+}
+
+.header img {
+  grid-column: 1;
+  grid-row: 1/4;
+  height: 80%;
+  width: auto;
+  margin: auto;
+  translate: 0 -5px;
+}
+
+.header-login {
+  width: 100%;
+  background-color: #1e1e1e;
+  padding: 0;
+  margin: 0;
+
+  height: 5rem;
+
+  text-align: center;
+}
+
+.header-login img {
+  height: 80%;
+  width: auto;
+  margin: auto;
+}

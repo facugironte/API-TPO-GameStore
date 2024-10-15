@@ -1,0 +1,62 @@
+.game-list {
+  width: 95%;
+  height: 8rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  margin: 1rem;
+  border-radius: 30px;
+  background-color: #333333;
+
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+}
+
+.game-list img {
+  grid-column: 1;
+  height: 7rem;
+  width: 7rem;
+  object-fit: cover;
+  border-radius: 30px;
+  margin: auto;
+}
+
+.details {
+  margin-left: 1rem;
+}
+
+.details p span {
+  font-weight: 100;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: rgb(156, 156, 156);
+}
+
+.description {
+  font-weight: 100;
+  font-size: 0.8rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-options {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.cart-options {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.btn-cart-trash {
+  background-color: #333333;
+  color: #6200ea;
+  font-size: 1.5rem;
+}

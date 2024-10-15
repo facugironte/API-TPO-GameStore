@@ -5,17 +5,19 @@ const {
   PaymentMethodModel,
   SecurityQuestionModel,
   WishlistModel,
+  LanguageModel,
 } = require("../database/models/associations");
 
 const getUserProfile = (req, res) => {
   const { email } = req.params;
+  console.log(email);
 
   UserModel.findOne({
     where: { email },
     include: [
       {
         model: PaymentMethodModel,
-        as: "payment_method", // Asegúrate de que el alias coincida con lo que definiste en el modelo
+        as: "payment_methods", // Asegúrate de que el alias coincida con lo que definiste en el modelo
       },
       {
         model: GameModel,
@@ -27,11 +29,16 @@ const getUserProfile = (req, res) => {
       },
       {
         model: SecurityQuestionModel,
-        as: "security_question",
+        as: "security_questions",
+      },
+      {
+        model: GameModel,
+        as: "company_games",
       },
     ],
   })
     .then((user) => {
+      console.log(user);
       if (!user) {
         res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
       } else {

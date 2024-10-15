@@ -2,10 +2,15 @@ const { StatusCodes } = require("http-status-codes");
 const {
   UserModel,
   SecurityQuestionModel,
+  GameModel,
+  PaymentMethodModel,
+  LanguageModel,
+  CategoryModel,
+  PlayersModeModel,
+  SoModel,
 } = require("../database/models/associations");
 
 const { ValidationError } = require("sequelize");
-const { update } = require("../database/models/UserModel");
 
 const register = (req, res) => {
   const data = req.body;
@@ -65,7 +70,67 @@ const login = async (req, res) => {
       include: [
         {
           model: SecurityQuestionModel,
-          as: "security_question",
+          as: "security_questions",
+        },
+        {
+          model: GameModel,
+          as: "company_games",
+        },
+        {
+          model: PaymentMethodModel,
+          as: "payment_methods", // Asegúrate de que el alias coincida con lo que definiste en el modelo
+        },
+        {
+          model: GameModel,
+          as: "wishlists",
+          include: [
+            {
+              model: CategoryModel, // Asegúrate de usar CategoryModel
+              as: "categories",
+            },
+            {
+              model: LanguageModel, // Esto es aparte
+              as: "languages",
+            },
+            {
+              model: PlayersModeModel,
+              as: "players_modes",
+            },
+            {
+              model: SoModel,
+              as: "sos",
+            },
+            {
+              model: UserModel,
+              as: "company_owner",
+            },
+          ],
+        },
+        {
+          model: GameModel,
+          as: "purchased_games",
+          include: [
+            {
+              model: CategoryModel, // Asegúrate de usar CategoryModel
+              as: "categories",
+            },
+            {
+              model: LanguageModel, // Esto es aparte
+              as: "languages",
+            },
+            {
+              model: PlayersModeModel,
+              as: "players_modes",
+            },
+            {
+              model: SoModel,
+              as: "sos",
+            },
+            {
+              model: UserModel,
+              as: "company_owner",
+            },
+          ],
         },
       ],
     });

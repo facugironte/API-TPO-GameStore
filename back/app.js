@@ -3,6 +3,9 @@ const cors = require("cors");
 const auth_routes = require("./src/routes/auth");
 const users_routes = require("./src/routes/users");
 const games_routes = require("./src/routes/games");
+const shop_routes = require("./src/routes/shop");
+const combos_routes = require("./src/routes/combos");
+const other_routes = require("./src/routes/other");
 
 //Creamos app
 const app = express();
@@ -17,7 +20,21 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(cors());
 
+//Logger
+const logger = (req, _res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  if (req.body && req.method !== "GET") {
+    console.log(req.body);
+  }
+  next();
+};
+
+app.use(logger);
+
 //Rutas
 app.use("/api/v1/auth", auth_routes);
 app.use("/api/v1/users", users_routes);
 app.use("/api/v1/games", games_routes);
+app.use("/api/v1/shop", shop_routes);
+app.use("/api/v1/combos", combos_routes);
+app.use("/api/v1/others", other_routes);

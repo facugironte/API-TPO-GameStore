@@ -1,5 +1,50 @@
-export async function getGames() {
-  const response = await fetch("http://localhost:3000/api/v1/games", {
+export async function getGames(filters) {
+  const query = new URLSearchParams();
+
+  filters.forEach((filter) => {
+    query.append(filter.name, filter.value);
+  });
+
+  const response = await fetch(
+    `http://localhost:3000/api/v1/games?${query.toString()}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function getTopSaleGames() {
+  const query = new URLSearchParams({
+    order: "sales",
+    direction: "desc",
+    limit: 8,
+    state: "PUBLICADO",
+  }).toString();
+
+  const response = await fetch(`http://localhost:3000/api/v1/games?${query}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  return data;
+}
+
+export async function getLastGames() {
+  const query = new URLSearchParams({
+    order: "createdAt",
+    direction: "desc",
+    limit: 8,
+    state: "PUBLICADO",
+  }).toString();
+
+  const response = await fetch(`http://localhost:3000/api/v1/games?${query}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
