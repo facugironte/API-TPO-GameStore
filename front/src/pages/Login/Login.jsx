@@ -15,17 +15,12 @@ import { loginAuth } from "../../utils/fetchAuth";
 import "./login.css";
 
 const Home = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const [userData, setUserData] = useState({ email: "", password: "" });
   const invalidCredentials = useSelector(selectInvalidCredentials);
   const serverFailed = useSelector(selectServerFailed);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  if (isLoggedIn) {
-    navigate(`/`);
-  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -39,6 +34,8 @@ const Home = () => {
       );
 
       dispatch(setUser(response.user));
+
+      navigate("/");
 
     } catch (error) {
       dispatch(failure({ error: error.message }));
