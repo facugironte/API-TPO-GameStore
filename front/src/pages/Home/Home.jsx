@@ -1,42 +1,41 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "../../components/Header/Header";
 import GameMosaic from "../../components/GameMosaic/GameMosaic";
 import { getGames } from "../../utils/fetchGames";
 import "./home.css";
+import { useLoaderData } from "react-router-dom";
+
+export async function loader() {
+  const mostSaleGames = await getGames(
+    [
+      {name: "order", value: "sales"},
+      {name: "direction", value: "desc"},
+      {name: "limit", value: 8},
+      {name: "state", value: "PUBLICADO"}
+    ]
+  );
+  const lastGames = await getGames(
+    [
+      {name: "order", value: "createdAt"},
+      {name: "direction", value: "desc"},
+      {name: "limit", value: 8},
+      {name: "state", value: "PUBLICADO"}
+    ]
+  );
+  return { mostSaleGames, lastGames };
+}
 
 const Home = () => {
-  const [mostSaleGames, setMostSaleGames] = React.useState([]);
-  const [lastGames, setLastGames] = React.useState([]);
-  useEffect(() => {
-    setTimeout(() => {
-      getGames(
-        [
-          {name: "order", value: "sales"},
-          {name: "direction", value: "desc"},
-          {name: "limit", value: 8},
-          {name: "state", value: "PUBLICADO"}
-        ]
-      ).then((data) => {
-        setMostSaleGames(data);
-      });
-      getGames(
-        [
-          {name: "order", value: "createdAt"},
-          {name: "direction", value: "desc"},
-          {name: "limit", value: 8},
-          {name: "state", value: "PUBLICADO"}
-        ]
-      ).then((data) => {
-        setLastGames(data);
-      });
-    }, 100);
-  }, []);
+
+  const { mostSaleGames, lastGames } = useLoaderData();
+  console.log("hola")
 
   return (
     <>
       <Header currentPage={"home"} />
       <div className="home">
         <main className="main">
+          
           {/* Sección de lanzamientos */}
           <section className="game-section">
             <h2>Nuevos Lanzamientos!</h2>
