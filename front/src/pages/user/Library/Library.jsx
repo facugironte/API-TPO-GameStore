@@ -1,10 +1,10 @@
 import React from "react";
 
 import { useSelector } from "react-redux";
-import { selectUser } from "../../app/slices/login/userSlice";
+import { selectUser } from "../../../app/slices/login/userSlice";
 
-import Header from "../../components/Header/Header";
-import GameList from "../../components/GameList/GameList";
+import Header from "../../../components/Header/Header";
+import GameList from "../../../components/GameList/GameList";
 import "./library.css";
 
 const Library = () => {
