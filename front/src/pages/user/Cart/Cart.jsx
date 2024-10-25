@@ -1,11 +1,11 @@
 import React from "react";
 
 import { useSelector } from "react-redux";
-import { selectCartItems, selectCartTotal, clear } from "../../app/slices/cart/cartSlice";
 import { useDispatch } from "react-redux";
-import Header from "../../components/Header/Header";
-import GameList from "../../components/GameList/GameList";
-import Button from "../../components/Button/Button";
+import { selectCartItems, selectCartTotal, clear } from "../../../app/slices/cart/cartSlice";
+import Header from "../../../components/Header/Header";
+import GameList from "../../../components/GameList/GameList";
+import Button from "../../../components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSadTear } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";

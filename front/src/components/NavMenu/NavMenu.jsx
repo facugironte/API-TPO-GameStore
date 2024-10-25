@@ -15,6 +15,12 @@ const NavMenu = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  let account_type = null;
+
+  if (user) {
+    account_type = user.user.account_type;
+  }
+
   const goToShop = () => {
     navigate("/shop/cart");
   };
@@ -34,12 +40,25 @@ const NavMenu = () => {
       <>
         {isOpen && (
           <ul className="dropdown-menu">
-            <li>
-              <a href="/profile/your-profile">Tu perfil</a>
-            </li>
-            <li>
-              <a href="/profile/wishlist">Wishlist</a>
-            </li>
+            {/* Condicional para CLIENTE */}
+            {account_type === "USUARIO" && (
+              <>
+                <li>
+                  <a href="/profile/your-profile">Tu perfil</a>
+                </li>
+                <li>
+                  <a href="/profile/wishlist">Wishlist</a>
+                </li>
+              </>
+            )}
+            {/* Condicional para EMPRESA */}
+            {account_type === "EMPRESA" && (
+              <>
+                <li>
+                  <a href="/company-profile">Ver Perfil</a>
+                </li>
+              </>
+            )}
             <li>
               <span onClick={handleLogout}>Cerrar sesión</span>
             </li>
@@ -55,11 +74,15 @@ const NavMenu = () => {
         Bienvenido, {user ? user.user.user_fullname : "invitado"}!
       </p>
       <div className="btns">
-        <button className="btn" onClick={goToShop}>
-          <FontAwesomeIcon icon={faShoppingCart} />
-          {cart.length > 0 && <p>{cart.length}</p>}
-        </button>
+        {/* El carrito solo aparece si es un USUARIO (CLIENTE) */}
+        {account_type === "USUARIO" && (
+          <button className="btn" onClick={goToShop}>
+            <FontAwesomeIcon icon={faShoppingCart} />
+            {cart.length > 0 && <p>{cart.length}</p>}
+          </button>
+        )}
 
+        {/* Botón de usuario que abre el menú */}
         <button className="btn" onClick={toggleMenu}>
           <FontAwesomeIcon icon={faUser} />
         </button>

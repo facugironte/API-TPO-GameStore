@@ -1,46 +1,38 @@
 import React, { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 
-import { getGames } from "../../utils/fetchGames";
-import { getCategories, getLanguages, getPlayerModes, getSos } from "../../utils/fetchCombos";
-import Header from "../../components/Header/Header";
-import GameList from "../../components/GameList/GameList";
+import { getGames } from "../../../utils/fetchGames";
+import { getCategories, getLanguages, getPlayerModes, getSos } from "../../../utils/fetchCombos";
+import Header from "../../../components/Header/Header";
+import GameList from "../../../components/GameList/GameList";
 import "./store.css";
+
+export async function loader() {
+  const languages = [{id: null, name: "Todos"}, ...await getLanguages()];
+  const categories = [{id: null, name: "Todos"}, ...await getCategories()];
+  const sos = [{id: null, name: "Todos"}, ...await getSos()];
+  const modes = [{id: null, name: "Todos"}, ...await getPlayerModes()];
+
+  return { languages, categories, sos, modes };
+}
 
 const Store = () => {
   const [games, setGames] = useState([]);
   
-  const [languages, setLanguages] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [sos, setSos] = useState([]);
-  const [modes, setModes] = useState([]);
-
+  const {languages, categories, sos, modes} = useLoaderData();
 
   const loadGames = (filters = []) => {
 
-    filters = filters.filter(filter => filter.value !== "Todos")
-    filters = [...[{name: "state", value: "PUBLICADO"}],...filters]
-  
-    setTimeout(() => {
-      getGames(filters).then((data) => {
-        setGames(data);
-      });
-    }, 100);
+    filters = [...[{name: "state", value: "PUBLICADO"}],...filters.filter(filter => filter.value !== "Todos")]
+
+    getGames(filters).then((data) => {
+      setGames(data);
+    });
+
   };
 
   useEffect(() => {
     loadGames();
-    getLanguages().then((data) => {
-      setLanguages([{id: null, name: "Todos"}, ...data]);
-    });
-    getCategories().then((data) => {
-      setCategories([{id: null, name: "Todos"}, ...data]);
-    });
-    getPlayerModes().then((data) => {
-      setModes([{id: null, name: "Todos"}, ...data]);
-    });
-    getSos().then((data) => {
-      setSos([{id: null, name: "Todos"}, ...data]);
-    });
   }, []);
 
   const handleSubmit = (event) => {

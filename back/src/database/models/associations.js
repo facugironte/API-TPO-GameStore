@@ -1,6 +1,8 @@
 const UserModel = require("./basics/UserModel");
 
 const GameModel = require("./basics/GameModel");
+const CommentModel = require("./basics/CommentModel");
+
 const UserGameModel = require("./associations/UserGameModel");
 const WishlistModel = require("./associations/WishlistModel");
 
@@ -132,13 +134,24 @@ UserModel.hasMany(GameModel, {
   onDelete: "CASCADE",
 });
 
+//Comment --> game
+CommentModel.belongsTo(GameModel, {
+  foreignKey: "game_id",
+  as: "game",
+});
+GameModel.hasMany(CommentModel, {
+  foreignKey: "game_id",
+  as: "comments",
+  onDelete: "CASCADE",
+});
+
 module.exports = {
   UserModel,
   UserGameModel,
   WishlistModel,
   PaymentMethodModel,
   SecurityQuestionModel,
-
+  CommentModel,
   GameModel,
   CategoryModel,
   LanguageModel,

@@ -5,15 +5,17 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./gameList.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItem } from "../../app/slices/cart/cartSlice";
-import { selectUser } from "../../app/slices/login/userSlice";
+import { selectIsLoggedIn, selectUser } from "../../app/slices/login/userSlice";
 
 const GameList = ({ game, mode }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const user = useSelector(selectUser).user;
-  const purchased_games = user.purchased_games;
+  const isLogged = useSelector(selectIsLoggedIn)
+  const user = useSelector(selectUser);
+  
+  const purchased_games = isLogged ? user.user.purchased_games : []
 
   const handleDetail = (game) => {
     navigate(`/store/game-details/${game.id}`, { state: { game: game } });
