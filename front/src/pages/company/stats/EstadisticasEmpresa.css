@@ -1,0 +1,87 @@
+body {
+    font-family: "JetBrains Mono", monospace;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.estadisticas-container {
+    width: 90%;
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #1E1E1E;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    padding-top: 9rem;
+    margin-bottom: 4rem;
+}
+
+.estadisticas-container .game-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.estadisticas-container .game-card:hover {
+    transform: scale(1.02);
+}
+
+.estadisticas-container .game-image {
+    width: 16%;
+    height: auto;
+    max-width: 10rem;
+    min-width: 5rem;
+    min-height: 8rem;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+}
+
+.estadisticas-container .game-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.estadisticas-container .game-info h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+}
+
+.estadisticas-container .game-info p {
+    font-size: 0.9rem;
+    color: #bbbbbb;
+    margin: 0.3rem 0;
+    display: flex; 
+    align-items: center;
+    text-align: left;
+}
+
+.estadisticas-container .game-info p strong {
+    color: #ffffff;
+}
+
+.estadisticas-container .game-info p span {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.3rem;
+    color: #b39ddb;
+}
+
+.estadisticas-container .game-info p:last-child {
+    margin-top: 0.5rem;
+}
