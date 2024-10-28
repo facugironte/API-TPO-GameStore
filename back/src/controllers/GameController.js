@@ -12,6 +12,7 @@ const {
   GamePlayersModeModel,
   SoModel,
   GameSoModel,
+  CommentModel,
 } = require("../database/models/associations");
 
 const getGame = async (req, res) => {
@@ -89,6 +90,10 @@ const getGame = async (req, res) => {
         {
           model: UserModel,
           as: "company_owner",
+        },
+        {
+          model: CommentModel,
+          as: "comments",
         },
       ],
     });
@@ -464,11 +469,39 @@ const deleteGame = (req, res) => {
     });
 };
 
+const postComment = async (req, res) => {
+  const { id } = req.params;
+  let data = req.body;
+
+  const game = await GameModel.findByPk(id);
+
+  data = {
+    ...data,
+    game_id: id,
+  };
+
+  try {
+    if (!game) {
+      res.status(StatusCodes.NOT_FOUND).json({ error: "Game not found" });
+    } else {
+      CommentModel.create(data).then((comment) => {
+        res.status(StatusCodes.OK).json(comment);
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: "Error creating comment",
+    });
+  }
+};
+
 const gameController = {
   getGame,
   postGame,
   updateGame,
   deleteGame,
+  postComment,
 };
 
 module.exports = gameController;

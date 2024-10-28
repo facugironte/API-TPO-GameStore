@@ -3,13 +3,13 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
-import { selectCartItems, selectCartTotal, clear } from "../../app/slices/cart/cartSlice";
-import { addGameToPurchases, selectUser } from "../../app/slices/login/userSlice";
+import { selectCartItems, selectCartTotal, clear } from "../../../app/slices/cart/cartSlice";
+import { addGameToPurchases, selectUser } from "../../../app/slices/login/userSlice";
 
-import { buyGame } from "../../utils/fetchShop";
+import { buyGame } from "../../../utils/fetchShop";
 
-import Header from "../../components/Header/Header";
-import Button from "../../components/Button/Button";
+import Header from "../../../components/Header/Header";
+import Button from "../../../components/Button/Button";
 import "./purchase.css";
 
 const Purchase = () => {

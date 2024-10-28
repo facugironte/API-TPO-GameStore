@@ -1,13 +1,13 @@
 import React from "react";
 
-import Header from "../../components/Header/Header";
-import Button from "../../components/Button/Button";
+import Header from "../../../components/Header/Header";
+import Button from "../../../components/Button/Button";
 
-import "./newPaymentMethod.css";
-import { newPaymentMethod } from "../../utils/fetchShop";
+import { selectUser, addPaymentMethod } from "../../../app/slices/login/userSlice";
+import { newPaymentMethod } from "../../../utils/fetchShop";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, addPaymentMethod } from "../../app/slices/login/userSlice";
 import { useNavigate } from "react-router-dom";
+import "./newPaymentMethod.css";
 
 const NewPaymentMethod = () => {
 

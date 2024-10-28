@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 
-import { getGames } from "../../utils/fetchGames";
-import { getCategories, getLanguages, getPlayerModes, getSos } from "../../utils/fetchCombos";
-import Header from "../../components/Header/Header";
-import GameList from "../../components/GameList/GameList";
+import { getGames } from "../../../utils/fetchGames";
+import { getCategories, getLanguages, getPlayerModes, getSos } from "../../../utils/fetchCombos";
+import Header from "../../../components/Header/Header";
+import GameList from "../../../components/GameList/GameList";
 import "./store.css";
 
 export async function loader() {
