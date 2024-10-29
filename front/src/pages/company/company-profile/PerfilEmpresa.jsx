@@ -26,11 +26,11 @@ const PerfilEmpresa = () => {
 
   return (
     <>
-      <Header currentPage={"company-profile"}  />
-      <div className="profile-container">
+      <Header currentPage={"company-profile"} />
+      <div className="profile-empresa">
         <main className="main">
           <h2>Tu perfil</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="profile-form">
             <label htmlFor="nombre">Nombre de la empresa</label>
             <input
               type="text"

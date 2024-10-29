@@ -1,56 +1,58 @@
-import React from 'react';
-import './JuegosEmpresa.css';
-import Header from '../../../components/Header/Header';
+import React from "react";
+import Header from "../../../components/Header/Header";
+import GameList from "../../../components/GameList/GameList";
+import "./JuegosEmpresa.css";
 
 const JuegosEmpresa = () => {
   const juegos = [
     {
       id: 1,
-      nombre: 'Grand Theft Auto V',
-      estado: 'Eliminado',
-      descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.',
-      imagen: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png'
+      name: "Grand Theft Auto V",
+      state: "Eliminado",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.",
+      image: "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png"
     },
     {
       id: 2,
-      nombre: 'Red Dead Redemption 2',
-      estado: 'Sin publicar',
-      descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Gx5ucZF9jSdbk4eLGO6XUE7oYAupAKSlsg&s'
+      name: "Red Dead Redemption 2",
+      state: "Sin publicar",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Gx5ucZF9jSdbk4eLGO6XUE7oYAupAKSlsg&s"
     },
     {
       id: 3,
-      nombre: 'Max Payne',
-      estado: 'Publicado',
-      descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.',
-      imagen: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/ec/Maxpaynebox.jpg/220px-Maxpaynebox.jpg'
-    },
+      name: "Max Payne",
+      state: "Publicado",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.",
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/e/ec/Maxpaynebox.jpg/220px-Maxpaynebox.jpg"
+    }
   ];
 
   return (
     <>
       <Header currentPage={"company-your-games"} />
-      <div className="juegos-container">
-        <div className="nuevo-juego">
-          <a href="/new-game">
-              <button>Nuevo Juego +</button>
-          </a>
-        </div>
-        <div className="juegos-lista">
-          {juegos.map(juego => (
-            <div key={juego.id} className="juego-card">
-              <img src={juego.imagen} alt={juego.nombre} className="juego-imagen" />
-              <div className="juego-info">
-                <h3>{juego.nombre}</h3>
-                <p>Estado: {juego.estado}</p>
-                <p>{juego.descripcion}</p>
-              </div>
-              <a href="/company-modify-game">
-                <button className="modificar-btn">Modificar</button>
+      <div className="juegos">
+        <main className="main">
+          <div className="juegos-container">
+            <div className="nuevo-juego">
+              <a href="/new-game">
+                <button>Nuevo Juego +</button>
               </a>
             </div>
-          ))}
-        </div>
+            <div className="juegos-lista">
+              {juegos.map((juego) => (
+                <GameList
+                  key={juego.id}
+                  name={juego.name}
+                  state={juego.state}
+                  description={juego.description}
+                  image={juego.image}
+                  mode="edit"
+                />
+              ))}
+            </div>
+          </div>
+        </main>
       </div>
     </>
   );
