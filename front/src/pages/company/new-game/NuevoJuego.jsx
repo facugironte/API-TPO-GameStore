@@ -27,9 +27,31 @@ const NuevoJuego = () => {
     }
   };
 
-  const handleAddGame = (juego) => {
-    console.log('Añadiendo nuevo juego:', juego);
-    // Lógica para añadir el juego
+  const handleAddGame = async (juego) => {
+    try {
+      // Hacer la solicitud POST
+      const response = await fetch("/api/games", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...juego,
+          state: "CREADO",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al añadir el juego");
+      }
+
+      const newGame = await response.json();
+      console.log("Juego añadido con éxito:", newGame);
+      // Aquí puedes redirigir o mostrar una notificación de éxito
+    } catch (error) {
+      console.error("Error en handleAddGame:", error);
+      // Aquí puedes mostrar una notificación de error
+    }
   };
 
   return (

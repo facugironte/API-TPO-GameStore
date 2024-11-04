@@ -1,32 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header/Header";
 import GameList from "../../../components/GameList/GameList";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../app/slices/login/userSlice";
+
 import "./JuegosEmpresa.css";
 
 const JuegosEmpresa = () => {
-  const juegos = [
-    {
-      id: 1,
-      name: "Grand Theft Auto V",
-      state: "Eliminado",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.",
-      image: "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png"
-    },
-    {
-      id: 2,
-      name: "Red Dead Redemption 2",
-      state: "Sin publicar",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Gx5ucZF9jSdbk4eLGO6XUE7oYAupAKSlsg&s"
-    },
-    {
-      id: 3,
-      name: "Max Payne",
-      state: "Publicado",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus.",
-      image: "https://upload.wikimedia.org/wikipedia/en/thumb/e/ec/Maxpaynebox.jpg/220px-Maxpaynebox.jpg"
+  const [juegos, setJuegos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+    if (user && user.company_games) {
+      setJuegos(user.company_games); // traer los juegos directamente del usuario
+      setLoading(false);
     }
-  ];
+  }, [user]); // se ejecuta cada vez que el usuario cambia
+
+  if (loading) {
+    return <p>Cargando juegos...</p>;
+  }
 
   return (
     <>

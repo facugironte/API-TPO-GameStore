@@ -7,6 +7,39 @@ const Modificadores = () => {
     const [showPublishModal, setShowPublishModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
+    const gameId = "ID_DEL_JUEGO_A_MODIFICAR"; // acordarse reemplazar con el ID del juego (hacer logica del link)
+
+    // manejar la publicación del juego
+    const handlePublishGame = async () => {
+        try {
+            const response = await fetch(`/api/games/${gameId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ state: "PUBLICADO" }),
+            });
+            if (!response.ok) throw new Error("Error al publicar el juego");
+            console.log("Juego publicado con éxito");
+            handleCloseModal();
+        } catch (error) {
+            console.error("Error en handlePublishGame:", error);
+        }
+    };
+
+    // manejar la eliminación del juego
+    const handleDeleteGame = async () => {
+        try {
+            const response = await fetch(`/api/games/${gameId}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) throw new Error("Error al eliminar el juego");
+            console.log("Juego eliminado con éxito");
+            navigate("/company-games"); // redirigir a la lista de juegos
+        } catch (error) {
+            console.error("Error en handleDeleteGame:", error);
+        }
+    };
 
     const handlePublishClick = () => setShowPublishModal(true);
     const handleDeleteClick = () => setShowDeleteModal(true);
@@ -85,7 +118,7 @@ const Modificadores = () => {
                             <p>Si oprime publicar su juego estará disponible en la tienda.</p>
                             <div className="modal-buttons">
                                 <button className="cancel-btn" onClick={handleCloseModal}>Cancelar</button>
-                                <button className="save-btn">Guardar cambios</button>
+                                <button className="save-btn" onClick={handlePublishGame}>Guardar cambios</button>
                             </div>
                         </div>
                     </div>
@@ -98,7 +131,7 @@ const Modificadores = () => {
                             <p>Si oprime eliminar NO habrá vuelta atrás y perderá todos los datos permanentemente.</p>
                             <div className="modal-buttons">
                                 <button className="cancel-btn" onClick={handleCloseModal}>Cancelar</button>
-                                <button className="delete-btn">Eliminar</button>
+                                <button className="delete-btn" onClick={handleDeleteGame}>Eliminar</button>
                             </div>
                         </div>
                     </div>
