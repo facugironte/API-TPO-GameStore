@@ -134,12 +134,13 @@ const getGame = async (req, res) => {
 const postGame = async (req, res) => {
   let data = req.body;
   let game;
-
+  console.log(data);
   try {
     data = {
       ...data,
       state: "CREADO",
     };
+    console.log(data);
     game = await GameModel.create(data);
 
     if (!game) {
@@ -287,7 +288,9 @@ const postGame = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    GameModel.destroy({ where: { id: game.id } });
+    if(game){
+      GameModel.destroy({ where: { id: game.id } });
+    }
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       error: "Error creating game",
     });

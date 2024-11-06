@@ -80,15 +80,21 @@ export const updateGame = async (id, newGame) => {
 };
 
 export const postGame = async (newGame) => {
+  console.log(newGame);
   const response = await fetch("http://localhost:3000/api/v1/games", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: newGame.name,
+      data:newGame
     }),
   });
+
+  if (!response.ok) {
+    throw new Error("Error al crear el juego");
+  }
+  
   const data = await response.json();
   return data;
 };

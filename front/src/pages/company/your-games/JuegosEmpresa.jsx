@@ -13,7 +13,6 @@ const JuegosEmpresa = () => {
   const [loading, setLoading] = useState(true);
 
   const user = useSelector(selectUser);
-
   useEffect(() => {
     if (user.user && user.user.company_games) {
       setJuegos(user.user.company_games); // traer los juegos directamente del usuario
@@ -26,6 +25,7 @@ const JuegosEmpresa = () => {
   }
 
   return (
+    
     <>
       <Header currentPage={"company-your-games"} />
       <div className="juegos">

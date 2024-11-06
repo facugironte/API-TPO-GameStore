@@ -14,30 +14,6 @@ const PerfilEmpresa = () => {
     contraseña: user.password
   });
 
-  /*
-  useEffect(() => {
-    // para cargar datos del perfil
-    const fetchProfile = async () => {
-      try {
-        const response = await fetch(`/api/users/${user.email}`);
-        if (!response.ok) throw new Error('Error al cargar perfil');
-        const data = await response.json();
-        setEmpresa({
-          nombre: data.company_name,
-          cuit: data.CUIT,
-          logo: data.logo || empresa.logo,
-          usuario: data.email,
-          contraseña: '',
-        });
-      } catch (error) {
-        console.error('Error al cargar perfil:', error);
-      }
-    };
-    if (user?.email) {
-      fetchProfile();
-    }
-  }, [user]);*/
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmpresa((prevState) => ({
