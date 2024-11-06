@@ -1,0 +1,102 @@
+.juego-form {
+  display: flex;
+  justify-content: center;
+  padding-top: 8rem;
+  padding-bottom: 2rem;
+  font-family: "JetBrains Mono", monospace;
+  width: 100%;
+}
+
+.juego-form .main {
+  background-color: #1E1E1E;
+  padding: 2rem 1.5rem;
+  border-radius: 30px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  max-width: 36rem;
+  width: 100%;
+  text-align: left;
+}
+
+.juego-form .input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.juego-form .column {
+  display: flex;
+  flex-direction: column;
+}
+
+.juego-form input, .juego-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.juego-form .specs-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.juego-form h4 {
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.juego-form .button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.juego-form .cancelar-btn,
+.juego-form .añadir-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.juego-form .cancelar-btn {
+  background-color: #333;
+  color: white;
+}
+
+.juego-form .añadir-btn {
+  background-color: #6200ea;
+  color: white;
+}
+
+.juego-form .añadir-btn:hover {
+  background-color: #3700b3;
+}
+
+.juego-form .cancelar-btn:hover {
+  background-color: #555;
+}
+
+.juego-form .icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: #333;
+  border-radius: 30px;
+  grid-row: span 2;
+}
+
+.juego-form .input-precio {
+  display: flex;
+  align-items: center;
+}
