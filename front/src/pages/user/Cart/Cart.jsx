@@ -24,7 +24,6 @@ const Cart = () => {
   }
 
   const buy = () => {
-    console.log("buy");
     navigate(`/shop/buy`)
   }
 

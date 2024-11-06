@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../../app/slices/login/userSlice";
 
 import "./JuegosEmpresa.css";
+import Button from "../../../components/Button/Button";
 
 const JuegosEmpresa = () => {
   const [juegos, setJuegos] = useState([]);
@@ -14,8 +15,8 @@ const JuegosEmpresa = () => {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    if (user && user.company_games) {
-      setJuegos(user.company_games); // traer los juegos directamente del usuario
+    if (user.user && user.user.company_games) {
+      setJuegos(user.user.company_games); // traer los juegos directamente del usuario
       setLoading(false);
     }
   }, [user]); // se ejecuta cada vez que el usuario cambia
@@ -32,17 +33,14 @@ const JuegosEmpresa = () => {
           <div className="juegos-container">
             <div className="nuevo-juego">
               <a href="/new-game">
-                <button>Nuevo Juego +</button>
+              <Button text = {"Nuevo Juego +"} btn_class={"btn-nuevo-juego"}/>
               </a>
             </div>
             <div className="juegos-lista">
               {juegos.map((juego) => (
                 <GameList
                   key={juego.id}
-                  name={juego.name}
-                  state={juego.state}
-                  description={juego.description}
-                  image={juego.image}
+                  game = {juego}
                   mode="edit"
                 />
               ))}
