@@ -34,7 +34,6 @@ const Modificadores = () => {
                 method: "DELETE",
             });
             if (!response.ok) throw new Error("Error al eliminar el juego");
-            console.log("Juego eliminado con éxito");
             navigate("/company-games"); // redirigir a la lista de juegos
         } catch (error) {
             console.error("Error en handleDeleteGame:", error);

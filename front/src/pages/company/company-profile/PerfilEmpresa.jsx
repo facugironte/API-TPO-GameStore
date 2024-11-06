@@ -5,15 +5,16 @@ import { selectUser } from "../../../app/slices/login/userSlice";
 import './PerfilEmpresa.css';
 
 const PerfilEmpresa = () => {
-  const user = useSelector(selectUser);
+  const user = useSelector(selectUser).user;
   const [empresa, setEmpresa] = useState({
-    nombre: '',
-    cuit: '',
+    nombre: user.company_name,
+    cuit: user.CUIT,
     logo: 'https://download.logo.wine/logo/Rockstar_Games/Rockstar_Games-Logo.wine.png',
-    usuario: '',
-    contraseña: ''
+    email: user.email,
+    contraseña: user.password
   });
 
+  /*
   useEffect(() => {
     // para cargar datos del perfil
     const fetchProfile = async () => {
@@ -35,7 +36,7 @@ const PerfilEmpresa = () => {
     if (user?.email) {
       fetchProfile();
     }
-  }, [user]);
+  }, [user]);*/
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -97,12 +98,12 @@ const PerfilEmpresa = () => {
               <img src={empresa.logo} alt="Logo de la empresa" />
             </div>
 
-            <label htmlFor="usuario">Usuario</label>
+            <label htmlFor="usuario">Email</label>
             <input
               type="text"
-              id="usuario"
-              name="usuario"
-              value={empresa.usuario}
+              id="email"
+              name="email"
+              value={empresa.email}
               onChange={handleChange}
             />
 

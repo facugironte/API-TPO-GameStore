@@ -21,7 +21,7 @@
   justify-content: flex-start;
 }
 
-.juegos-container .nuevo-juego button {
+.juegos-container .btn-nuevo-juego button {
   background-color: #6200ea;
   color: white;
   border: none;
@@ -31,7 +31,7 @@
   padding: 1rem 2rem;
 }
 
-.juegos-container .nuevo-juego button:hover {
+.juegos-container .btn-nuevo-juego button:hover {
   background-color: #3700b3;
 }
 
