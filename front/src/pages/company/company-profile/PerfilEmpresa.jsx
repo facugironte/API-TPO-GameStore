@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Header from '../../../components/Header/Header';
+import { selectUser } from "../../../app/slices/login/userSlice";
 import './PerfilEmpresa.css';
+import { updateUser } from '../../../utils/fetchUsers';
 
 const PerfilEmpresa = () => {
+  const user = useSelector(selectUser).user;
+  console.log(user)
   const [empresa, setEmpresa] = useState({
-    nombre: '',
-    cuit: '',
+    nombre: user.company_name,
+    cuit: user.CUIT,
     logo: 'https://download.logo.wine/logo/Rockstar_Games/Rockstar_Games-Logo.wine.png',
-    usuario: '',
-    contraseña: ''
+    email: user.email,
+    contraseña: user.password
   });
 
   const handleChange = (e) => {
@@ -19,18 +24,33 @@ const PerfilEmpresa = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const [mensaje, setMensaje] = useState("");
+
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos guardados:', empresa);
+    try {
+      const response = await updateUser(user.email, {
+        company_name: empresa.nombre,
+        CUIT: empresa.cuit,
+        email: empresa.email,
+        password: empresa.contraseña,
+      });
+
+      if (!response.ok) throw new Error('Error al guardar cambios');
+      setMensaje('Perfil actualizado exitosamente');
+    } catch (error) {
+      setMensaje(`Error al actualizar perfil: ${error.message}`);
+    }
   };
 
   return (
     <>
-      <Header currentPage={"company-profile"}  />
-      <div className="profile-container">
+      <Header currentPage={"company-profile"} />
+      <div className="profile-empresa">
         <main className="main">
           <h2>Tu perfil</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="profile-form">
             <label htmlFor="nombre">Nombre de la empresa</label>
             <input
               type="text"
@@ -54,12 +74,12 @@ const PerfilEmpresa = () => {
               <img src={empresa.logo} alt="Logo de la empresa" />
             </div>
 
-            <label htmlFor="usuario">Usuario</label>
+            <label htmlFor="usuario">Email</label>
             <input
               type="text"
-              id="usuario"
-              name="usuario"
-              value={empresa.usuario}
+              id="email"
+              name="email"
+              value={empresa.email}
               onChange={handleChange}
             />
 

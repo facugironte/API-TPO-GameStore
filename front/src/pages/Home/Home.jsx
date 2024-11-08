@@ -28,7 +28,6 @@ export async function loader() {
 const Home = () => {
 
   const { mostSaleGames, lastGames } = useLoaderData();
-  console.log("hola")
 
   return (
     <>

@@ -1,0 +1,143 @@
+.juego-form {
+  display: flex;
+  justify-content: center;
+  padding-top: 8rem;
+  padding-bottom: 2rem;
+  font-family: "JetBrains Mono", monospace;
+  width: 100%;
+}
+
+.juego-form .main {
+  background-color: #1E1E1E;
+  padding: 2rem 1.5rem;
+  border-radius: 30px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  max-width: 36rem;
+  width: 100%;
+  text-align: left;
+}
+
+.juego-form .input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.juego-form .column {
+  display: flex;
+  flex-direction: column;
+}
+
+.juego-form input, .juego-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.juego-form .specs-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.juego-form h4 {
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.juego-form .button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.juego-form .cancelar-btn,
+.juego-form .añadir-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.juego-form .cancelar-btn {
+  background-color: #333;
+  color: white;
+}
+
+.juego-form .añadir-btn {
+  background-color: #6200ea;
+  color: white;
+}
+
+.juego-form .añadir-btn:hover {
+  background-color: #3700b3;
+}
+
+.juego-form .cancelar-btn:hover {
+  background-color: #555;
+}
+
+.juego-form .icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: #333;
+  border-radius: 30px;
+  grid-row: span 2;
+}
+
+.juego-form .input-precio {
+  display: flex;
+  align-items: center;
+}
+
+.juego-form select {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M4 6l4 4 4-4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: -150px; /* Ajusta la posición para que aparezca arriba del botón */
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.dropdown-options label {
+  display: block;
+  margin-bottom: 5px;
+}

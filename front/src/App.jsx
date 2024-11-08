@@ -17,6 +17,7 @@ import NuevoJuego from "./pages/company/new-game/NuevoJuego";
 import JuegosEmpresa from "./pages/company/your-games/JuegosEmpresa";
 import EstadisticasEmpresa from "./pages/company/stats/EstadisticasEmpresa";
 import Modificadores from "./pages/company/modify/Modificadores";
+import EditGame from "./pages/company/EditGame/EditGame";
 
 import "./styles.css";
 
@@ -86,8 +87,12 @@ const App = () => {
       element: <EstadisticasEmpresa/>
     },
     {
-      path: "/company-modify-game",
+      path: "/company-modify-game/:id",
       element: <Modificadores/>
+    },
+    {
+      path: "/edit-game/:id",
+      element: <EditGame/>
     }
   ])
 

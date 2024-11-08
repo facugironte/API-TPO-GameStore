@@ -17,7 +17,6 @@ const NavBar = ({ currentPage }) => {
   let account_type = null;
 
   if(user){
-    console.log(user.user);
     account_type = user.user.account_type;
   }
 

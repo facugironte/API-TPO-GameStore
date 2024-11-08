@@ -9,8 +9,6 @@ const Wishlist = () => {
 
   const user = useSelector(selectUser)
 
-  console.log(user.user.wishlists)
-
   return (
     <>
       <Header currentPage={"wishlist"} />

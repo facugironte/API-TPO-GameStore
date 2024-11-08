@@ -1,79 +1,81 @@
-body {
-  background-color: #121212;
-  color: #ffffff;
-  margin: 0;
-  padding: 0;
+.profile-empresa {
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-family: "JetBrains Mono", monospace;
+  padding-top: 7rem;
+  padding-bottom: 2rem;
 }
 
-.profile-container {
+.profile-empresa .main {
+  font-family: "JetBrains Mono", monospace;
+  margin-top: 2rem;
   background-color: #1e1e1e;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-  max-width: 25rem;
-  width: 100%;
-  text-align: center;
+  padding: 1.5rem;
+  border-radius: 30px;
+  box-shadow: black 0px 0px 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: auto;
-  max-height: 40rem;
-  padding-top: 10rem;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 25rem;
 }
 
-.profile-container h2 {
-  margin-bottom: 1.25rem;
+.main h2 {
   color: #ffffff;
   font-size: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
-.profile-container label {
-  display: block;
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 95%;
+  box-sizing: border-box;
+}
+
+.profile-form label {
   margin-bottom: 0.3rem;
   font-weight: bold;
   color: #ffffff;
   text-align: left;
 }
 
-.profile-container input {
+.profile-form input {
   width: 100%;
   padding: 0.625rem;
   margin-bottom: 1rem;
   border: none;
-  border-radius: 0.5rem;
-  box-sizing: border-box;
+  border-radius: 30px;
   background-color: #333;
   color: #ffffff;
+  box-sizing: border-box;
 }
 
-.profile-container .logo-container {
+.logo-container {
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
 }
 
-.profile-container .logo-container img {
-  max-width: 6rem;
-  height: auto;
-  border-radius: 0.5rem;
-  display: block;
+.logo-container img {
+  width: 9rem;
+  height: 6.5rem;
+  border-radius: 30px;
 }
 
-.profile-container button {
+.profile-form button {
   width: 100%;
   padding: 0.75rem;
   background-color: #6200ea;
   color: white;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 30px;
   cursor: pointer;
   font-size: 1rem;
+  margin-top: 1rem;
 }
 
-.profile-container button:hover {
+.profile-form button:hover {
   background-color: #3700b3;
 }

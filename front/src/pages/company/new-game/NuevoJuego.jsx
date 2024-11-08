@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../../../components/Header/Header';
-import './NuevoJuego.css';
+import GameForm from '../../../components/GameForm/GameForm';
+import { postGame } from '../../../utils/fetchGames';
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../app/slices/login/userSlice";
 
 const NuevoJuego = () => {
-  const [juego, setJuego] = useState({
+  const user = useSelector(selectUser).user;
+  console.log(user.id);
+  const initialData = {
     nombre: '',
     precio: '',
     descripcion: '',
@@ -25,218 +30,42 @@ const NuevoJuego = () => {
       almacenamiento: '',
       sonido: ''
     }
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setJuego((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
   };
 
-  const handleSpecsChange = (e, tipo) => {
-    const { name, value } = e.target;
-    setJuego((prevState) => ({
-      ...prevState,
-      [tipo]: {
-        ...prevState[tipo],
-        [name]: value,
-      }
-    }));
-  };
+  const handleAddGame = async (gameData) => {
+    const newGame = {
+      name: gameData.nombre,
+      company_id: user.id,
+      price: parseFloat(gameData.precio),
+      description: gameData.descripcion,
+      categories: [gameData.categoria],
+      languages: [gameData.idioma],
+      players_modes: [gameData.jugadores],
+      sos: [gameData.sistemaOperativo],
+      minCpu: gameData.minimos.procesador,
+      minGpu: gameData.minimos.graficos,
+      minRam: gameData.minimos.memoria,
+      minStorage: gameData.minimos.almacenamiento,
+      minSound: gameData.minimos.sonido,
+      optCpu: gameData.recomendados.procesador,
+      optGpu: gameData.recomendados.graficos,
+      optRam: gameData.recomendados.memoria,
+      optStorage: gameData.recomendados.almacenamiento,
+      optSound: gameData.recomendados.sonido,
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Nuevo juego:', juego);
+    try {
+      const response = await postGame(newGame);
+      console.log("Juego añadido con éxito:", response);
+    } catch (error) {
+      console.error("Error al añadir el juego:", error);
+    }
   };
 
   return (
     <>
-      <Header currentPage={"new-game"}/>
-      <div className="nuevo-juego-container">
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <div className="column">
-              <label htmlFor="nombre">Nombre del videojuego</label>
-              <input
-                type="text"
-                id="nombre"
-                name="nombre"
-                value={juego.nombre}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="column">
-              <label htmlFor="precio">Precio</label>
-              <div className="input-precio">
-                <span>$</span>
-                <input
-                  type="text"
-                  id="precio"
-                  name="precio"
-                  value={juego.precio}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="icon-container">
-              <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" alt="Icono" />
-            </div>
-          </div>
-
-          <label htmlFor="descripcion">Descripción</label>
-          <textarea
-            id="descripcion"
-            name="descripcion"
-            value={juego.descripcion}
-            onChange={handleChange}
-          />
-
-          <div className="input-group">
-            <div className="column">
-              <label htmlFor="categoria">Categoría</label>
-              <input
-                type="text"
-                id="categoria"
-                name="categoria"
-                value={juego.categoria}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="column">
-              <label htmlFor="idioma">Idioma</label>
-              <input
-                type="text"
-                id="idioma"
-                name="idioma"
-                value={juego.idioma}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="input-group">
-            <div className="column">
-              <label htmlFor="jugadores">Cantidad de jugadores</label>
-              <input
-                type="text"
-                id="jugadores"
-                name="jugadores"
-                value={juego.jugadores}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="column">
-              <label htmlFor="sistemaOperativo">Sistema operativo</label>
-              <input
-                type="text"
-                id="sistemaOperativo"
-                name="sistemaOperativo"
-                value={juego.sistemaOperativo}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="specs-container">
-            <div className="column">
-              <h4>Requisitos mínimos</h4>
-              <label>Procesador</label>
-              <input
-                type="text"
-                name="procesador"
-                value={juego.minimos.procesador}
-                onChange={(e) => handleSpecsChange(e, 'minimos')}
-              />
-
-              <label>Memoria</label>
-              <input
-                type="text"
-                name="memoria"
-                value={juego.minimos.memoria}
-                onChange={(e) => handleSpecsChange(e, 'minimos')}
-              />
-
-              <label>Gráficos</label>
-              <input
-                type="text"
-                name="graficos"
-                value={juego.minimos.graficos}
-                onChange={(e) => handleSpecsChange(e, 'minimos')}
-              />
-
-              <label>Almacenamiento</label>
-              <input
-                type="text"
-                name="almacenamiento"
-                value={juego.minimos.almacenamiento}
-                onChange={(e) => handleSpecsChange(e, 'minimos')}
-              />
-
-              <label>Tarjeta de sonido</label>
-              <input
-                type="text"
-                name="sonido"
-                value={juego.minimos.sonido}
-                onChange={(e) => handleSpecsChange(e, 'minimos')}
-              />
-            </div>
-
-            <div className="column">
-              <h4>Requisitos recomendados</h4>
-              <label>Procesador</label>
-              <input
-                type="text"
-                name="procesador"
-                value={juego.recomendados.procesador}
-                onChange={(e) => handleSpecsChange(e, 'recomendados')}
-              />
-
-              <label>Memoria</label>
-              <input
-                type="text"
-                name="memoria"
-                value={juego.recomendados.memoria}
-                onChange={(e) => handleSpecsChange(e, 'recomendados')}
-              />
-
-              <label>Gráficos</label>
-              <input
-                type="text"
-                name="graficos"
-                value={juego.recomendados.graficos}
-                onChange={(e) => handleSpecsChange(e, 'recomendados')}
-              />
-
-              <label>Almacenamiento</label>
-              <input
-                type="text"
-                name="almacenamiento"
-                value={juego.recomendados.almacenamiento}
-                onChange={(e) => handleSpecsChange(e, 'recomendados')}
-              />
-
-              <label>Tarjeta de sonido</label>
-              <input
-                type="text"
-                name="sonido"
-                value={juego.recomendados.sonido}
-                onChange={(e) => handleSpecsChange(e, 'recomendados')}
-              />
-            </div>
-          </div>
-
-          <div className="button-group">
-            <button type="button" className="cancelar-btn">Cancelar</button>
-            <button type="submit" className="añadir-btn">Añadir Juego</button>
-          </div>
-        </form>
-      </div>
+      <Header currentPage={"new-game"} />
+      <GameForm initialData={initialData} onSubmit={handleAddGame} buttonText="Añadir Juego" />
     </>
   );
 };
