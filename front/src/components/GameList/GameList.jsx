@@ -8,9 +8,6 @@ import { selectIsLoggedIn, selectUser } from "../../app/slices/login/userSlice";
 import "./gameList.css";
 
 const GameList = ({game, mode}) => {
-
-  console.log(game)
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,7 +25,7 @@ const GameList = ({game, mode}) => {
   };
 
   const handleEdit = () => {
-    navigate("/edit-game");
+    navigate(`/company-modify-game/${game.id}`);
   };
 
   return (

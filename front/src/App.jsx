@@ -87,11 +87,11 @@ const App = () => {
       element: <EstadisticasEmpresa/>
     },
     {
-      path: "/company-modify-game",
+      path: "/company-modify-game/:id",
       element: <Modificadores/>
     },
     {
-      path: "/edit-game",
+      path: "/edit-game/:id",
       element: <EditGame/>
     }
   ])

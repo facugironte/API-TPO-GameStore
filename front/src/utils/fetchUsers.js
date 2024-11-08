@@ -24,15 +24,17 @@ export const postUser = async (newUser) => {
   return data;
 };
 
-export const updateUser = async (id, newUser) => {
-  const response = await fetch(`http://localhost:3000/api/v1/users/${id}`, {
+export const updateUser = async (email, newUser) => {
+  const response = await fetch(`http://localhost:3000/api/v1/users/profile/${email}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: newUser.name,
-      birthdate: newUser.birthdate,
+      company_name: newUser.company_name,
+      CUIT: newUser.CUIT,
+      email: newUser.email,
+      password: newUser.password,
     }),
   });
   const data = await response.json();
