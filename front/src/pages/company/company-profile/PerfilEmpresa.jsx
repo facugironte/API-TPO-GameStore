@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import Header from '../../../components/Header/Header';
 import { selectUser } from "../../../app/slices/login/userSlice";
 import './PerfilEmpresa.css';
+import { updateUser } from '../../../utils/fetchUsers';
 
 const PerfilEmpresa = () => {
   const user = useSelector(selectUser).user;
+  console.log(user)
   const [empresa, setEmpresa] = useState({
     nombre: user.company_name,
     cuit: user.CUIT,
@@ -13,30 +15,6 @@ const PerfilEmpresa = () => {
     email: user.email,
     contraseña: user.password
   });
-
-  /*
-  useEffect(() => {
-    // para cargar datos del perfil
-    const fetchProfile = async () => {
-      try {
-        const response = await fetch(`/api/users/${user.email}`);
-        if (!response.ok) throw new Error('Error al cargar perfil');
-        const data = await response.json();
-        setEmpresa({
-          nombre: data.company_name,
-          cuit: data.CUIT,
-          logo: data.logo || empresa.logo,
-          usuario: data.email,
-          contraseña: '',
-        });
-      } catch (error) {
-        console.error('Error al cargar perfil:', error);
-      }
-    };
-    if (user?.email) {
-      fetchProfile();
-    }
-  }, [user]);*/
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,23 +26,21 @@ const PerfilEmpresa = () => {
 
   const [mensaje, setMensaje] = useState("");
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`/api/users/${user.email}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          company_name: empresa.nombre,
-          CUIT: empresa.cuit,
-          email: empresa.usuario,
-          password: empresa.contraseña,
-        }),
+      const response = await updateUser(user.email, {
+        company_name: empresa.nombre,
+        CUIT: empresa.cuit,
+        email: empresa.email,
+        password: empresa.contraseña,
       });
+
       if (!response.ok) throw new Error('Error al guardar cambios');
       setMensaje('Perfil actualizado exitosamente');
     } catch (error) {
-      setMensaje('Error al actualizar perfil:', error);
+      setMensaje(`Error al actualizar perfil: ${error.message}`);
     }
   };
 

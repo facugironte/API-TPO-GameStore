@@ -59,6 +59,7 @@ const getUserProfile = (req, res) => {
 };
 
 const updateUserProfile = (req, res) => {
+  console.log("Solicitud recibida para actualizar perfil:", req.params.email);
   const { email } = req.params;
   const data = req.body;
 

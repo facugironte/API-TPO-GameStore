@@ -3,6 +3,8 @@ import './gameForm.css';
 
 const GameForm = ({ initialData, onSubmit, buttonText }) => {
   const [juego, setJuego] = useState(initialData);
+  const [showCategoryOptions, setShowCategoryOptions] = useState(false);
+  const [showLanguageOptions, setShowLanguageOptions] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +23,22 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
         [name]: value,
       }
     }));
+  };
+
+  const handleCheckboxChange = (e, type) => {
+    const { name, checked } = e.target;
+    setJuego((prevState) => {
+      const currentValues = prevState[type] ? [...prevState[type]] : [];
+      if (checked) {
+        currentValues.push(name);
+      } else {
+        const index = currentValues.indexOf(name);
+        if (index > -1) {
+          currentValues.splice(index, 1);
+        }
+      }
+      return { ...prevState, [type]: currentValues.join(", ") };
+    });
   };
 
   const handleSubmit = (e) => {
@@ -71,51 +89,69 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
             onChange={handleChange}
           />
 
+<label htmlFor="descripcion">Descripción</label>
+          <textarea
+            id="descripcion"
+            name="descripcion"
+            value={juego.descripcion}
+            onChange={handleChange}
+          />
+
           <div className="input-group">
+            {/* Categoría */}
             <div className="column">
               <label htmlFor="categoria">Categoría</label>
-              <input
-                type="text"
-                id="categoria"
-                name="categoria"
-                value={juego.categoria}
-                onChange={handleChange}
-              />
+              <div className="dropdown">
+                <button
+                  type="button"
+                  onClick={() => setShowCategoryOptions(!showCategoryOptions)}
+                >
+                  Seleccione una categoría
+                </button>
+                {showCategoryOptions && (
+                  <div className="dropdown-options">
+                    {['Acción', 'Aventura', 'Deportes', 'Estrategia', 'Simulación', 'RPG'].map((category) => (
+                      <label key={category}>
+                        <input
+                          type="checkbox"
+                          name={category}
+                          checked={juego.categoria.includes(category)}
+                          onChange={(e) => handleCheckboxChange(e, 'categoria')}
+                        />
+                        {category}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
+            {/* Idioma */}
             <div className="column">
               <label htmlFor="idioma">Idioma</label>
-              <input
-                type="text"
-                id="idioma"
-                name="idioma"
-                value={juego.idioma}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="input-group">
-            <div className="column">
-              <label htmlFor="jugadores">Cantidad de jugadores</label>
-              <input
-                type="text"
-                id="jugadores"
-                name="jugadores"
-                value={juego.jugadores}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="column">
-              <label htmlFor="sistemaOperativo">Sistema operativo</label>
-              <input
-                type="text"
-                id="sistemaOperativo"
-                name="sistemaOperativo"
-                value={juego.sistemaOperativo}
-                onChange={handleChange}
-              />
+              <div className="dropdown">
+                <button
+                  type="button"
+                  onClick={() => setShowLanguageOptions(!showLanguageOptions)}
+                >
+                  Seleccione un idioma
+                </button>
+                {showLanguageOptions && (
+                  <div className="dropdown-options">
+                    {['Español', 'Inglés', 'Francés', 'Alemán', 'Japonés'].map((language) => (
+                      <label key={language}>
+                        <input
+                          type="checkbox"
+                          name={language}
+                          checked={juego.idioma.includes(language)}
+                          onChange={(e) => handleCheckboxChange(e, 'idioma')}
+                        />
+                        {language}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

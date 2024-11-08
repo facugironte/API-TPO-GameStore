@@ -1,55 +1,70 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Modificadores.css';
 import Header from '../../../components/Header/Header';
+import { getGamebyId, updateGame, deleteGame } from '../../../utils/fetchGames';
+import { useDispatch } from 'react-redux';
+import { deleteCompanyGame } from '../../../app/slices/login/userSlice';
 
-const Modificadores = () => {
+const Modificadores = ({ removeGameFromList }) => {
+    const { id } = useParams();
     const [showPublishModal, setShowPublishModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [game, setGame] = useState(null);
     const navigate = useNavigate();
-    const gameId = "ID_DEL_JUEGO_A_MODIFICAR"; // acordarse reemplazar con el ID del juego (hacer logica del link)
+    const dispatch = useDispatch();
 
-    // manejar la publicación del juego
-    const handlePublishGame = async () => {
+    const handlePublishClick = async () => {
         try {
-            const response = await fetch(`/api/games/${gameId}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ state: "PUBLICADO" }),
-            });
-            if (!response.ok) throw new Error("Error al publicar el juego");
-            console.log("Juego publicado con éxito");
-            handleCloseModal();
+            const newState = game.state === 'PUBLICADO' ? 'DESPUBLICADO' : 'PUBLICADO';
+            await updateGame(id, { ...game, state: newState });
+            setGame((prevGame) => ({ ...prevGame, state: newState }));
+            setShowPublishModal(false);
         } catch (error) {
-            console.error("Error en handlePublishGame:", error);
+            console.error('Error al cambiar el estado del juego:', error);
         }
     };
 
-    // manejar la eliminación del juego
-    const handleDeleteGame = async () => {
+    const handleDeleteClick = async () => {
         try {
-            const response = await fetch(`/api/games/${gameId}`, {
-                method: "DELETE",
-            });
-            if (!response.ok) throw new Error("Error al eliminar el juego");
-            navigate("/company-games"); // redirigir a la lista de juegos
+            deleteGame(id).then ((response) => {
+                console.log("Juego eliminado correctamente", response);
+                if(response.status === 200){
+                    dispatch(deleteCompanyGame(id));
+                }
+            }
+            );
+            navigate("/company-your-games");
         } catch (error) {
-            console.error("Error en handleDeleteGame:", error);
+            console.error("Error al eliminar el juego:", error);
         }
+        setShowDeleteModal(false);
     };
 
-    const handlePublishClick = () => setShowPublishModal(true);
-    const handleDeleteClick = () => setShowDeleteModal(true);
     const handleCloseModal = () => {
         setShowPublishModal(false);
         setShowDeleteModal(false);
     };
 
     const handleEdit = () => {
-        navigate("/edit-game");
+        navigate(`/edit-game/${id}`);
     };
+
+    useEffect(() => {
+        const loadGame = async () => {
+            try {
+                const data = await getGamebyId(id);
+                setGame(data);
+            } catch (error) {
+                console.error('Error al cargar el juego:', error);
+            }
+        };
+        loadGame();
+    }, [id]);
+
+    console.log(game);
+
+    if (!game) return <p>Cargando datos del juego...</p>;
 
     return (
         <>
@@ -57,30 +72,32 @@ const Modificadores = () => {
             <div className="modificadores">
                 <main className="main">
                     <div className="header">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V" className="game-image" />
+                        <img src={game.logo_url} alt={game.name} className="game-image" />
                         <div className="game-info">
-                            <h1>Grand Theft Auto V</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare libero a sem imperdiet, mollis venenatis tortor maximus. Pellentesque a efficitur odio.</p>
+                            <h1>{game.name}</h1>
+                            <p>{game.description}</p>
                         </div>
                         <div className="price">
-                            <h2>$19.99</h2>
+                            <h2>${game.price}</h2>
                         </div>
                     </div>
 
                     <div className="status">
-                        <strong>Estado:</strong> Publicado
+                        <strong>Estado:</strong> {game.state}
                     </div>
 
                     <div className="buttons">
                         <button className="edit-btn" onClick={handleEdit}>Editar</button>
-                        <button className="publish-btn" onClick={handlePublishClick}>Publicar</button>
+                        <button className="publish-btn" onClick={handlePublishClick}>
+                            {game.state === 'PUBLICADO' ? 'Despublicar' : 'Publicar'}
+                        </button>
                         <button className="delete-btn" onClick={handleDeleteClick}>Eliminar</button>
                     </div>
 
                     <div className="details">
-                        <p><strong>Categoría:</strong> Aventura, Acción, Mundo Abierto</p>
-                        <p><strong>Idioma:</strong> Español, Inglés y 12 más</p>
-                        <p><strong>Cantidad de jugadores:</strong> Un jugador (Modo historia) - Multijugador</p>
+                        <p><strong>Categoría:</strong> {game.categories.map(cat => cat.name).join(", ")}</p>
+                        <p><strong>Idioma:</strong> {game.languages.map(lang => lang.name).join(", ")}</p>
+                        <p><strong>Cantidad de jugadores:</strong> {game.players_modes.map(mode => mode.name).join(", ")}</p>
                     </div>
 
                     <div className="requirements">
@@ -89,21 +106,21 @@ const Modificadores = () => {
                             <div className="requirements-min">
                                 <h4>Mínimo:</h4>
                                 <ul>
-                                    <li>Requiere un procesador y un sistema operativo de 64 bits</li>
-                                    <li>Procesador: Intel Core 2 Quad CPU Q6600 a 2.4 GHz (4 CPU) / AMD Phenom 9850 Quad-Core (4 CPU) a 2.5 GHz</li>
-                                    <li>Memoria: 4 GB de RAM</li>
-                                    <li>Gráficos: NVIDIA 9800 GT 1 GB / AMD HD 4870 1 GB (DX 10, 10.1, 11)</li>
-                                    <li>Almacenamiento: 120 GB de espacio disponible</li>
+                                    <li>Procesador: {game.minCpu}</li>
+                                    <li>Memoria: {game.minRam}</li>
+                                    <li>Gráficos: {game.minGpu}</li>
+                                    <li>Almacenamiento: {game.minStorage}</li>
+                                    <li>Sonido: {game.minSound}</li>
                                 </ul>
                             </div>
                             <div className="requirements-rec">
                                 <h4>Recomendado:</h4>
                                 <ul>
-                                    <li>Requiere un procesador y un sistema operativo de 64 bits</li>
-                                    <li>Procesador: Intel Core i5 3470 a 3.2 GHz (4 CPU) / AMD X8 FX-8350 a 4 GHz (8 CPU)</li>
-                                    <li>Memoria: 8 GB de RAM</li>
-                                    <li>Gráficos: NVIDIA GTX 660 2 GB / AMD HD 7870 2 GB</li>
-                                    <li>Almacenamiento: 120 GB de espacio disponible</li>
+                                    <li>Procesador: {game.optCpu}</li>
+                                    <li>Memoria: {game.optRam}</li>
+                                    <li>Gráficos: {game.optGpu}</li>
+                                    <li>Almacenamiento: {game.optStorage}</li>
+                                    <li>Sonido: {game.optSound}</li>
                                 </ul>
                             </div>
                         </div>
@@ -117,7 +134,7 @@ const Modificadores = () => {
                             <p>Si oprime publicar su juego estará disponible en la tienda.</p>
                             <div className="modal-buttons">
                                 <button className="cancel-btn" onClick={handleCloseModal}>Cancelar</button>
-                                <button className="save-btn" onClick={handlePublishGame}>Guardar cambios</button>
+                                <button className="save-btn" onClick={handlePublishClick}>Guardar cambios</button>
                             </div>
                         </div>
                     </div>
@@ -130,7 +147,7 @@ const Modificadores = () => {
                             <p>Si oprime eliminar NO habrá vuelta atrás y perderá todos los datos permanentemente.</p>
                             <div className="modal-buttons">
                                 <button className="cancel-btn" onClick={handleCloseModal}>Cancelar</button>
-                                <button className="delete-btn" onClick={handleDeleteGame}>Eliminar</button>
+                                <button className="delete-btn">Eliminar</button>
                             </div>
                         </div>
                     </div>

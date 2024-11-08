@@ -1,34 +1,87 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../../../components/Header/Header';
 import GameForm from '../../../components/GameForm/GameForm';
+import { getGamebyId, updateGame  } from '../../../utils/fetchGames';
 
 const ModificarJuego = () => {
+  const { id } = useParams();
+  const [game, setGame] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadGame = async () => {
+      try {
+        const data = await getGamebyId(id);
+        setGame(data);
+      } catch (error) {
+        console.error('Error al cargar el juego:', error);
+      }
+    };
+    loadGame();
+  }, [id]);
+
+  if (!game) {
+    return <p>Cargando datos del juego...</p>;
+  }
+
   const existingGameData = {
-    nombre: 'Nombre Existente',
-    precio: '100',
-    descripcion: 'Descripción existente del juego',
-    categoria: 'Categoría existente',
-    idioma: 'Español',
-    jugadores: '1-4',
-    sistemaOperativo: 'Windows',
+    nombre: game.name || '',
+    precio: game.price || '',
+    descripcion: game.description || '',
+    categoria: game.categories ? game.categories.join(", ") : '',
+    idioma: game.languages ? game.languages.join(", ") : '',
+    jugadores: game.players_modes ? game.players_modes.join(", ") : '',
+    sistemaOperativo: game.sos ? game.sos.join(", ") : '',
     minimos: {
-      procesador: 'Intel i5',
-      memoria: '8GB',
-      graficos: 'NVIDIA GTX 960',
-      almacenamiento: '20GB',
-      sonido: 'Compatible'
+      procesador: game.minCpu || '',
+      memoria: game.minRam || '',
+      graficos: game.minGpu || '',
+      almacenamiento: game.minStorage || '',
+      sonido: game.minSound || ''
     },
     recomendados: {
-      procesador: 'Intel i7',
-      memoria: '16GB',
-      graficos: 'NVIDIA GTX 1080',
-      almacenamiento: '50GB',
-      sonido: 'Compatible'
+      procesador: game.optCpu || '',
+      memoria: game.optRam || '',
+      graficos: game.optGpu || '',
+      almacenamiento: game.optStorage || '',
+      sonido: game.optSound || ''
     }
   };
 
-  const handleModifyGame = (juego) => {
-    console.log('Modificando juego:', juego);
+  const handleModifyGame = async (juego) => {
+    try {
+      const jugadoresMapping = {
+        "1": "Un jugador",
+        "2": "Dos jugadores",
+        "3": "Online",
+      };
+      const jugadoresNombres = juego.jugadores.split(", ").map(jugador => jugadoresMapping[jugador] || jugador);
+
+      await updateGame(id, {
+        name: juego.nombre,
+        price: parseFloat(juego.precio),
+        description: juego.descripcion,
+        categories: juego.categoria.split(", "),
+        languages: juego.idioma.split(", "),
+        players_modes: jugadoresNombres,
+        sos: juego.sistemaOperativo.split(", "),
+        minCpu: juego.minimos.procesador,
+        minRam: juego.minimos.memoria,
+        minGpu: juego.minimos.graficos,
+        minStorage: juego.minimos.almacenamiento,
+        minSound: juego.minimos.sonido,
+        optCpu: juego.recomendados.procesador,
+        optRam: juego.recomendados.memoria,
+        optGpu: juego.recomendados.graficos,
+        optStorage: juego.recomendados.almacenamiento,
+        optSound: juego.recomendados.sonido,
+      });
+
+      navigate('/company-your-games');
+    } catch (error) {
+      console.error('Error al actualizar el juego:', error);
+    }
   };
 
   return (

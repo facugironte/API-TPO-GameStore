@@ -61,8 +61,7 @@ export const deleteGame = async (id) => {
       "Content-Type": "application/json",
     },
   });
-  const data = await response.json();
-  return data;
+  return response;
 };
 
 export const updateGame = async (id, newGame) => {
@@ -72,7 +71,7 @@ export const updateGame = async (id, newGame) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: newGame.name,
+      ...newGame,
     }),
   });
   const data = await response.json();
@@ -86,8 +85,24 @@ export const postGame = async (newGame) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: newGame.name,
+      ...newGame,
     }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al crear el juego");
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+export const getGamebyId = async (id) => {
+  const response = await fetch(`http://localhost:3000/api/v1/games/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   const data = await response.json();
   return data;

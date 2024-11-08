@@ -71,11 +71,17 @@ export const userSlice = createSlice({
       state.user.user.payment_methods.push(action.payload);
       saveUserToLocalStorage(state);
     },
+    deleteCompanyGame: (state, action) => {
+      console.log(state.user)
+      console.log(action.payload)
+      state.user.user.company_games=[]//.filter((game) => game.id !== action.payload);
+      saveUserToLocalStorage(state);
+    },
   },
 });
 
 //Acciones
-export const { login, logout, failure, addGameToPurchases, addPaymentMethod } =
+export const { login, logout, failure, addGameToPurchases, addPaymentMethod, deleteCompanyGame } =
   userSlice.actions;
 
 //Selectores
