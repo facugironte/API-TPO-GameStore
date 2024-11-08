@@ -29,10 +29,10 @@ const ModificarJuego = () => {
     nombre: game.name || '',
     precio: game.price || '',
     descripcion: game.description || '',
-    categoria: game.categories ? game.categories.join(", ") : '',
-    idioma: game.languages ? game.languages.join(", ") : '',
-    jugadores: game.players_modes ? game.players_modes.join(", ") : '',
-    sistemaOperativo: game.sos ? game.sos.join(", ") : '',
+    categoria: game.categories ? game.categories.map(cat => cat.name).join(", ") : '',
+    idioma: game.languages ? game.languages.map(lang => lang.name).join(", ") : '',
+    jugadores: game.players_modes ? game.players_modes.map(mode => mode.name).join(", ") : '',
+    sistemaOperativo: game.sos ? game.sos.map(so => so.name).join(", ") : '',
     minimos: {
       procesador: game.minCpu || '',
       memoria: game.minRam || '',
@@ -83,6 +83,7 @@ const ModificarJuego = () => {
       console.error('Error al actualizar el juego:', error);
     }
   };
+  console.log(game)
 
   return (
     <>
