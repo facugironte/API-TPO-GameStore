@@ -64,18 +64,12 @@
   border-radius: 30px;
 }
 
-.profile-form button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #6200ea;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
+.profile-form .btn-save {
+  padding: 0.6rem;
   font-size: 1rem;
   margin-top: 1rem;
 }
 
-.profile-form button:hover {
+.profile-form .btn-save:hover {
   background-color: #3700b3;
 }

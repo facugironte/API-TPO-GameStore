@@ -1,4 +1,3 @@
-// JuegosEmpresa.js
 import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header/Header";
 import GameList from "../../../components/GameList/GameList";
@@ -15,10 +14,10 @@ const JuegosEmpresa = () => {
 
   useEffect(() => {
     if (user.user && user.user.company_games) {
-      setJuegos(user.user.company_games); // Traer los juegos directamente del usuario
+      setJuegos(user.user.company_games);
       setLoading(false);
     }
-  }, [user]); // Se ejecuta cada vez que el usuario cambia
+  }, [user]);
 
   const removeGame = (gameId) => {
     setJuegos((prevJuegos) => prevJuegos.filter((juego) => juego.id !== gameId));
@@ -36,7 +35,7 @@ const JuegosEmpresa = () => {
           <div className="juegos-container">
             <div className="nuevo-juego">
               <a href="/new-game">
-                <Button text={"Nuevo Juego +"} btn_class={"btn-nuevo-juego"} />
+                <Button text={"NUEVO JUEGO +"} btn_class={"btn-nuevo-juego"} />
               </a>
             </div>
             <div className="juegos-lista">
@@ -45,7 +44,7 @@ const JuegosEmpresa = () => {
                   key={juego.id}
                   game={juego}
                   mode="edit"
-                  onRemove={removeGame} // Pasar el método removeGame a GameList
+                  onRemove={removeGame}
                 />
               ))}
             </div>

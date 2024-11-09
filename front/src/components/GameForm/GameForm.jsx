@@ -94,6 +94,14 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
             onChange={handleChange}
           />
 
+          <label htmlFor="img">Imagen</label>
+          <textarea
+            id="img"
+            name="img"
+            value={juego.img}
+            onChange={handleChange}
+          />
+
           <div className="input-group">
             {/* Categoría */}
             <div className="column">

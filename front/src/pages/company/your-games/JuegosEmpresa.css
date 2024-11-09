@@ -40,3 +40,9 @@
   flex-direction: column;
   gap: 1.5rem;
 }
+
+.btn-nuevo-juego{
+  width: 12rem;
+  height: 2rem;
+  font-size: large;
+}
