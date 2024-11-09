@@ -25,3 +25,11 @@ export async function getPlayerModes() {
   const data = await response.json();
   return data;
 }
+
+export async function getQuestions() {
+  const response = await fetch(
+    "http://localhost:3000/api/v1/combos/security-questions"
+  );
+  const data = await response.json();
+  return data;
+}

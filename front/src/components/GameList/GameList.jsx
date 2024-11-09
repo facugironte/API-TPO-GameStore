@@ -17,7 +17,7 @@ const GameList = ({game, mode}) => {
   const purchased_games = isLogged ? user.user.purchased_games : [];
 
   const handleDetail = (game) => {
-    navigate(`/store/game-details/${game.id}`, { state: { game: game } });
+    navigate(`/store/game-details/${game.id}`);
   };
 
   const deleteFromCart = (game) => {

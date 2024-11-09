@@ -121,6 +121,10 @@ const getGame = async (req, res) => {
           model: UserModel,
           as: "company_owner",
         },
+        {
+          model: CommentModel,
+          as: "comments",
+        },
       ],
     });
     if (game) {
@@ -313,7 +317,9 @@ const updateGame = async (req, res) => {
 
     // Si no se encuentra el juego, devolver un error
     if (!game) {
-      return res.status(StatusCodes.NOT_FOUND).json({ error: "Game not found" });
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ error: "Game not found" });
     }
 
     // Actualizar los datos principales del juego
@@ -328,7 +334,9 @@ const updateGame = async (req, res) => {
 
       // Crear nuevas relaciones de categorías
       const categoryPromises = data.categories.map(async (category) => {
-        const categoryRow = await CategoryModel.findOne({ where: { name: category } });
+        const categoryRow = await CategoryModel.findOne({
+          where: { name: category },
+        });
         if (!categoryRow) {
           throw new Error(`Category '${category}' not found`);
         }
@@ -349,7 +357,9 @@ const updateGame = async (req, res) => {
 
       // Crear nuevas relaciones de idiomas
       const languagePromises = data.languages.map(async (language) => {
-        const languageRow = await LanguageModel.findOne({ where: { name: language } });
+        const languageRow = await LanguageModel.findOne({
+          where: { name: language },
+        });
         if (!languageRow) {
           throw new Error(`Language '${language}' not found`);
         }
@@ -370,7 +380,9 @@ const updateGame = async (req, res) => {
 
       // Crear nuevas relaciones de modos de juego
       const pmodesPromises = data.players_modes.map(async (pmode) => {
-        const pmodeRow = await PlayersModeModel.findOne({ where: { name: pmode } });
+        const pmodeRow = await PlayersModeModel.findOne({
+          where: { name: pmode },
+        });
         if (!pmodeRow) {
           throw new Error(`Players Mode '${pmode}' not found`);
         }
@@ -424,7 +436,6 @@ const updateGame = async (req, res) => {
       .json({ error: error.message });
   }
 };
-
 
 const deleteGame = (req, res) => {
   const { id } = req.params;

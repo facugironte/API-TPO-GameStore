@@ -2,12 +2,12 @@ import React from "react";
 import Header from "../../../components/Header/Header";
 
 import "./wishlist.css";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../app/slices/login/userSlice";
+//import { useSelector } from "react-redux";
+//import { selectUser } from "../../../app/slices/login/userSlice";
 
 const Wishlist = () => {
 
-  const user = useSelector(selectUser)
+  //const user = useSelector(selectUser)
 
   return (
     <>

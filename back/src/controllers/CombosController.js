@@ -4,6 +4,7 @@ const {
   CategoryModel,
   SoModel,
   PlayersModeModel,
+  SecurityQuestionModel,
 } = require("../database/models/associations");
 
 const getLanguages = async (req, res) => {
@@ -54,11 +55,24 @@ const getModes = async (req, res) => {
     });
 };
 
+const getQuestions = async (req, res) => {
+  SecurityQuestionModel.findAll()
+    .then((questions) => {
+      res.status(StatusCodes.OK).json(questions);
+    })
+    .catch((error) => {
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message });
+    });
+};
+
 const combosController = {
   getLanguages,
   getCategories,
   getSos,
   getModes,
+  getQuestions,
 };
 
 module.exports = combosController;

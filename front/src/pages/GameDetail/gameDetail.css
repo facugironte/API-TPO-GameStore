@@ -8,7 +8,6 @@
   grid-column: 2;
   font-family: "JetBrains Mono", monospace;
   background-color: #1e1e1e;
-  height: 100vh;
   border-radius: 30px;
   margin-top: 2rem;
   padding: 1rem;
@@ -108,6 +107,11 @@
   font-size: 0.8rem;
 }
 
+.game-info > div h2 {
+  margin-bottom: 0.3rem;
+  display: inline-block;
+}
+
 .game-info > div p {
   font-weight: 100;
   font-size: 0.9rem;
@@ -117,4 +121,79 @@
 .requirements {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.game-comments .comment {
+  background-color: #464646;
+  box-sizing: border-box;
+  padding: 1rem;
+  border-radius: 30px;
+  margin-top: 1rem;
+}
+
+.game-comments .comment p {
+  font-style: italic;
+  color: #d9d9d9;
+}
+
+.game-info .game-comments .btn-comment {
+  display: inline-block;
+  background-color: #6200ea;
+  border-radius: 30px;
+  margin: 0;
+  padding: 0.3rem;
+
+  color: #fff;
+  cursor: pointer;
+}
+
+.game-info .game-comments .btn-comment p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.modal-form {
+  display: grid;
+  grid-template-rows: 1fr 1fr 0.5fr;
+  height: 100%;
+}
+
+.modal-form .top {
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr;
+  grid-gap: 0.5rem;
+}
+
+.modal-form .top .logo {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 30px;
+}
+
+.modal-form .top h3 {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 2rem;
+}
+
+.modal-form .top input[type="range"] {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.modal-form .top span {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.modal-form textarea {
+  border-radius: 30px;
+  border-style: solid;
+  border: 1px;
+  background-color: #464646;
+  color: #d9d9d9;
 }

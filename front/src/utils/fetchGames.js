@@ -107,3 +107,23 @@ export const getGamebyId = async (id) => {
   const data = await response.json();
   return data;
 };
+
+export const postComment = async (gameId, newComment) => {
+  const response = await fetch(
+    `http://localhost:3000/api/v1/games/${gameId}/comment`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...newComment,
+      }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Error al crear el comentario");
+  }
+  const data = await response.json();
+  return data;
+};

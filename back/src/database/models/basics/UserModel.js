@@ -49,6 +49,9 @@ UserModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    company_logo_url: {
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,
