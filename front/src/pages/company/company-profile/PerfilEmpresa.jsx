@@ -4,6 +4,7 @@ import Header from '../../../components/Header/Header';
 import { selectUser } from "../../../app/slices/login/userSlice";
 import './PerfilEmpresa.css';
 import { updateUser } from '../../../utils/fetchUsers';
+import Button from '../../../components/Button/Button';
 
 const PerfilEmpresa = () => {
   const user = useSelector(selectUser).user;
@@ -91,8 +92,7 @@ const PerfilEmpresa = () => {
               value={empresa.contraseña}
               onChange={handleChange}
             />
-
-            <button type="submit">Guardar cambios</button>
+            <Button type="submit" btn_class="btn-save" text="Guardar cambios" />
           </form>
         </main>
       </div>

@@ -5,6 +5,8 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
   const [juego, setJuego] = useState(initialData);
   const [showCategoryOptions, setShowCategoryOptions] = useState(false);
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
+  const [showPlayerOptions, setShowPlayerOptions] = useState(false);
+  const [showSystemOptions, setShowSystemOptions] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,14 +23,14 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
       [tipo]: {
         ...prevState[tipo],
         [name]: value,
-      }
+      },
     }));
   };
 
   const handleCheckboxChange = (e, type) => {
     const { name, checked } = e.target;
     setJuego((prevState) => {
-      const currentValues = prevState[type] ? [...prevState[type]] : [];
+      const currentValues = prevState[type] ? [...prevState[type].split(", ")] : [];
       if (checked) {
         currentValues.push(name);
       } else {
@@ -39,6 +41,13 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
       }
       return { ...prevState, [type]: currentValues.join(", ") };
     });
+  };
+
+  const getButtonText = (selectedItems, defaultText) => {
+    if (!selectedItems || selectedItems.length === 0) {
+      return defaultText;
+    }
+    return selectedItems.join(", ");
   };
 
   const handleSubmit = (e) => {
@@ -75,10 +84,6 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
                 />
               </div>
             </div>
-
-            <div className="icon-container">
-              <img className='icon' src="https://cdn-icons-png.flaticon.com/512/747/747376.png" alt="Icono" />
-            </div>
           </div>
 
           <label htmlFor="descripcion">Descripción</label>
@@ -89,11 +94,11 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
             onChange={handleChange}
           />
 
-<label htmlFor="descripcion">Descripción</label>
+          <label htmlFor="img">Imagen</label>
           <textarea
-            id="descripcion"
-            name="descripcion"
-            value={juego.descripcion}
+            id="img"
+            name="img"
+            value={juego.img}
             onChange={handleChange}
           />
 
@@ -104,13 +109,17 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
               <div className="dropdown">
                 <button
                   type="button"
+                  className="dropdown-button"
                   onClick={() => setShowCategoryOptions(!showCategoryOptions)}
                 >
-                  Seleccione una categoría
+                  {getButtonText(
+                    juego.categoria ? juego.categoria.split(", ") : [],
+                    "Seleccione una categoría"
+                  )}
                 </button>
                 {showCategoryOptions && (
                   <div className="dropdown-options">
-                    {['Acción', 'Aventura', 'Deportes', 'Estrategia', 'Simulación', 'RPG'].map((category) => (
+                    {['Acción', 'Aventura', 'Terror', 'Infantil', 'Ciencia Ficción', 'Deportes', 'Simulación'].map((category) => (
                       <label key={category}>
                         <input
                           type="checkbox"
@@ -132,13 +141,17 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
               <div className="dropdown">
                 <button
                   type="button"
+                  className="dropdown-button"
                   onClick={() => setShowLanguageOptions(!showLanguageOptions)}
                 >
-                  Seleccione un idioma
+                  {getButtonText(
+                    juego.idioma ? juego.idioma.split(", ") : [],
+                    "Seleccione un idioma"
+                  )}
                 </button>
                 {showLanguageOptions && (
                   <div className="dropdown-options">
-                    {['Español', 'Inglés', 'Francés', 'Alemán', 'Japonés'].map((language) => (
+                    {['Inglés', 'Español' , 'Francés'].map((language) => (
                       <label key={language}>
                         <input
                           type="checkbox"
@@ -147,6 +160,72 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
                           onChange={(e) => handleCheckboxChange(e, 'idioma')}
                         />
                         {language}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="input-group">
+            {/* Cantidad de jugadores */}
+            <div className="column">
+              <label htmlFor="jugadores">Cantidad de jugadores</label>
+              <div className="dropdown">
+                <button
+                  type="button"
+                  className="dropdown-button"
+                  onClick={() => setShowPlayerOptions(!showPlayerOptions)}
+                >
+                  {getButtonText(
+                    juego.jugadores ? juego.jugadores.split(", ") : [],
+                    "Seleccione cantidad de jugadores"
+                  )}
+                </button>
+                {showPlayerOptions && (
+                  <div className="dropdown-options">
+                    {['Un jugador', 'Dos jugadores', 'Online'].map((mode) => (
+                      <label key={mode}>
+                        <input
+                          type="checkbox"
+                          name={mode}
+                          checked={juego.jugadores.includes(mode)}
+                          onChange={(e) => handleCheckboxChange(e, 'jugadores')}
+                        />
+                        {mode}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Sistema operativo */}
+            <div className="column">
+              <label htmlFor="sistemaOperativo">Sistema operativo</label>
+              <div className="dropdown">
+                <button
+                  type="button"
+                  className="dropdown-button"
+                  onClick={() => setShowSystemOptions(!showSystemOptions)}
+                >
+                  {getButtonText(
+                    juego.sistemaOperativo ? juego.sistemaOperativo.split(", ") : [],
+                    "Seleccione un sistema operativo"
+                  )}
+                </button>
+                {showSystemOptions && (
+                  <div className="dropdown-options">
+                    {['macOS', 'Windows', 'Linux'].map((os) => (
+                      <label key={os}>
+                        <input
+                          type="checkbox"
+                          name={os}
+                          checked={juego.sistemaOperativo.includes(os)}
+                          onChange={(e) => handleCheckboxChange(e, 'sistemaOperativo')}
+                        />
+                        {os}
                       </label>
                     ))}
                   </div>
