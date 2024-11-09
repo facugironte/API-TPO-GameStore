@@ -4,7 +4,7 @@ import {RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Home, {loader as homeLoader} from "./pages/Home/Home";
 import Store, {loader as storeLoader} from "./pages/user/Store/Store";
-import GameDetail from "./pages/GameDetail/GameDetail";
+import GameDetail, {loader as gameDetailLoader} from "./pages/GameDetail/GameDetail";
 import Library from "./pages/user/Library/Library";
 import Cart from "./pages/user/Cart/Cart";
 import Purchase from "./pages/user/Purchase/Purchase";
@@ -18,6 +18,8 @@ import JuegosEmpresa from "./pages/company/your-games/JuegosEmpresa";
 import EstadisticasEmpresa from "./pages/company/stats/EstadisticasEmpresa";
 import Modificadores from "./pages/company/modify/Modificadores";
 import EditGame from "./pages/company/EditGame/EditGame";
+import Register, {loader as registerLoader} from "./pages/Register/Register";
+import ForgotPassword, {loader as forgotLoader} from "./pages/ForgotPassword/ForgotPassword";
 
 import "./styles.css";
 
@@ -27,6 +29,16 @@ const App = () => {
     {
       path: "/login",
       element: <Login />
+    },
+    {
+      path: "/register",
+      element: <Register />,
+      loader: registerLoader
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />,
+      loader: forgotLoader,
     },
     {
       path: "/",
@@ -56,7 +68,8 @@ const App = () => {
     },
     {
       path: "/store/game-details/:id",
-      element: <GameDetail />
+      element: <GameDetail />,
+      loader: gameDetailLoader
     },
     {
       path: "/shop/cart",

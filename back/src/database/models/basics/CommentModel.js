@@ -4,8 +4,8 @@ const sequelize = require("../../db");
 class CommentModel extends Model {}
 CommentModel.init(
   {
-    id_user: {
-      type: DataTypes.INTEGER,
+    email_user: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     comment: {

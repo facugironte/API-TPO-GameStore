@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../../../components/Header/Header';
 import { selectUser } from "../../../app/slices/login/userSlice";
@@ -24,7 +24,7 @@ const PerfilEmpresa = () => {
     }));
   };
 
-  const [mensaje, setMensaje] = useState("");
+  //const [mensaje, setMensaje] = useState("");
 
   
   const handleSubmit = async (e) => {
@@ -38,9 +38,9 @@ const PerfilEmpresa = () => {
       });
 
       if (!response.ok) throw new Error('Error al guardar cambios');
-      setMensaje('Perfil actualizado exitosamente');
+      //setMensaje('Perfil actualizado exitosamente');
     } catch (error) {
-      setMensaje(`Error al actualizar perfil: ${error.message}`);
+      //setMensaje(`Error al actualizar perfil: ${error.message}`);
     }
   };
 

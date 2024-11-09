@@ -36,14 +36,13 @@ const getUserProfile = (req, res) => {
         model: GameModel,
         as: "company_games",
       },
-      {
+      /*{
         model: CommentModel,
         as: "comments",
-      },
+      },*/
     ],
   })
     .then((user) => {
-      console.log(user);
       if (!user) {
         res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
       } else {

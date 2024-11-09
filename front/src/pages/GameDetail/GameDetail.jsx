@@ -1,16 +1,38 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import Header from "../../components/Header/Header";
+import React, { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+
+import {addItem, selectCartUser } from "../../app/slices/cart/cartSlice"
+import { useDispatch, useSelector } from "react-redux";
+
 import Button from "../../components/Button/Button"
-import {addItem } from "../../app/slices/cart/cartSlice"
-import { useDispatch } from "react-redux";
+import Header from "../../components/Header/Header";
+import Modal from "../../components/Modal/Modal";
+
+import { getGamebyId, postComment } from "../../utils/fetchGames";
 import "./gameDetail.css";
 
-const GameDetail = () => {
-  const location = useLocation();
-  const { game } = location.state;
-  const dispatch = useDispatch()
+export const loader = async ({ params }) => {
+  const { id } = params;
+  return await getGamebyId(id);
+};
 
+const GameDetail = () => {
+  const game = useLoaderData();
+  
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
+  const dispatch = useDispatch()
+  const user = useSelector(selectCartUser)
+
+
+  const [rating, setRating] = useState(0);
+
+  const handleChange = (event) => {
+    setRating(event.target.value);
+  };
 
   const handleAddToCart = () => {
     dispatch(
@@ -19,6 +41,20 @@ const GameDetail = () => {
       quantity: 1
     }))
   }
+
+  const sendComment = () => {
+
+    if (document.getElementById("comment").value !== "") {
+      const comment = {
+        email_user: user.email,
+        rating: parseFloat(rating),
+        comment: document.getElementById("comment").value
+      };
+      
+      postComment(game.id, comment).then(() => {
+        closeModal()
+      })
+  }}
 
 
   return (
@@ -45,7 +81,7 @@ const GameDetail = () => {
               </div>
             </div>
             <div className="rating">
-              <p>★★★★★</p>
+              <p>Puntuación: {game.rating}</p>
               <div className="categories">
                 {
                   game.categories.map((category, index) => (
@@ -81,7 +117,43 @@ const GameDetail = () => {
                   <p>Sonido: {game.optSound}</p>
               </div>
             </div>
+            <div className="game-comments">
+                <h2>Reseñas</h2> <Button text = "Opinar sobre este juego" btn_class={"btn-comment"} onClick={openModal} />
+                {
+                  game.comments.map((comment, index) => {
+                    return (
+                    <div key={index} className="comment">
+                      <h3><strong>{comment.email_user}</strong> puntuó: {comment.rating}</h3>
+                      <p>{comment.comment}</p>
+                    </div>
+                  )})
+                }
+            </div>
           </div>
+          <Modal isOpen={isOpen} onClose={closeModal}>
+            <form onSubmit={(e) => e.preventDefault()} className="modal-form">
+              <div className="top">
+                <img src={game.logo_url} alt="" className="logo" />
+                <h3>{game.name}</h3>
+
+                <input
+                  type="range"
+                  name="rating"
+                  min="0"
+                  max="5"
+                  step="0.5"
+                  value={rating}
+                  onChange={handleChange}
+                  required
+                />
+
+                <span>Puntuación: {rating}</span>  
+
+              </div>
+              <textarea name="comment" id="comment" placeholder="Escribe tu comentario" required />
+              <Button text="Puntuar" btn_class={"btn-send-comment"} onClick={sendComment} />
+            </form>
+          </Modal>
         </main>
       </div>
     </div>

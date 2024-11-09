@@ -71,10 +71,21 @@ const NavMenu = () => {
   return (
     <div className="nav-menu">
       <p className="title">
-        Bienvenido, {user ? user.user.user_fullname : "invitado"}!
+        {
+          account_type === "EMPRESA" &&
+          <div className="logo" >
+            <img src={user.user.company_logo_url} alt="logo" />
+          </div>
+        }
+        {
+          account_type !== "EMPRESA" &&
+          <>
+            Bienvenido, {user ? user.user.user_fullname : "invitado"}!
+          </>
+        }
+        
       </p>
       <div className="btns">
-        {/* El carrito solo aparece si es un USUARIO (CLIENTE) */}
         {account_type === "USUARIO" && (
           <button className="btn" onClick={goToShop}>
             <FontAwesomeIcon icon={faShoppingCart} />
@@ -82,7 +93,6 @@ const NavMenu = () => {
           </button>
         )}
 
-        {/* Botón de usuario que abre el menú */}
         <button className="btn" onClick={toggleMenu}>
           <FontAwesomeIcon icon={faUser} />
         </button>

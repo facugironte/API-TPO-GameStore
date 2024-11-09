@@ -5,7 +5,6 @@ import Header from "../../components/Header/Header";
 import {
   failure,
   login,
-  selectIsLoggedIn,
   selectInvalidCredentials,
   selectServerFailed,
 } from "../../app/slices/login/userSlice";
@@ -14,7 +13,7 @@ import { loginAuth } from "../../utils/fetchAuth";
 
 import "./login.css";
 
-const Home = () => {
+const Login = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
   const invalidCredentials = useSelector(selectInvalidCredentials);
   const serverFailed = useSelector(selectServerFailed);
@@ -79,12 +78,12 @@ const Home = () => {
             <p className="error-message">Error en el servidor</p>
           )}
 
-          <a href="/registro">Creá tu cuenta</a>
-          <a href="/forgotPassword">¿Olvidaste tu contraseña?</a>
+          <a href="/register">Creá tu cuenta</a>
+          <a href="/forgot-password">¿Olvidaste tu contraseña?</a>
         </form>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Login;

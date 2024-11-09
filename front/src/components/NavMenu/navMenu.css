@@ -94,3 +94,7 @@
   background-color: #4c00b6;
   cursor: pointer;
 }
+
+.header .logo img {
+  width: 100px;
+}

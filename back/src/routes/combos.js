@@ -7,5 +7,6 @@ router.get("/languages", combosController.getLanguages);
 router.get("/categories", combosController.getCategories);
 router.get("/sos", combosController.getSos);
 router.get("/player-modes", combosController.getModes);
+router.get("/security-questions", combosController.getQuestions);
 
 module.exports = router;
