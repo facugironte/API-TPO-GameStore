@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../../components/Header/Header';
-import { selectUser } from "../../../app/slices/login/userSlice";
+import { selectUser, updateProfile } from "../../../app/slices/login/userSlice";
 import './PerfilEmpresa.css';
 import { updateUser } from '../../../utils/fetchUsers';
 import Button from '../../../components/Button/Button';
 
 const PerfilEmpresa = () => {
+
+  const dispatch = useDispatch();
+
   const user = useSelector(selectUser).user;
-  console.log(user)
+
   const [empresa, setEmpresa] = useState({
     nombre: user.company_name,
     cuit: user.CUIT,
@@ -24,24 +27,21 @@ const PerfilEmpresa = () => {
       [name]: value,
     }));
   };
-
-  //const [mensaje, setMensaje] = useState("");
-
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await updateUser(user.email, {
+      const data = await updateUser(user.email, {
         company_name: empresa.nombre,
         CUIT: empresa.cuit,
         email: empresa.email,
         password: empresa.contraseña,
       });
 
-      if (!response.ok) throw new Error('Error al guardar cambios');
-      //setMensaje('Perfil actualizado exitosamente');
+      dispatch(updateProfile(data))
+
     } catch (error) {
-      //setMensaje(`Error al actualizar perfil: ${error.message}`);
+      console.error(error);
     }
   };
 

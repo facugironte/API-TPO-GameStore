@@ -17,6 +17,7 @@ const {
 
 const getGame = async (req, res) => {
   const { id } = req.params;
+  const { count_stat } = req.query;
 
   const {
     order,
@@ -127,6 +128,12 @@ const getGame = async (req, res) => {
         },
       ],
     });
+    if (count_stat) {
+      game.update({
+        visualizations: game.visualizations + 1,
+        salesOverViews: game.sales / (game.visualizations + 1),
+      });
+    }
     if (game) {
       res.status(StatusCodes.OK).json(game);
     } else {
@@ -463,7 +470,14 @@ const postComment = async (req, res) => {
   const { id } = req.params;
   let data = req.body;
 
-  const game = await GameModel.findByPk(id);
+  const game = await GameModel.findByPk(id, {
+    include: [
+      {
+        model: CommentModel,
+        as: "comments",
+      },
+    ],
+  });
 
   data = {
     ...data,
@@ -475,6 +489,12 @@ const postComment = async (req, res) => {
       res.status(StatusCodes.NOT_FOUND).json({ error: "Game not found" });
     } else {
       CommentModel.create(data).then((comment) => {
+        const avgRating =
+          (game.comments.reduce((acc, curr) => acc + curr.rating, 0) +
+            data.rating) /
+          (game.comments.length + 1);
+
+        game.update({ rating: avgRating });
         res.status(StatusCodes.OK).json(comment);
       });
     }

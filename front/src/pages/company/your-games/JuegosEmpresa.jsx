@@ -17,6 +17,7 @@ const JuegosEmpresa = () => {
       setJuegos(user.user.company_games);
       setLoading(false);
     }
+    
   }, [user]);
 
   const removeGame = (gameId) => {

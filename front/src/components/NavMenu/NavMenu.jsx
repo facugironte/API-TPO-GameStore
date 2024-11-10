@@ -70,7 +70,7 @@ const NavMenu = () => {
 
   return (
     <div className="nav-menu">
-      <p className="title">
+      <div className="title">
         {
           account_type === "EMPRESA" &&
           <div className="logo" >
@@ -84,7 +84,7 @@ const NavMenu = () => {
           </>
         }
         
-      </p>
+      </div>
       <div className="btns">
         {account_type === "USUARIO" && (
           <button className="btn" onClick={goToShop}>

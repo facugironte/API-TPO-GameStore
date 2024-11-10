@@ -97,13 +97,18 @@ export const postGame = async (newGame) => {
   return data;
 };
 
-export const getGamebyId = async (id) => {
-  const response = await fetch(`http://localhost:3000/api/v1/games/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const getGamebyId = async (id, count_stat = false) => {
+  const response = await fetch(
+    `http://localhost:3000/api/v1/games/${id}${
+      count_stat ? "?count_stat=true" : ""
+    }`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   const data = await response.json();
   return data;
 };

@@ -46,7 +46,10 @@ const buyGame = async (req, res) => {
         payment_method_id: payment_method_id,
       });
 
-      game.update({ sales: game.sales + 1 });
+      game.update({
+        sales: game.sales + 1,
+        salesOverViews: (game.sales + 1) / game.visualizations,
+      });
 
       res.status(StatusCodes.OK).json({ message: "Game bought successfully" });
     }

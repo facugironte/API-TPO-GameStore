@@ -4,9 +4,9 @@ import './Modificadores.css';
 import Header from '../../../components/Header/Header';
 import { getGamebyId, updateGame, deleteGame } from '../../../utils/fetchGames';
 import { useDispatch } from 'react-redux';
-import { deleteCompanyGame } from '../../../app/slices/login/userSlice';
+import { deleteCompanyGame, updateCompanyGame } from '../../../app/slices/login/userSlice';
 
-const Modificadores = ({ removeGameFromList }) => {
+const Modificadores = () => {
     const { id } = useParams();
     const [showPublishModal, setShowPublishModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -17,7 +17,9 @@ const Modificadores = ({ removeGameFromList }) => {
     const handlePublishClick = async () => {
         try {
             const newState = game.state === 'PUBLICADO' ? 'DESPUBLICADO' : 'PUBLICADO';
-            await updateGame(id, { ...game, state: newState });
+            await updateGame(id, { ...game, state: newState }).then((data) => {
+                dispatch(updateCompanyGame(data))
+            });
             setGame((prevGame) => ({ ...prevGame, state: newState }));
             setShowPublishModal(false);
         } catch (error) {
@@ -62,7 +64,6 @@ const Modificadores = ({ removeGameFromList }) => {
         loadGame();
     }, [id]);
 
-    console.log(game);
 
     if (!game) return <p>Cargando datos del juego...</p>;
 

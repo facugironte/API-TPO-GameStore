@@ -13,7 +13,7 @@ import "./gameDetail.css";
 
 export const loader = async ({ params }) => {
   const { id } = params;
-  return await getGamebyId(id);
+  return await getGamebyId(id, true);
 };
 
 const GameDetail = () => {
