@@ -94,11 +94,27 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
             onChange={handleChange}
           />
 
-          <label htmlFor="img">Imagen</label>
+          <label htmlFor="img">URL del logo</label>
           <textarea
             id="img"
             name="img"
             value={juego.img}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="img">URL de la portada</label>
+          <textarea
+            id="port"
+            name="port"
+            value={juego.port}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="video">URL del Trailer</label>
+          <textarea
+            id="video"
+            name="video"
+            value={juego.video}
             onChange={handleChange}
           />
 
