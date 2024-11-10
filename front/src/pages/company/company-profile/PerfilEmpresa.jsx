@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../../components/Header/Header';
-import { selectUser } from "../../../app/slices/login/userSlice";
+import { selectUser, updateProfile } from "../../../app/slices/login/userSlice";
 import './PerfilEmpresa.css';
 import { updateUser } from '../../../utils/fetchUsers';
 import ProfileForm from '../../../components/Profile-Form/Profile-form';
 
 const PerfilEmpresa = () => {
+
+  const dispatch = useDispatch();
+
   const user = useSelector(selectUser).user;
+  
   const [empresa, setEmpresa] = useState({
     nombre: user.company_name,
     cuit: user.CUIT,
@@ -27,19 +31,20 @@ const PerfilEmpresa = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await updateUser(user.email, {
+      const data = await updateUser(user.email, {
         company_name: empresa.nombre,
         CUIT: empresa.cuit,
-        company_logo_url: empresa.logo,
         email: empresa.email,
         password: empresa.contraseña,
       });
 
-      if (!response.ok) throw new Error('Error al guardar cambios');
+      dispatch(updateProfile(data))
+
     } catch (error) {
-      
+      console.error(error);
     }
   };
+
 
   const fields = [
     { name: "nombre", label: "Nombre de la empresa" },

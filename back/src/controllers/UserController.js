@@ -36,10 +36,6 @@ const getUserProfile = (req, res) => {
         model: GameModel,
         as: "company_games",
       },
-      /*{
-        model: CommentModel,
-        as: "comments",
-      },*/
     ],
   })
     .then((user) => {
@@ -62,7 +58,31 @@ const updateUserProfile = (req, res) => {
   const { email } = req.params;
   const data = req.body;
 
-  UserModel.findOne({ where: { email } }) // Primero, busca el usuario por ID
+  UserModel.findOne({
+    where: { email },
+    include: [
+      {
+        model: PaymentMethodModel,
+        as: "payment_methods", // Asegúrate de que el alias coincida con lo que definiste en el modelo
+      },
+      {
+        model: GameModel,
+        as: "wishlists",
+      },
+      {
+        model: GameModel,
+        as: "purchased_games",
+      },
+      {
+        model: SecurityQuestionModel,
+        as: "security_questions",
+      },
+      {
+        model: GameModel,
+        as: "company_games",
+      },
+    ],
+  }) // Primero, busca el usuario por ID
     .then((user) => {
       // Si el usuario existe, actualiza sus datos
       if (!user) {

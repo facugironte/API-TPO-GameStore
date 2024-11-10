@@ -3,11 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../../../components/Header/Header';
 import GameForm from '../../../components/GameForm/GameForm';
 import { getGamebyId, updateGame  } from '../../../utils/fetchGames';
+import { useDispatch } from 'react-redux';
+import { updateCompanyGame } from '../../../app/slices/login/userSlice';
 
 const ModificarJuego = () => {
   const { id } = useParams();
   const [game, setGame] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const loadGame = async () => {
@@ -78,7 +81,9 @@ const ModificarJuego = () => {
         optGpu: juego.recomendados.graficos,
         optStorage: juego.recomendados.almacenamiento,
         optSound: juego.recomendados.sonido,
-      });
+      }).then((data) => {
+        dispatch(updateCompanyGame(data))
+      })
 
       navigate('/company-your-games');
     } catch (error) {
