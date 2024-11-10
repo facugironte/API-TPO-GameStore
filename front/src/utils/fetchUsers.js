@@ -46,10 +46,7 @@ export const updateUser = async (email, newUser) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        company_name: newUser.company_name,
-        CUIT: newUser.CUIT,
-        email: newUser.email,
-        password: newUser.password,
+        ...newUser,
       }),
     }
   );

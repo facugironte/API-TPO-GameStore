@@ -1,11 +1,65 @@
 .forum {
-  display: grid;
-  grid-template-columns: 1fr 2.5fr 1fr;
-  padding-top: 7rem;
+  padding: 2rem;
+  background-color: #121212;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "JetBrains Mono", sans-serif;
 }
 
 .forum .main {
-  grid-column: 2;
+  width: 95%;
+  max-width: 800px;
+  margin-top: 7rem;
+  background-color: #1c1c1c;
+  border-radius: 30px;
+  padding: 2.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forum .forum-list {
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.forum .forum-list:hover {
+  transform: scale(1.02);
+}
+
+.forum .forum-user {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
   font-family: "JetBrains Mono", monospace;
-  margin-top: 2rem;
+}
+
+.forum .forum-user em {
+  font-style: italic;
+}
+
+.forum .forum-rating {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.forum .forum-review {
+  font-size: 0.85rem;
+  color: #bbbbbb;
+  line-height: 1.5;
+  margin-top: 0.5rem;
 }

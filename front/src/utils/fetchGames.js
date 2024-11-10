@@ -127,3 +127,24 @@ export const postComment = async (gameId, newComment) => {
   const data = await response.json();
   return data;
 };
+
+export const deleteGameFromWishlist = async (email, gameId) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/v1/users/profile/${email}/game/${gameId}/wishlist`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al eliminar el juego de la wishlist");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
