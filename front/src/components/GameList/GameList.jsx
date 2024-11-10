@@ -7,7 +7,7 @@ import { removeItem } from "../../app/slices/cart/cartSlice";
 import { selectIsLoggedIn, selectUser } from "../../app/slices/login/userSlice";
 import "./gameList.css";
 
-const GameList = ({game, mode}) => {
+const GameList = ({game, mode, onRemove}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,12 +28,24 @@ const GameList = ({game, mode}) => {
     navigate(`/company-modify-game/${game.id}`);
   };
 
+  const handleRemove = () => {
+    if (onRemove) {
+      onRemove(game.id); // Llamando a la función pasada como prop
+    }
+  };
+
   return (
     <div className="game-list">
       <img src={game.logo_url} alt={game.name} className="game-image" />
       <div className="game-info">
         <h2>{game.name}</h2>
-        <p className="game-state"><strong>Estado:</strong> {game.state}</p>
+
+        {/* Mostrar estado solo si el modo no es "wishlist" */}
+        {mode !== "wishlist" && (
+          <p className="game-state">
+            <strong>Estado:</strong> {game.state}
+          </p>
+        )}
 
         {/* Modo de estadísticas */}
         {mode === "stats" && (
@@ -115,6 +127,17 @@ const GameList = ({game, mode}) => {
           <div className="cart-options">
             <p>${game.price}</p>
             <Button icon={faTrash} btn_class={"btn-cart-trash"} onClick={() => deleteFromCart(game)} />
+          </div>
+        )}
+
+        {mode === "wishlist" && (
+          <div className="wishlist-options">
+            <p className="wishlist-description">{game.description}</p>
+            <div className="wishlist-price-buttons">
+              <Button text={"Eliminar"} btn_class={"btn-wishlist"} onClick={handleRemove} />
+              <p className="wishlist-price">${game.price}</p>
+              <Button text={"Ver info"} btn_class={"btn-wishlist"} onClick={() => handleDetail(game)} />
+            </div>
           </div>
         )}
       </div>
