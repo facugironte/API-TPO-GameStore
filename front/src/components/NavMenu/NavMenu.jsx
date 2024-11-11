@@ -72,12 +72,6 @@ const NavMenu = () => {
     <div className="nav-menu">
       <div className="title">
         {
-          account_type === "EMPRESA" &&
-          <div className="logo" >
-            <img src={user.user.company_logo_url} alt="logo" />
-          </div>
-        }
-        {
           account_type !== "EMPRESA" &&
           <>
             Bienvenido, {user ? user.user.user_fullname : "invitado"}!

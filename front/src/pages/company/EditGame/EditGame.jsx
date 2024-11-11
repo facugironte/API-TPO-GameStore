@@ -73,12 +73,7 @@ const ModificarJuego = () => {
 
   const handleModifyGame = async (juego) => {
     try {
-      const jugadoresMapping = {
-        "1": "Un jugador",
-        "2": "Dos jugadores",
-        "3": "Online",
-      };
-      const jugadoresNombres = juego.jugadores.split(", ").map(jugador => jugadoresMapping[jugador] || jugador);
+
 
       await updateGame(id, {
         name: juego.nombre,
@@ -89,7 +84,7 @@ const ModificarJuego = () => {
         video_url: juego.video,
         categories: juego.categoria.split(", "),
         languages: juego.idioma.split(", "),
-        players_modes: jugadoresNombres,
+        players_modes: juego.jugadores.split(", "),
         sos: juego.sistemaOperativo.split(", "),
         minCpu: juego.minimos.procesador,
         minRam: juego.minimos.memoria,
@@ -110,7 +105,6 @@ const ModificarJuego = () => {
       console.error('Error al actualizar el juego:', error);
     }
   };
-  console.log(game)
 
   return (
     <>

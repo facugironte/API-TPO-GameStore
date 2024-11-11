@@ -102,7 +102,7 @@
 }
 
 .modificadores .details {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .modificadores .details p {
@@ -110,7 +110,6 @@
 }
 
 .modificadores .requirements {
-  margin-top: 2rem;
   display: block;
 }
 
@@ -118,7 +117,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  margin-top: 1rem;
 }
 
 .modificadores .requirements h3 {
@@ -200,4 +198,15 @@
 .modificadores .save-btn:hover,
 .modificadores .delete-btn:hover {
   background-color: #3700b3;
+}
+
+.alert-popup {
+  font-family: "JetBrains Mono", monospace;
+  border-radius: 30px;
+  background-color: #1e1e1e;
+  color: #d9d9d9;
+}
+
+.alert-popup button {
+  border-radius: 30px;
 }

@@ -90,7 +90,9 @@ export const postGame = async (newGame) => {
   });
 
   if (!response.ok) {
-    throw new Error("Error al crear el juego");
+    throw new Error(
+      "Error al crear el juego, revise si completo todos los campos"
+    );
   }
 
   const data = await response.json();

@@ -1,10 +1,11 @@
 import React from 'react';
 import Header from '../../../components/Header/Header';
 import GameForm from '../../../components/GameForm/GameForm';
+import Swal from "sweetalert2";
 import { postGame } from '../../../utils/fetchGames';
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../app/slices/login/userSlice";
-import { useLoaderData } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, addCompanyGame } from "../../../app/slices/login/userSlice";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { getCategories, getLanguages, getPlayerModes, getSos } from "../../../utils/fetchCombos";
 
 export async function loader() {
@@ -22,6 +23,8 @@ export async function loader() {
 
 const NewGame = () => {
   const user = useSelector(selectUser).user;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   const initialData = {
     nombre: '',
@@ -61,10 +64,10 @@ const NewGame = () => {
       logo_url: gameData.img,
       cover_url: gameData.port,
       video_url: gameData.video,
-      categories: [gameData.categoria],
-      languages: [gameData.idioma],
-      players_modes: [gameData.jugadores],
-      sos: [gameData.sistemaOperativo],
+      categories: gameData.categoria.split(", "),
+      languages: gameData.idioma.split(", "),
+      players_modes: gameData.jugadores.split(", "),
+      sos: gameData.sistemaOperativo.split(", "),
       minCpu: gameData.minimos.procesador,
       minGpu: gameData.minimos.graficos,
       minRam: gameData.minimos.memoria,
@@ -78,10 +81,29 @@ const NewGame = () => {
     };
 
     try {
-      const response = await postGame(newGame);
-      console.log("Juego añadido con éxito:", response);
+      postGame(newGame).then((data)=>{
+
+        Swal.fire({
+          title: "¡Juego añadido!",
+          confirmButtonColor: "#6200ea",
+          icon: "success",
+          customClass: {
+            popup: "alert-popup"
+          }
+        })
+        dispatch(addCompanyGame(data))
+        navigate("/company-your-games")
+      })
     } catch (error) {
-      console.error("Error al añadir el juego:", error);
+      Swal.fire({
+        icon: "error",
+        title: "No se ha podido añadir el juego",
+        text: error.message,
+        confirmButtonColor: "#6200ea",
+        customClass: {
+          popup: "alert-popup"
+        }
+      })
     }
   };
 

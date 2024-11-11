@@ -63,8 +63,10 @@
 
 .game-list .modify-btn {
   padding: 0.5rem;
-  font-weight: 400;
-  height: 4rem;
+  font-weight: 900;
+}
+.game-list .modify-btn p {
+  font-weight: 900;
 }
 
 .game-list .icon {

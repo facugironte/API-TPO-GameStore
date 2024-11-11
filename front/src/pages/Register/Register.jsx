@@ -8,7 +8,6 @@ import { getQuestions } from "../../utils/fetchCombos";
 
 export async function loader(){
   const secQuestions = await getQuestions();
-  console.log(secQuestions);
   return {secQuestions}
 }
 
@@ -23,10 +22,10 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await registerAuth(userData);
-      alert(response.message)
-      navigate("/login");
-      console.log(response)
+      registerAuth(userData).then(()=>{
+
+        navigate("/login");
+      })
 
     } catch (error) {
       alert(error.message)
@@ -38,7 +37,7 @@ const Register = () => {
       <Header currentPage={"login"} />
 
       <div className="main-register">
-        <h2>Registro</h2>
+        <h1>Registro</h1>
         <form onSubmit={handleRegister}>
           <label htmlFor="email">Email</label>
           <input

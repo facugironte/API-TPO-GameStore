@@ -102,7 +102,7 @@ const App = () => {
       element: <GameStats/>
     },
     {
-      path: "/company-modify-game/:id",
+      path: "/company-game-state/:id",
       element: <GameState/>
     },
     {

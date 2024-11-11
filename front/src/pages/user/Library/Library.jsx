@@ -17,6 +17,7 @@ const Library = () => {
       <div className="library">
         <main className="main">
           <ul>
+            <h1>Tu biblioteca</h1>
             {games.map((game, index) => (
               <GameList key={index} game={game} mode="library" />
             ))}

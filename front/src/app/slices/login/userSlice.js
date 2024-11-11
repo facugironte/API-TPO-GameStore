@@ -75,8 +75,11 @@ export const userSlice = createSlice({
       state.user.user.payment_methods.push(action.payload);
       saveUserToLocalStorage(state);
     },
+    addCompanyGame: (state, action) => {
+      state.user.user.company_games.push(action.payload);
+      saveUserToLocalStorage(state);
+    },
     updateCompanyGame: (state, action) => {
-      console.log(action.payload);
       state.user.user.company_games = state.user.user.company_games.map(
         (game) =>
           game.id === parseInt(action.payload.id) ? action.payload : game
@@ -109,6 +112,7 @@ export const {
   failure,
   addGameToPurchases,
   addPaymentMethod,
+  addCompanyGame,
   updateCompanyGame,
   deleteCompanyGame,
   updateProfile,

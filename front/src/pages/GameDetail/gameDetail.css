@@ -45,7 +45,7 @@
   border-radius: 30px;
 }
 
-.game-header .price {
+.game-header .price-detail {
   background-color: #333333;
   border-radius: 30px;
   grid-column: 3;

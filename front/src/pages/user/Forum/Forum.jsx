@@ -37,14 +37,15 @@ const Forum = () => {
       <Header currentPage={"community"} />
       <div className="forum">
         <main className="main">
+          <h1>Comentarios de los usuarios</h1>
           {reviews.map((review) => (
             <div key={review.id} className="forum-list">
               <p className="forum-user">
                 <strong>{review.user}</strong> sobre <em>{review.game}</em>
               </p>
               <div className="forum-rating">
-                {"★".repeat(review.rating)}
-                {"☆".repeat(5 - review.rating)}
+                {"★".repeat(Math.round(review.rating))}
+                {"☆".repeat(5 - Math.round(review.rating))}
               </div>
               <p className="forum-review">{review.review}</p>
             </div>

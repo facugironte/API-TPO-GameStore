@@ -11,7 +11,6 @@ const GameStats = () => {
 
   const games = user.company_games;
 
-  console.log(games)
 
   return (
     <>

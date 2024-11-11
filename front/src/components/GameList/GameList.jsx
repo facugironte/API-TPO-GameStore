@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import { removeItem } from "../../app/slices/cart/cartSlice";
 import { selectIsLoggedIn, selectUser } from "../../app/slices/login/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faShoppingCart, faEye, faHeart, faPercent } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faShoppingCart, faEye, faHeart, faPercent, faStar } from "@fortawesome/free-solid-svg-icons";
 
 import "./gameList.css";
 
@@ -27,7 +27,11 @@ const GameList = ({game, mode, onRemove}) => {
   };
 
   const handleEdit = () => {
-    navigate(`/company-modify-game/${game.id}`);
+    navigate(`/company-game-state/${game.id}`);
+  };
+
+  const handleDownload = (game) => {
+    alert("Tu juego se está descargando...")
   };
 
   const handleRemove = () => {
@@ -50,23 +54,22 @@ const GameList = ({game, mode, onRemove}) => {
               <strong>Estado:</strong> {game.state}
             </p>
             <p>
-              <FontAwesomeIcon icon={faShoppingCart}/>
-              UNIDADES VENDIDAS: {game.sales}
+              <FontAwesomeIcon icon={faShoppingCart}/> UNIDADES VENDIDAS: {game.sales}
             </p>
 
             <p>
-            <FontAwesomeIcon icon={faEye}/>
-              CANTIDAD DE VISUALIZACIONES: {game.visualizations}
+            <FontAwesomeIcon icon={faEye}/> CANTIDAD DE VISUALIZACIONES: {game.visualizations}
             </p>
 
             <p>
-            <FontAwesomeIcon icon={faHeart}/>
-              WISHLISTS: {game.addToWishlist}
+            <FontAwesomeIcon icon={faHeart}/> WISHLISTS: {game.addToWishlist}
             </p>
 
             <p>
-              <FontAwesomeIcon icon={faPercent}/>
-              TASA DE CONVERSION: {game.salesOverViews}
+              <FontAwesomeIcon icon={faPercent}/> TASA DE CONVERSION: {`${(game.salesOverViews * 100).toFixed(2)}%`}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faStar}/> RATING: {`${(game.rating).toFixed(2)}`}
             </p>
           </>
         )}
@@ -100,7 +103,7 @@ const GameList = ({game, mode, onRemove}) => {
         )}
 
         {mode === "library" && (
-          <Button text={"Descargar"} btn_class={"btn-options"} onClick={() => handleDetail(game)} />
+          <Button text={"Descargar"} btn_class={"btn-options"} onClick={() => handleDownload(game)} />
         )}
 
         {mode === "cart" && (

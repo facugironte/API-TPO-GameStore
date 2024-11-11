@@ -46,7 +46,7 @@ const Login = () => {
       <Header currentPage={"login"} />
 
       <div className="main-login">
-        <h2>Iniciar Sesión</h2>
+        <h1>Iniciar Sesión</h1>
         <form onSubmit={handleLogin}>
           <label htmlFor="email">Email</label>
           <input

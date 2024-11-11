@@ -33,6 +33,7 @@ const GameForm = ({ initialData, onSubmit, buttonText, languages, categories, mo
   };
 
   const handleCheckboxChange = (e, type) => {
+
     const { name, checked } = e.target;
     setJuego((prevState) => {
       const currentValues = prevState[type] ? [...prevState[type].split(", ")] : [];
@@ -81,7 +82,7 @@ const GameForm = ({ initialData, onSubmit, buttonText, languages, categories, mo
               <div className="input-precio">
                 <span>$</span>
                 <input
-                  type="text"
+                  type="number"
                   id="precio"
                   name="precio"
                   value={juego.precio}

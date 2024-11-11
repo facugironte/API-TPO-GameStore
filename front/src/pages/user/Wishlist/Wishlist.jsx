@@ -35,6 +35,7 @@ const Wishlist = () => {
       <div className="wishlist">
         <main className="main">
           <ul>
+          <h1>Tus juegos deseados</h1>
             {games.map((game, index) => (
               <GameList
                 key={index}

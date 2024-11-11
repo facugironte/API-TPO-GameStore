@@ -39,12 +39,24 @@ GameModel.init(
     company: DataTypes.STRING,
     rating: {
       type: DataTypes.FLOAT,
-      defaultValue: -1,
+      defaultValue: 0,
     },
-    sales: DataTypes.INTEGER,
-    visualizations: DataTypes.INTEGER,
-    addToWishlist: DataTypes.INTEGER,
-    salesOverViews: DataTypes.FLOAT,
+    sales: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    visualizations: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    addToWishlist: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    salesOverViews: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
   },
   {
     sequelize,

@@ -56,6 +56,7 @@ const Store = () => {
       <div className="store">
         <main className="main">
           <ul>
+        <h1>Tienda</h1>
             {games.map((game, index) => (
               <GameList key={index} game={game} mode = "store" />
             ))}

@@ -27,7 +27,6 @@ const NewPaymentMethod = () => {
       response.json().then((data) => {
         
         dispatch(addPaymentMethod(data));
-        console.log(user)
         navigate(`/shop/buy`)
       })
 

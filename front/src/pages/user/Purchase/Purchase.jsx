@@ -31,9 +31,13 @@ const Purchase = () => {
       buyGame(user.email, game.id, payment_method).then((response) => {
         if (response.status === 200) {
           dispatch(addGameToPurchases(game))
-          deleteGameFromWishlist(user.email, game.id).then(()=>{
-            dispatch(removeGameFromWishlistUser(game.id))
-          })
+
+          if (user.wishlists.some(g => g.id === game.id)){
+            deleteGameFromWishlist(user.email, game.id).then(()=>{
+              dispatch(removeGameFromWishlistUser(game.id))
+            })
+
+          }
 
         }
       });

@@ -20,7 +20,6 @@ export const loader = async ({ params }) => {
 const GameDetail = () => {
   const game = useLoaderData();
   
-  
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -80,7 +79,7 @@ const GameDetail = () => {
               referrerPolicy="strict-origin-when-cross-origin" 
               allowFullScreen>
             </iframe>
-            <div className="price">
+            <div className="price-detail">
               <p>${game.price}</p>
               <div className="btns-anadir">
                 <Button text={"Añadir al carrito"} btn_class={"btn-anadir"} onClick={handleAddToCart}/>
@@ -88,7 +87,11 @@ const GameDetail = () => {
               </div>
             </div>
             <div className="rating">
-              <p>Puntuación: {game.rating}</p>
+              <p>
+                {"★".repeat(Math.round(game.rating))}
+                {"☆".repeat(5 - Math.round(game.rating))}
+                ({game.rating.toFixed(2)})
+              </p>
               <div className="categories">
                 {
                   game.categories.map((category, index) => (

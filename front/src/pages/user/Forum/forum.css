@@ -3,14 +3,13 @@
   background-color: #121212;
   color: #fff;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
   font-family: "JetBrains Mono", sans-serif;
 }
 
 .forum .main {
-  max-width: 800px;
+  grid-column: 2;
   margin-top: 7rem;
   background-color: #1c1c1c;
   border-radius: 30px;
@@ -19,6 +18,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.forum h1 {
+  margin-bottom: 1rem;
 }
 
 .forum .forum-list {

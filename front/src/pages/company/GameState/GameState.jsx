@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './gameState.css';
+import { useDispatch } from 'react-redux';
+import { getGamebyId, updateGame, deleteGame } from '../../../utils/fetchGames';
+import { deleteCompanyGame, updateCompanyGame } from '../../../app/slices/login/userSlice';
 import Header from '../../../components/Header/Header';
 import Button from '../../../components/Button/Button';
-import { getGamebyId, updateGame, deleteGame } from '../../../utils/fetchGames';
-import { useDispatch } from 'react-redux';
-import { deleteCompanyGame, updateCompanyGame } from '../../../app/slices/login/userSlice';
+import Swal from "sweetalert2";
+import './gameState.css';
 
 const GameState = () => {
     const { id } = useParams();
-    const [showPublishModal, setShowPublishModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [game, setGame] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -22,32 +21,53 @@ const GameState = () => {
                 dispatch(updateCompanyGame(data))
             });
             setGame((prevGame) => ({ ...prevGame, state: newState }));
-            setShowPublishModal(false);
         } catch (error) {
             console.error('Error al cambiar el estado del juego:', error);
         }
     };
 
     const handleDeleteClick = async () => {
-        try {
-            deleteGame(id).then ((response) => {
-                console.log("Juego eliminado correctamente", response);
-                if(response.status === 200){
-                    dispatch(deleteCompanyGame(id));
+
+        Swal.fire({
+            title: '¿Estás seguro de eliminar el juego?',
+            text: "No podrás revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#6200ea',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sí, eliminar',
+            customClass:{
+                popup: 'alert-popup'
+            }})
+            .then((result) => {
+                if (result.isConfirmed) {
+                try {
+                    deleteGame(id).then ((response) => {
+                        if(response.status === 200){
+                            dispatch(deleteCompanyGame(id));
+                        }
+                    }
+                    );
+                    Swal.fire(
+                        {title: '¡Eliminado!',
+                        text: 'El elemento ha sido eliminado.',
+                        icon: 'success',
+                        confirmButtonColor: "#6200ea",
+                        customClass:{
+                            popup: 'alert-popup'
+                        }}
+                    );
+                    navigate("/company-your-games");
+                } catch (error) {
+                    console.error("Error al eliminar el juego:", error);
+                }
+
                 }
             }
-            );
-            navigate("/company-your-games");
-        } catch (error) {
-            console.error("Error al eliminar el juego:", error);
-        }
-        setShowDeleteModal(false);
-    };
+        );
+    }
 
-    const handleCloseModal = () => {
-        setShowPublishModal(false);
-        setShowDeleteModal(false);
-    };
 
     const handleEdit = () => {
         navigate(`/edit-game/${id}`);
@@ -127,32 +147,6 @@ const GameState = () => {
                         </div>
                     </div>
                 </main>
-
-                {showPublishModal && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <h2>¡ATENCIÓN!</h2>
-                            <p>Si oprime publicar su juego estará disponible en la tienda.</p>
-                            <div className="modal-buttons">
-                                <button className="cancel-btn" onClick={handleCloseModal}>Cancelar</button>
-                                <button className="save-btn" onClick={handlePublishClick}>Guardar cambios</button>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {showDeleteModal && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <h2>¡ATENCIÓN!</h2>
-                            <p>Si oprime eliminar NO habrá vuelta atrás y perderá todos los datos permanentemente.</p>
-                            <div className="modal-buttons">
-                                <button className="cancel-btn" onClick={handleCloseModal}>Cancelar</button>
-                                <button className="delete-btn">Eliminar</button>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
         </>
     );

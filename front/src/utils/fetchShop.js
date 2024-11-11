@@ -13,7 +13,7 @@ export const buyGame = async (email, game_id, payment_method_id) => {
     });
     return response;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -42,6 +42,6 @@ export const newPaymentMethod = async (
     );
     return response;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
