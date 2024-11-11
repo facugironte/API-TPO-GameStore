@@ -137,10 +137,10 @@ const getUserWishlist = (req, res) => {
     });
 };
 
-const addToWishlist = (req, res) => {
+const addToWishlist = async (req, res) => {
   const { email, game_id } = req.params;
 
-  UserModel.findOne({
+  const user = await UserModel.findOne({
     where: { email },
     include: [
       {
@@ -148,31 +148,27 @@ const addToWishlist = (req, res) => {
         as: "wishlists",
       },
     ],
-  })
-    .then((user) => {
-      if (!user) {
-        res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
-      } else {
-        WishlistModel.create({
-          game_id,
-          user_id: user.id,
-        })
-          .then((wishlist) => {
-            res.status(StatusCodes.CREATED).json(wishlist);
-          })
-          .catch((error) => {
-            res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ error: "Error adding game to wishlist" });
-          });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
+  });
+
+  if (!user) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
+  } else {
+    const game = await GameModel.findByPk(game_id);
+    if (game) {
+      const wishlist = await WishlistModel.create({
+        game_id,
+        user_id: user.id,
+      });
+      game.update({
+        addToWishlist: game.addToWishlist + 1,
+      });
       res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ error: `Error finding user` });
-    });
+        .status(StatusCodes.CREATED)
+        .json({ message: "Game added to wishlist", game: game });
+    } else {
+      res.status(StatusCodes.NOT_FOUND).json({ message: "Game not found" });
+    }
+  }
 };
 
 const deleteFromWishlist = (req, res) => {

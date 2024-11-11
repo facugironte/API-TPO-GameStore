@@ -16,7 +16,10 @@ GameModel.init(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    description: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING(400),
+      allowNull: false,
+    },
     cover_url: DataTypes.STRING,
     logo_url: DataTypes.STRING,
     video_url: DataTypes.STRING,

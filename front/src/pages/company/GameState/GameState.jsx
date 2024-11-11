@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './Modificadores.css';
+import './gameState.css';
 import Header from '../../../components/Header/Header';
+import Button from '../../../components/Button/Button';
 import { getGamebyId, updateGame, deleteGame } from '../../../utils/fetchGames';
 import { useDispatch } from 'react-redux';
 import { deleteCompanyGame, updateCompanyGame } from '../../../app/slices/login/userSlice';
 
-const Modificadores = () => {
+const GameState = () => {
     const { id } = useParams();
     const [showPublishModal, setShowPublishModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -17,7 +18,7 @@ const Modificadores = () => {
     const handlePublishClick = async () => {
         try {
             const newState = game.state === 'PUBLICADO' ? 'DESPUBLICADO' : 'PUBLICADO';
-            await updateGame(id, { ...game, state: newState }).then((data) => {
+            await updateGame(id, {state: newState }).then((data) => {
                 dispatch(updateCompanyGame(data))
             });
             setGame((prevGame) => ({ ...prevGame, state: newState }));
@@ -72,7 +73,7 @@ const Modificadores = () => {
             <Header currentPage={"company-modify-game"} />
             <div className="modificadores">
                 <main className="main">
-                    <div className="header">
+                    <div className="main-info">
                         <img src={game.logo_url} alt={game.name} className="game-image" />
                         <div className="game-info">
                             <h1>{game.name}</h1>
@@ -88,17 +89,16 @@ const Modificadores = () => {
                     </div>
 
                     <div className="buttons">
-                        <button className="edit-btn" onClick={handleEdit}>Editar</button>
-                        <button className="publish-btn" onClick={handlePublishClick}>
-                            {game.state === 'PUBLICADO' ? 'Despublicar' : 'Publicar'}
-                        </button>
-                        <button className="delete-btn" onClick={handleDeleteClick}>Eliminar</button>
+                        <Button text="Editar" className="edit-btn" onClick={handleEdit}/>
+                        <Button text={game.state === 'PUBLICADO' ? 'Despublicar' : 'Publicar'} className="publish-btn" onClick={handlePublishClick}/>
+                        <Button text="Eliminar" className="delete-btn" onClick={handleDeleteClick}/>
                     </div>
 
                     <div className="details">
                         <p><strong>Categoría:</strong> {game.categories.map(cat => cat.name).join(", ")}</p>
                         <p><strong>Idioma:</strong> {game.languages.map(lang => lang.name).join(", ")}</p>
                         <p><strong>Cantidad de jugadores:</strong> {game.players_modes.map(mode => mode.name).join(", ")}</p>
+                        <p><strong>Sistemas:</strong> {game.sos.map(plat => plat.name).join(", ")}</p>
                     </div>
 
                     <div className="requirements">
@@ -158,4 +158,4 @@ const Modificadores = () => {
     );
 };
 
-export default Modificadores;
+export default GameState;

@@ -104,18 +104,11 @@
   margin-top: 1rem;
   border-radius: 30px;
   padding: 1rem;
-  font-size: 0.8rem;
 }
 
 .game-info > div h2 {
   margin-bottom: 0.3rem;
   display: inline-block;
-}
-
-.game-info > div p {
-  font-weight: 100;
-  font-size: 0.9rem;
-  margin-top: 0.3rem;
 }
 
 .requirements {

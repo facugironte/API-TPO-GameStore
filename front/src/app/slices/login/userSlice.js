@@ -89,6 +89,16 @@ export const userSlice = createSlice({
       );
       saveUserToLocalStorage(state);
     },
+    addGameToWishlistUser: (state, action) => {
+      state.user.user.wishlists.push(action.payload);
+      saveUserToLocalStorage(state);
+    },
+    removeGameFromWishlistUser: (state, action) => {
+      state.user.user.wishlists = state.user.user.wishlists.filter(
+        (wishlist) => wishlist.id !== parseInt(action.payload)
+      );
+      saveUserToLocalStorage(state);
+    },
   },
 });
 
@@ -102,6 +112,8 @@ export const {
   updateCompanyGame,
   deleteCompanyGame,
   updateProfile,
+  addGameToWishlistUser,
+  removeGameFromWishlistUser,
 } = userSlice.actions;
 
 //Selectores

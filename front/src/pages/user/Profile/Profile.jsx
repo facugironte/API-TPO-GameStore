@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../../components/Header/Header';
-import { selectUser } from "../../../app/slices/login/userSlice";
+import { selectUser, updateProfile } from "../../../app/slices/login/userSlice";
 import { updateUser } from '../../../utils/fetchUsers';
-import ProfileForm from '../../../components/Profile-Form/Profile-form';
+import ProfileForm from '../../../components/ProfileForm/ProfileForm';
 
 const PerfilUsuario = () => {
   const user = useSelector(selectUser).user;
+  const dispatch = useDispatch();
 
   const formattedDate = new Date(user.birthdate).toISOString().split('T')[0];
 
@@ -27,13 +28,13 @@ const PerfilUsuario = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await updateUser(user.email, {
+      await updateUser(user.email, {
         user_fullname: usuario.nombreCompleto,
         birthdate: usuario.fechaNacimiento,
         password: usuario.contraseña,
-      });
-
-      if (!response.ok) throw new Error('Error al guardar cambios');
+      }).then((data)=>{
+        dispatch(updateProfile(data))
+      })
     } catch (error) {
       // Error handling
     }

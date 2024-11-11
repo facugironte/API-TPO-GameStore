@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "../../../components/Header/Header";
 import GameList from "../../../components/GameList/GameList";
-import "./EstadisticasEmpresa.css";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../app/slices/login/userSlice";
+import "./gameStats.css";
 
-const EstadisticasEmpresa = () => {
+const GameStats = () => {
   
   const user = useSelector(selectUser).user;
 
@@ -33,4 +33,4 @@ const EstadisticasEmpresa = () => {
   );
 };
 
-export default EstadisticasEmpresa;
+export default GameStats;

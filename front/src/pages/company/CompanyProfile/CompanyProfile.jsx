@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../../components/Header/Header';
 import { selectUser, updateProfile } from "../../../app/slices/login/userSlice";
-import './PerfilEmpresa.css';
 import { updateUser } from '../../../utils/fetchUsers';
-import ProfileForm from '../../../components/Profile-Form/Profile-form';
+import ProfileForm from '../../../components/ProfileForm/ProfileForm';
 
-const PerfilEmpresa = () => {
+import './companyProfile.css';
+
+const CompanyProfile = () => {
 
   const dispatch = useDispatch();
 
   const user = useSelector(selectUser).user;
   
   const [empresa, setEmpresa] = useState({
-    nombre: user.company_name,
-    cuit: user.CUIT,
-    logo: user.company_logo_url,
+    company_name: user.company_name,
+    CUIT: user.CUIT,
+    company_logo_url: user.company_logo_url,
     email: user.email,
-    contraseña: user.password
+    password: user.password
   });
 
   const handleChange = (e) => {
@@ -31,12 +32,7 @@ const PerfilEmpresa = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await updateUser(user.email, {
-        company_name: empresa.nombre,
-        CUIT: empresa.cuit,
-        email: empresa.email,
-        password: empresa.contraseña,
-      });
+      const data = await updateUser(user.email, empresa);
 
       dispatch(updateProfile(data))
 
@@ -47,11 +43,11 @@ const PerfilEmpresa = () => {
 
 
   const fields = [
-    { name: "nombre", label: "Nombre de la empresa" },
-    { name: "cuit", label: "CUIT" },
-    { name: "logo", label: "Logo URL" },
+    { name: "company_name", label: "Nombre de la empresa" },
+    { name: "CUIT", label: "CUIT" },
+    { name: "company_logo_url", label: "Logo URL" },
     { name: "email", label: "Email" },
-    { name: "contraseña", label: "Contraseña", type: "password" }
+    { name: "password", label: "Contraseña", type: "password" }
   ];
 
   return (
@@ -61,7 +57,7 @@ const PerfilEmpresa = () => {
         <main className="main">
           <h2>Tu perfil</h2>
           <div className="logo-container">
-            <img src={empresa.logo} alt="Logo de la empresa" />
+            <img src={empresa.company_logo_url} alt="Logo de la empresa" />
           </div>
           <ProfileForm fields={fields} userData={empresa} handleChange={handleChange} handleSubmit={handleSubmit} />
         </main>
@@ -70,4 +66,4 @@ const PerfilEmpresa = () => {
   );
 };
 
-export default PerfilEmpresa;
+export default CompanyProfile;

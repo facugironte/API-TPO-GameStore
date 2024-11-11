@@ -3,10 +3,10 @@ import Header from "../../../components/Header/Header";
 import GameList from "../../../components/GameList/GameList";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../app/slices/login/userSlice";
-import "./JuegosEmpresa.css";
 import Button from "../../../components/Button/Button";
+import "./companyGames.css";
 
-const JuegosEmpresa = () => {
+const CompanyGames = () => {
   const [juegos, setJuegos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -56,4 +56,4 @@ const JuegosEmpresa = () => {
   );
 };
 
-export default JuegosEmpresa;
+export default CompanyGames;

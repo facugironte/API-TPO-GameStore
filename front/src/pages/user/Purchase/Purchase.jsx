@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import { selectCartItems, selectCartTotal, clear } from "../../../app/slices/cart/cartSlice";
-import { addGameToPurchases, selectUser } from "../../../app/slices/login/userSlice";
+import { addGameToPurchases, removeGameFromWishlistUser, selectUser } from "../../../app/slices/login/userSlice";
 
 import { buyGame } from "../../../utils/fetchShop";
 
 import Header from "../../../components/Header/Header";
 import Button from "../../../components/Button/Button";
 import "./purchase.css";
+import { deleteGameFromWishlist } from "../../../utils/fetchGames";
 
 const Purchase = () => {
 
@@ -30,6 +31,10 @@ const Purchase = () => {
       buyGame(user.email, game.id, payment_method).then((response) => {
         if (response.status === 200) {
           dispatch(addGameToPurchases(game))
+          deleteGameFromWishlist(user.email, game.id).then(()=>{
+            dispatch(removeGameFromWishlistUser(game.id))
+          })
+
         }
       });
       

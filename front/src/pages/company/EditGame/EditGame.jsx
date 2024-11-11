@@ -5,10 +5,26 @@ import GameForm from '../../../components/GameForm/GameForm';
 import { getGamebyId, updateGame  } from '../../../utils/fetchGames';
 import { useDispatch } from 'react-redux';
 import { updateCompanyGame } from '../../../app/slices/login/userSlice';
+import { useLoaderData } from "react-router-dom";
+import { getCategories, getLanguages, getPlayerModes, getSos } from "../../../utils/fetchCombos";
+
+export async function loader() {
+  let languages = await getLanguages();
+  languages =languages.map((language) => language.name)
+  let categories = await getCategories();
+  categories = categories.map((category) => category.name)
+  let sos = await getSos();
+  sos = sos.map((so) => so.name)
+  let modes = await getPlayerModes();
+  modes = modes.map((mode) => mode.name)
+
+  return { languages, categories, sos, modes };
+}
 
 const ModificarJuego = () => {
   const { id } = useParams();
   const [game, setGame] = useState(null);
+  const {languages, categories, sos, modes} = useLoaderData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -99,7 +115,7 @@ const ModificarJuego = () => {
   return (
     <>
       <Header currentPage={"modify-game"} />
-      <GameForm initialData={existingGameData} onSubmit={handleModifyGame} buttonText="Modificar Juego" />
+      <GameForm initialData={existingGameData} onSubmit={handleModifyGame} buttonText="Modificar Juego" languages={languages} categories={categories} sos={sos} modes={modes} />
     </>
   );
 };

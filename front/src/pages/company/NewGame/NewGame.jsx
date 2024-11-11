@@ -4,10 +4,25 @@ import GameForm from '../../../components/GameForm/GameForm';
 import { postGame } from '../../../utils/fetchGames';
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../app/slices/login/userSlice";
+import { useLoaderData } from "react-router-dom";
+import { getCategories, getLanguages, getPlayerModes, getSos } from "../../../utils/fetchCombos";
 
-const NuevoJuego = () => {
+export async function loader() {
+  let languages = await getLanguages();
+  languages =languages.map((language) => language.name)
+  let categories = await getCategories();
+  categories = categories.map((category) => category.name)
+  let sos = await getSos();
+  sos = sos.map((so) => so.name)
+  let modes = await getPlayerModes();
+  modes = modes.map((mode) => mode.name)
+
+  return { languages, categories, sos, modes };
+}
+
+const NewGame = () => {
   const user = useSelector(selectUser).user;
-  console.log(user.id);
+  
   const initialData = {
     nombre: '',
     precio: '',
@@ -34,6 +49,8 @@ const NuevoJuego = () => {
       sonido: ''
     }
   };
+
+  const {languages, categories, sos, modes} = useLoaderData();
 
   const handleAddGame = async (gameData) => {
     const newGame = {
@@ -71,9 +88,9 @@ const NuevoJuego = () => {
   return (
     <>
       <Header currentPage={"new-game"} />
-      <GameForm initialData={initialData} onSubmit={handleAddGame} buttonText="Añadir Juego" />
+      <GameForm initialData={initialData} onSubmit={handleAddGame} buttonText="Añadir Juego" languages={languages} categories={categories} sos={sos} modes={modes} />
     </>
   );
 };
 
-export default NuevoJuego;
+export default NewGame;

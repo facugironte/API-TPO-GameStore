@@ -3,23 +3,24 @@ import {RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Login from "./pages/Login/Login";
 import Home, {loader as homeLoader} from "./pages/Home/Home";
-import Store, {loader as storeLoader} from "./pages/user/Store/Store";
+import Store, {loader as storeLoader} from "./pages/User/Store/Store";
 import GameDetail, {loader as gameDetailLoader} from "./pages/GameDetail/GameDetail";
-import Library from "./pages/user/Library/Library";
-import Cart from "./pages/user/Cart/Cart";
-import Purchase from "./pages/user/Purchase/Purchase";
-import NewPaymentMethod from "./pages/user/NewPaymentMethod/NewPaymentMethod";
-import Forum from "./pages/user/Forum/Forum";
-import Profile from "./pages/user/Profile/Profile";
-import Wishlist from "./pages/user/Wishlist/Wishlist";
-import PerfilEmpresa from "./pages/company/company-profile/PerfilEmpresa";
-import NuevoJuego from "./pages/company/new-game/NuevoJuego";
-import JuegosEmpresa from "./pages/company/your-games/JuegosEmpresa";
-import EstadisticasEmpresa from "./pages/company/stats/EstadisticasEmpresa";
-import Modificadores from "./pages/company/modify/Modificadores";
-import EditGame from "./pages/company/EditGame/EditGame";
+import Library from "./pages/User/Library/Library";
+import Cart from "./pages/User/Cart/Cart";
+import Purchase from "./pages/User/Purchase/Purchase";
+import NewPaymentMethod from "./pages/User/NewPaymentMethod/NewPaymentMethod";
+import Forum from "./pages/User/Forum/Forum";
+import Profile from "./pages/User/Profile/Profile";
+import Wishlist from "./pages/User/Wishlist/Wishlist";
+import CompanyProfile from "./pages/Company/CompanyProfile/CompanyProfile";
+import NewGame, {loader as newGameLoader} from "./pages/Company/NewGame/NewGame";
+import CompanyGames from "./pages/Company/CompanyGames/CompanyGames";
+import GameStats from "./pages/Company/GameStats/GameStats";
+import GameState from "./pages/Company/GameState/GameState";
+import EditGame, {loader as editGameLoader} from "./pages/Company/EditGame/EditGame";
 import Register, {loader as registerLoader} from "./pages/Register/Register";
 import ForgotPassword, {loader as forgotLoader} from "./pages/ForgotPassword/ForgotPassword";
+
 
 import "./styles.css";
 
@@ -85,27 +86,29 @@ const App = () => {
     },
     {
       path: "/company-profile",
-      element: <PerfilEmpresa />
+      element: <CompanyProfile />
     },
     {
       path: "/new-game",
-      element: <NuevoJuego />
+      element: <NewGame />,
+      loader: newGameLoader
     },
     {
       path: "/company-your-games",
-      element: <JuegosEmpresa/>
+      element: <CompanyGames/>
     },
     {
       path: "/stats",
-      element: <EstadisticasEmpresa/>
+      element: <GameStats/>
     },
     {
       path: "/company-modify-game/:id",
-      element: <Modificadores/>
+      element: <GameState/>
     },
     {
       path: "/edit-game/:id",
-      element: <EditGame/>
+      element: <EditGame/>,
+      loader: editGameLoader
     }
   ])
 

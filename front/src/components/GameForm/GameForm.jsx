@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../Button/Button';
+
 import './gameForm.css';
 
-const GameForm = ({ initialData, onSubmit, buttonText }) => {
+const GameForm = ({ initialData, onSubmit, buttonText, languages, categories, modes, sos }) => {
   const [juego, setJuego] = useState(initialData);
   const [showCategoryOptions, setShowCategoryOptions] = useState(false);
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
   const [showPlayerOptions, setShowPlayerOptions] = useState(false);
   const [showSystemOptions, setShowSystemOptions] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,7 +63,7 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
   return (
     <div className="juego-form">
       <main className="main">
-        <form onSubmit={handleSubmit}>
+        <form className='form'>
           <div className="input-group">
             <div className="column">
               <label htmlFor="nombre">Nombre del videojuego</label>
@@ -95,7 +100,7 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
           />
 
           <label htmlFor="img">URL del logo</label>
-          <textarea
+          <input
             id="img"
             name="img"
             value={juego.img}
@@ -103,7 +108,7 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
           />
 
           <label htmlFor="img">URL de la portada</label>
-          <textarea
+          <input
             id="port"
             name="port"
             value={juego.port}
@@ -111,7 +116,7 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
           />
 
           <label htmlFor="video">URL del Trailer</label>
-          <textarea
+          <input
             id="video"
             name="video"
             value={juego.video}
@@ -135,8 +140,8 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
                 </button>
                 {showCategoryOptions && (
                   <div className="dropdown-options">
-                    {['Acción', 'Aventura', 'Terror', 'Infantil', 'Ciencia Ficción', 'Deportes', 'Simulación'].map((category) => (
-                      <label key={category}>
+                    {categories.map((category, index) => (
+                      <label key={index}>
                         <input
                           type="checkbox"
                           name={category}
@@ -167,8 +172,8 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
                 </button>
                 {showLanguageOptions && (
                   <div className="dropdown-options">
-                    {['Inglés', 'Español' , 'Francés'].map((language) => (
-                      <label key={language}>
+                    {languages.map((language, index) => (
+                      <label key={index}>
                         <input
                           type="checkbox"
                           name={language}
@@ -201,8 +206,8 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
                 </button>
                 {showPlayerOptions && (
                   <div className="dropdown-options">
-                    {['Un jugador', 'Dos jugadores', 'Online'].map((mode) => (
-                      <label key={mode}>
+                    {modes.map((mode, index) => (
+                      <label key={index}>
                         <input
                           type="checkbox"
                           name={mode}
@@ -233,7 +238,7 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
                 </button>
                 {showSystemOptions && (
                   <div className="dropdown-options">
-                    {['macOS', 'Windows', 'Linux'].map((os) => (
+                    {sos.map((os, index) => (
                       <label key={os}>
                         <input
                           type="checkbox"
@@ -339,8 +344,8 @@ const GameForm = ({ initialData, onSubmit, buttonText }) => {
           </div>
 
           <div className="button-group">
-            <button type="button" className="cancelar-btn">Cancelar</button>
-            <button type="submit" className="añadir-btn">{buttonText}</button>
+            <Button text="Cancelar" btn_class="cancelar-btn" onClick={() => navigate("/company-your-games")} />
+            <Button text={buttonText} btn_class="añadir-btn" onClick={handleSubmit}/>
           </div>
         </form>
       </main>

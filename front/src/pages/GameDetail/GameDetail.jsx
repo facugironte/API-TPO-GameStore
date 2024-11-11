@@ -8,8 +8,9 @@ import Button from "../../components/Button/Button"
 import Header from "../../components/Header/Header";
 import Modal from "../../components/Modal/Modal";
 
-import { getGamebyId, postComment } from "../../utils/fetchGames";
+import { addGameToWishlist, getGamebyId, postComment } from "../../utils/fetchGames";
 import "./gameDetail.css";
+import { addGameToWishlistUser } from "../../app/slices/login/userSlice";
 
 export const loader = async ({ params }) => {
   const { id } = params;
@@ -40,6 +41,12 @@ const GameDetail = () => {
       item: game,
       quantity: 1
     }))
+  }
+
+  const handleAddToWishlist = (id) => {
+    addGameToWishlist(user.email, id).then((game)=>{
+      dispatch(addGameToWishlistUser(game))
+    })
   }
 
   const sendComment = () => {
@@ -77,7 +84,7 @@ const GameDetail = () => {
               <p>${game.price}</p>
               <div className="btns-anadir">
                 <Button text={"Añadir al carrito"} btn_class={"btn-anadir"} onClick={handleAddToCart}/>
-                <Button text={"Añadir a wishlist"} btn_class={"btn-anadir"}/>
+                <Button text={"Añadir a wishlist"} btn_class={"btn-anadir"} onClick={()=>handleAddToWishlist(game.id)}/>
               </div>
             </div>
             <div className="rating">

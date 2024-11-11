@@ -1,15 +1,15 @@
 .game-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 6fr;
   align-items: center;
   background-color: #333;
-  border-radius: 20px;
-  padding: 0.75rem;
+  border-radius: 30px;
+  padding: 1rem;
   margin-bottom: 0.75rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease;
-  width: 95%;
-  max-height: 10.5rem;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .game-list:hover {
@@ -20,7 +20,7 @@
   width: 6rem;
   height: 6rem;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: 30px;
   margin-right: 1rem;
 }
 
@@ -28,13 +28,12 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   text-align: left;
   height: 100%;
 }
 
-.game-list .game-info h2 {
-  font-size: 1rem;
+.game-list .game-info h1 {
+  font-size: 1.5rem;
   color: #ffffff;
   margin: 0;
 }
@@ -47,34 +46,25 @@
   margin-bottom: 0.5rem;
 }
 
-.game-list p {
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
-  color: #bbbbbb;
-  margin: 0.2rem 0;
+.game-list .game-description-modify {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  margin: 0;
+  padding: 0;
 }
 
-.game-list .game-description-modify {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 1rem;
+.game-list .game-description-modify .game-state {
+  grid-column: 1;
+}
+
+.game-list .game-description-modify .game-description {
+  grid-column: 1;
 }
 
 .game-list .modify-btn {
-  padding: 0.4rem 1rem;
-  background-color: #6200ea;
-  color: white;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  align-self: flex-end;
-}
-
-.game-list .modify-btn:hover {
-  background-color: #3700b3;
+  padding: 0.5rem;
+  font-weight: 400;
+  height: 4rem;
 }
 
 .game-list .icon {
@@ -91,9 +81,24 @@
   gap: 0.5rem;
 }
 
+.game-list .game-details {
+  display: grid;
+  grid-template-columns: 6fr 1fr;
+  padding: 0;
+}
+
+.game-list .game-details .game-description {
+  grid-column: 1;
+}
+
+.price p {
+  font-size: 1rem;
+}
+
 .game-list .btn-options {
   font-size: 0.75rem;
   padding: 0.2rem 0.4rem;
+  width: 5rem;
 }
 
 .game-list .btn-cart-trash {
@@ -134,5 +139,5 @@
 }
 
 .game-list .btn-wishlist {
-  font-style: normal;
+  padding: 0.3rem;
 }
