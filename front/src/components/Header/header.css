@@ -12,15 +12,22 @@
   margin: 0;
 
   height: 7rem;
+  margin-bottom: 2rem;
 }
 
-.header img {
+.header .imgs {
   grid-column: 1;
   grid-row: 1/4;
   height: 80%;
   width: auto;
   margin: auto;
   translate: 0 -5px;
+}
+
+.header .imgs img {
+  height: 100%;
+  width: auto;
+  margin: auto;
 }
 
 .header-login {
@@ -34,8 +41,15 @@
   text-align: center;
 }
 
-.header-login img {
-  height: 80%;
+.header-login .imgs {
+  height: 100%;
+
+  margin: auto;
+  translate: 0 -5px;
+}
+
+.header-login .imgs img {
+  height: 100%;
   width: auto;
   margin: auto;
 }

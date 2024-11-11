@@ -18,7 +18,7 @@ PaymentMethodModel.init(
       allowNull: false,
     },
     cvc: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },

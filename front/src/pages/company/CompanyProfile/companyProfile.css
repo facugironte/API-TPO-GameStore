@@ -1,0 +1,74 @@
+.profile-empresa {
+  display: flex;
+  justify-content: center;
+  padding-top: 7rem;
+  padding-bottom: 2rem;
+}
+
+.profile-empresa .main {
+  font-family: "JetBrains Mono", monospace;
+  margin-top: 2rem;
+  background-color: #1e1e1e;
+  padding: 1.5rem;
+  border-radius: 30px;
+  box-shadow: black 0px 0px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 25rem;
+}
+
+.main h2 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.profile-form label {
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: left;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 0.625rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #333;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+.logo-container {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.logo-container img {
+  width: 9rem;
+  height: 6.5rem;
+  border-radius: 30px;
+}
+
+.profile-form .btn-save {
+  padding: 0.6rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.profile-form .btn-save:hover {
+  background-color: #3700b3;
+}

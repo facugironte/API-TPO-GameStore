@@ -7,5 +7,6 @@ router.get("/:id?", gameController.getGame);
 router.post("/:id", gameController.updateGame);
 router.post("/", gameController.postGame);
 router.delete("/:id", gameController.deleteGame);
+router.post("/:id/comment", gameController.postComment);
 
 module.exports = router;

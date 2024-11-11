@@ -16,7 +16,10 @@ GameModel.init(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    description: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING(400),
+      allowNull: false,
+    },
     cover_url: DataTypes.STRING,
     logo_url: DataTypes.STRING,
     video_url: DataTypes.STRING,
@@ -36,12 +39,24 @@ GameModel.init(
     company: DataTypes.STRING,
     rating: {
       type: DataTypes.FLOAT,
-      defaultValue: -1,
+      defaultValue: 0,
     },
-    sales: DataTypes.INTEGER,
-    visualizations: DataTypes.INTEGER,
-    addToWishlist: DataTypes.INTEGER,
-    salesOverViews: DataTypes.FLOAT,
+    sales: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    visualizations: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    addToWishlist: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    salesOverViews: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
   },
   {
     sequelize,

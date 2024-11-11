@@ -5,7 +5,6 @@ import Header from "../../components/Header/Header";
 import {
   failure,
   login,
-  selectIsLoggedIn,
   selectInvalidCredentials,
   selectServerFailed,
 } from "../../app/slices/login/userSlice";
@@ -14,18 +13,13 @@ import { loginAuth } from "../../utils/fetchAuth";
 
 import "./login.css";
 
-const Home = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+const Login = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
   const invalidCredentials = useSelector(selectInvalidCredentials);
   const serverFailed = useSelector(selectServerFailed);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  if (isLoggedIn) {
-    navigate(`/`);
-  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,6 +34,8 @@ const Home = () => {
 
       dispatch(setUser(response.user));
 
+      navigate("/");
+
     } catch (error) {
       dispatch(failure({ error: error.message }));
     }
@@ -50,7 +46,7 @@ const Home = () => {
       <Header currentPage={"login"} />
 
       <div className="main-login">
-        <h2>Iniciar Sesión</h2>
+        <h1>Iniciar Sesión</h1>
         <form onSubmit={handleLogin}>
           <label htmlFor="email">Email</label>
           <input
@@ -82,12 +78,12 @@ const Home = () => {
             <p className="error-message">Error en el servidor</p>
           )}
 
-          <a href="/registro">Creá tu cuenta</a>
-          <a href="/forgotPassword">¿Olvidaste tu contraseña?</a>
+          <a href="/register">Creá tu cuenta</a>
+          <a href="/forgot-password">¿Olvidaste tu contraseña?</a>
         </form>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Login;

@@ -1,0 +1,48 @@
+.juegos {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  justify-content: center;
+  padding-top: 8rem;
+  padding-bottom: 3rem;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.juegos .main {
+  grid-column: 2;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  border-radius: 30px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+}
+
+.juegos-container .nuevo-juego {
+  padding: 2rem 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.juegos-container .btn-nuevo-juego button {
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 1rem 2rem;
+}
+
+.juegos-container .btn-nuevo-juego button:hover {
+  background-color: #3700b3;
+}
+
+.juegos-container .juegos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.btn-nuevo-juego {
+  width: 12rem;
+  height: 2rem;
+  font-size: large;
+}

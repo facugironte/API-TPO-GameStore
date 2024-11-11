@@ -1,0 +1,28 @@
+.wishlist {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding-top: 7rem;
+}
+
+.wishlist .main {
+  grid-column: 2;
+  font-family: "JetBrains Mono", monospace;
+  margin-top: 2rem;
+  background-color: #1E1E1E;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: 50rem;
+}
+
+.wishlist ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 98%;
+  height: 98%;
+}

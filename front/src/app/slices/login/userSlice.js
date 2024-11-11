@@ -63,6 +63,10 @@ export const userSlice = createSlice({
       }
       saveUserToLocalStorage(state);
     },
+    updateProfile: (state, action) => {
+      state.user.user = action.payload;
+      saveUserToLocalStorage(state);
+    },
     addGameToPurchases: (state, action) => {
       state.user.user.purchased_games.push(action.payload);
       saveUserToLocalStorage(state);
@@ -71,12 +75,50 @@ export const userSlice = createSlice({
       state.user.user.payment_methods.push(action.payload);
       saveUserToLocalStorage(state);
     },
+    addCompanyGame: (state, action) => {
+      state.user.user.company_games.push(action.payload);
+      saveUserToLocalStorage(state);
+    },
+    updateCompanyGame: (state, action) => {
+      state.user.user.company_games = state.user.user.company_games.map(
+        (game) =>
+          game.id === parseInt(action.payload.id) ? action.payload : game
+      );
+      saveUserToLocalStorage(state);
+    },
+    deleteCompanyGame: (state, action) => {
+      state.user.user.company_games = state.user.user.company_games.filter(
+        (game) => game.id !== parseInt(action.payload)
+      );
+      saveUserToLocalStorage(state);
+    },
+    addGameToWishlistUser: (state, action) => {
+      state.user.user.wishlists.push(action.payload);
+      saveUserToLocalStorage(state);
+    },
+    removeGameFromWishlistUser: (state, action) => {
+      state.user.user.wishlists = state.user.user.wishlists.filter(
+        (wishlist) => wishlist.id !== parseInt(action.payload)
+      );
+      saveUserToLocalStorage(state);
+    },
   },
 });
 
 //Acciones
-export const { login, logout, failure, addGameToPurchases, addPaymentMethod } =
-  userSlice.actions;
+export const {
+  login,
+  logout,
+  failure,
+  addGameToPurchases,
+  addPaymentMethod,
+  addCompanyGame,
+  updateCompanyGame,
+  deleteCompanyGame,
+  updateProfile,
+  addGameToWishlistUser,
+  removeGameFromWishlistUser,
+} = userSlice.actions;
 
 //Selectores
 export const selectUser = (state) => state.user.user;

@@ -33,6 +33,7 @@ const register = (req, res) => {
       CUIT: data.CUIT,
       company_name: data.company_name,
       company_description: data.company_description,
+      company_logo_url: data.company_logo_url,
       security_question_id: data.security_question_id,
       security_answer: data.security_answer,
     };
@@ -46,6 +47,7 @@ const register = (req, res) => {
       res.status(StatusCodes.CREATED).json(user);
     })
     .catch((err) => {
+      console.log("ERROR:", err);
       if (err instanceof ValidationError) {
         res
           .status(StatusCodes.BAD_REQUEST)
@@ -153,7 +155,6 @@ const login = async (req, res) => {
 const answer = async (req, res) => {
   const data = req.body;
   const { email } = req.params;
-  const newPass = "nueva pass temporal";
 
   try {
     const user = await UserModel.findOne({
@@ -169,8 +170,8 @@ const answer = async (req, res) => {
     }
 
     if (data.security_answer === user.security_answer) {
-      user.update({ password: newPass });
-      return res.status(StatusCodes.OK).json({ newPass });
+      res.status(StatusCodes.OK).json();
+      return;
     } else {
       return res
         .status(StatusCodes.UNAUTHORIZED)

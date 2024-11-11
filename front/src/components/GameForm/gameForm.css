@@ -1,0 +1,176 @@
+.juego-form {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  padding-top: 8rem;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.juego-form .main {
+  grid-column: 2;
+  background-color: #1e1e1e;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  border-radius: 30px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  width: 100%;
+  text-align: left;
+}
+
+.juego-form .form {
+  display: flex;
+  flex-direction: column;
+}
+
+.juego-form .form label {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.juego-form .input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.juego-form .column {
+  display: flex;
+  flex-direction: column;
+}
+
+.juego-form input,
+.juego-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.juego-form .specs-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.juego-form h4 {
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.juego-form .button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.juego-form .cancelar-btn,
+.juego-form .añadir-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.juego-form .cancelar-btn {
+  background-color: #333;
+  color: white;
+}
+
+.juego-form .añadir-btn {
+  background-color: #6200ea;
+  color: white;
+}
+
+.juego-form .añadir-btn:hover {
+  background-color: #3700b3;
+}
+
+.juego-form .cancelar-btn:hover {
+  background-color: #555;
+}
+
+.juego-form .icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: #333;
+  border-radius: 30px;
+  grid-row: span 2;
+}
+
+.juego-form .input-precio {
+  display: flex;
+  align-items: center;
+}
+
+.juego-form select {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M4 6l4 4 4-4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: #333;
+  border: 1px solid #333;
+  padding: 10px;
+  max-height: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 150px;
+  border-radius: 30px;
+  white-space: nowrap;
+}
+
+.dropdown-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+
+.juego-form .dropdown button {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.juego-form .dropdown button:hover {
+  background-color: #555;
+}

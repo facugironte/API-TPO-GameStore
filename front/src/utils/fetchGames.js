@@ -61,8 +61,7 @@ export const deleteGame = async (id) => {
       "Content-Type": "application/json",
     },
   });
-  const data = await response.json();
-  return data;
+  return response;
 };
 
 export const updateGame = async (id, newGame) => {
@@ -72,7 +71,7 @@ export const updateGame = async (id, newGame) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: newGame.name,
+      ...newGame,
     }),
   });
   const data = await response.json();
@@ -86,9 +85,100 @@ export const postGame = async (newGame) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: newGame.name,
+      ...newGame,
     }),
   });
+
+  if (!response.ok) {
+    throw new Error(
+      "Error al crear el juego, revise si completo todos los campos"
+    );
+  }
+
   const data = await response.json();
   return data;
+};
+
+export const getGamebyId = async (id, count_stat = false) => {
+  const response = await fetch(
+    `http://localhost:3000/api/v1/games/${id}${
+      count_stat ? "?count_stat=true" : ""
+    }`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const postComment = async (gameId, newComment) => {
+  const response = await fetch(
+    `http://localhost:3000/api/v1/games/${gameId}/comment`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...newComment,
+      }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Error al crear el comentario");
+  }
+  const data = await response.json();
+  return data;
+};
+
+export const addGameToWishlist = async (email, gameId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/users/${email}/game/${gameId}/wishlist`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error al agregar el juego a la wishlist");
+    }
+
+    const data = await response.json();
+    return data.game;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const deleteGameFromWishlist = async (email, gameId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/users/${email}/game/${gameId}/wishlist`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error al eliminar el juego de la wishlist");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
 };

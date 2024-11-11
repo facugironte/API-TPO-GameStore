@@ -1,20 +1,11 @@
 const { StatusCodes } = require("http-status-codes");
 const {
-  UserModel,
-  PaymentMethodModel,
   LanguageModel,
   PlayersModeModel,
   CategoryModel,
   SecurityQuestionModel,
   SoModel,
 } = require("../database/models/associations");
-
-const getUsers = async (req, res) => {
-  const users = await UserModel.findAll({
-    include: [{ model: PaymentMethodModel, as: "payment_methods" }],
-  });
-  res.status(StatusCodes.OK).json(users);
-};
 
 const cargar = async (req, res) => {
   try {
@@ -34,6 +25,9 @@ const cargar = async (req, res) => {
       "Terror",
       "Infantil",
       "Ciencia Ficción",
+      "Deportes",
+      "Simulación",
+      "Rol",
     ].map(async (category) => {
       return CategoryModel.create({ name: category });
     });
@@ -52,10 +46,10 @@ const cargar = async (req, res) => {
     });
 
     await Promise.all(sosPromises);
-    await Promise.all(questionsPromises);
     await Promise.all(languagesPromises);
     await Promise.all(modesPromises);
     await Promise.all(categoriesPromises);
+    await Promise.all(questionsPromises);
     res.status(StatusCodes.OK).json({
       message: "Todo cargado correctamente",
     });
@@ -68,7 +62,6 @@ const cargar = async (req, res) => {
 };
 
 const otherController = {
-  getUsers,
   cargar,
 };
 
